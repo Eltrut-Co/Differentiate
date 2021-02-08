@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+license="All rights reserved"
+issueTrackerURL="https://github.com/Eltrut-Co/Differentiate/issues"
+[[mods]]
+modId="differentiate"
+version="1.0.0"
+displayName="Differentiate"
+logoFile="differentiate.png"
+credits="EltrutLikes"
+authors="Eltrut & Co."
+description='''
+'''
+
+[[dependencies.differentiate]]
+    modId="forge"
+    mandatory=true
+    versionRange="[34,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.differentiate]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3, 1.17)"
+    ordering="NONE"
+    side="BOTH"
