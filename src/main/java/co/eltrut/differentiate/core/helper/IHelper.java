@@ -1,11 +1,13 @@
 package co.eltrut.differentiate.core.helper;
 
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public interface IHelper<T extends IForgeRegistryEntry<T>> {
 	
-	public String getModId();
+	public Registrator getParent();
 	public DeferredRegister<T> getDeferredRegister();
+	public void register(IEventBus bus);
 
 }

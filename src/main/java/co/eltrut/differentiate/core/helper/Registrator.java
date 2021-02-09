@@ -11,13 +11,13 @@ public class Registrator {
 	public Registrator(String modid) {
 		this.MODID = modid;
 		
-		this.ITEM_HELPER = new ItemHelper(modid);
-		this.BLOCK_HELPER = new BlockHelper(modid, this.ITEM_HELPER);
+		this.ITEM_HELPER = new ItemHelper(this);
+		this.BLOCK_HELPER = new BlockHelper(this);
 	}
 	
-	public void register(IEventBus eventBus) {
-		this.ITEM_HELPER.getDeferredRegister().register(eventBus);
-		this.BLOCK_HELPER.getDeferredRegister().register(eventBus);
+	public void register(IEventBus bus) {
+		this.ITEM_HELPER.register(bus);
+		this.BLOCK_HELPER.register(bus);
 	}
 	
 	public String getModId() {
