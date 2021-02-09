@@ -1,6 +1,11 @@
 package co.eltrut.differentiate.core.helper;
 
+import co.eltrut.differentiate.common.blocks.interf.ICompostableItem;
+import net.minecraft.block.Block;
+import net.minecraft.block.ComposterBlock;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class Registrator {
 
@@ -18,6 +23,14 @@ public class Registrator {
 	public void register(IEventBus bus) {
 		this.ITEM_HELPER.register(bus);
 		this.BLOCK_HELPER.register(bus);
+	}
+	
+	public void registerCompostables(final FMLCommonSetupEvent event) {
+		for (RegistryObject<Block> blockObject : this.BLOCK_HELPER.REGISTRY.getEntries()) {
+			if (blockObject.get() instanceof ICompostableItem) {
+				ComposterBlock.CHANCES.put(blockObject.get().asItem(), ((ICompostableItem)blockObject.get()).compostableChance());
+			}
+		}
 	}
 	
 	public String getModId() {

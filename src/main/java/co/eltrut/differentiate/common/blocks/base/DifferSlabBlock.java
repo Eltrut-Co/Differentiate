@@ -1,16 +1,17 @@
 package co.eltrut.differentiate.common.blocks.base;
 
+import co.eltrut.differentiate.common.blocks.interf.ICompostableItem;
 import net.minecraft.block.SlabBlock;
-import net.minecraft.item.ItemGroup;
 
-public class DifferSlabBlock extends SlabBlock implements IDifferBlock {
+public class DifferSlabBlock extends SlabBlock implements ICompostableItem {
 
 	public DifferSlabBlock(Properties properties) {
 		super(properties);
 	}
 
-	public ItemGroup group() {
-		return ItemGroup.BUILDING_BLOCKS;
+	@Override
+	public float compostableChance() {
+		return 0.8F;
 	}
 
 }

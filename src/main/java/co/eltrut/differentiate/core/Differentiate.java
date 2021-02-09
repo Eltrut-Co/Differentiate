@@ -42,6 +42,9 @@ public class Differentiate
 
     private void doCommonStuff(final FMLCommonSetupEvent event)
     {
+    	event.enqueueWork(() -> {
+    		REGISTRATOR.registerCompostables(event);
+    	});
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {
