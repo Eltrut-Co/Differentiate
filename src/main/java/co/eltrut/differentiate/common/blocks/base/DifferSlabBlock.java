@@ -3,7 +3,7 @@ package co.eltrut.differentiate.common.blocks.base;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.item.ItemGroup;
 
-public class DifferSlabBlock extends SlabBlock implements IItemGroupBlock {
+public class DifferSlabBlock extends SlabBlock implements IDifferBlock {
 
 	public DifferSlabBlock(Properties properties) {
 		super(properties);

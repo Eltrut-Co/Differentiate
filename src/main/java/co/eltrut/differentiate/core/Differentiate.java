@@ -4,7 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import co.eltrut.differentiate.core.helper.Registrator;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,6 +36,11 @@ public class Differentiate
         
         MinecraftForge.EVENT_BUS.register(this);
         
+    }
+    
+    @SubscribeEvent
+    public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
+    	REGISTRATOR.getBlockHelper().registerBlockItems(event);
     }
     
     @SubscribeEvent
