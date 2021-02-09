@@ -30,7 +30,8 @@ public class Differentiate
         modEventBus.addListener(this::doClientStuff);
         instance = this;
         
-        REGISTRATOR.register(modEventBus);
+        for (Registrator reg : Registrator.REGISTRATORS)
+        	reg.register(modEventBus);
         
         MinecraftForge.EVENT_BUS.register(this);
         
@@ -43,7 +44,9 @@ public class Differentiate
     private void doCommonStuff(final FMLCommonSetupEvent event)
     {
     	event.enqueueWork(() -> {
-    		REGISTRATOR.registerCompostables(event);
+    		for (Registrator reg : Registrator.REGISTRATORS) {
+    			reg.registerCompostables(event);
+    		}
     	});
     }
     
