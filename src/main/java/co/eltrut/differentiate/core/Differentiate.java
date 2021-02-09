@@ -41,15 +41,19 @@ public class Differentiate
     public static void loadCompleteEvent(FMLLoadCompleteEvent event) {
     }
 
-    private void doCommonStuff(final FMLCommonSetupEvent event)
-    {
+    private void doCommonStuff(final FMLCommonSetupEvent event) {
     	event.enqueueWork(() -> {
     		for (Registrator reg : Registrator.REGISTRATORS) {
-    			reg.registerCompostables(event);
+    			reg.registerCommon(event);
     		}
     	});
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {
+    	event.enqueueWork(() -> {
+    		for (Registrator reg : Registrator.REGISTRATORS) {
+    			reg.registerClient(event);
+    		}
+    	});
     }
 }

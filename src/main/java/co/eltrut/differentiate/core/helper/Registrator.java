@@ -3,10 +3,13 @@ package co.eltrut.differentiate.core.helper;
 import java.util.ArrayList;
 
 import co.eltrut.differentiate.common.blocks.interf.ICompostableItem;
+import co.eltrut.differentiate.common.blocks.interf.IRenderTypeBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class Registrator {
@@ -31,10 +34,18 @@ public class Registrator {
 		this.BLOCK_HELPER.register(bus);
 	}
 	
-	public void registerCompostables(final FMLCommonSetupEvent event) {
+	public void registerCommon(final FMLCommonSetupEvent event) {
 		for (RegistryObject<Block> blockObject : this.BLOCK_HELPER.REGISTRY.getEntries()) {
 			if (blockObject.get() instanceof ICompostableItem) {
-				ComposterBlock.CHANCES.put(blockObject.get().asItem(), ((ICompostableItem)blockObject.get()).compostableChance());
+				ComposterBlock.CHANCES.put(blockObject.get().asItem(), ((ICompostableItem)blockObject.get()).getCompostableChance());
+			}
+		}
+	}
+	
+	public void registerClient(final FMLClientSetupEvent event) {
+		for (RegistryObject<Block> blockObject : this.BLOCK_HELPER.REGISTRY.getEntries()) {
+			if (blockObject.get() instanceof IRenderTypeBlock) {
+				RenderTypeLookup.setRenderLayer(blockObject.get(), ((IRenderTypeBlock)blockObject.get()).getRenderType());
 			}
 		}
 	}
