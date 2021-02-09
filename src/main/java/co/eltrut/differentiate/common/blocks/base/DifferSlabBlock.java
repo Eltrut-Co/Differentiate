@@ -9,7 +9,6 @@ public class DifferSlabBlock extends SlabBlock implements IDifferBlock {
 		super(properties);
 	}
 
-	@Override
 	public ItemGroup group() {
 		return ItemGroup.BUILDING_BLOCKS;
 	}

@@ -5,6 +5,7 @@ import co.eltrut.differentiate.core.Differentiate;
 import co.eltrut.differentiate.core.helper.BlockHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -14,6 +15,6 @@ public class DifferentiateBlocks {
 	
 	public static final BlockHelper HELPER = Differentiate.REGISTRATOR.getBlockHelper();
 	
-	public static final RegistryObject<Block> BLOCK = HELPER.block("block", () -> new DifferSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)));
+	public static final RegistryObject<Block> BLOCK = HELPER.block("block", () -> new DifferSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), ItemGroup.BUILDING_BLOCKS);
 	
 }
