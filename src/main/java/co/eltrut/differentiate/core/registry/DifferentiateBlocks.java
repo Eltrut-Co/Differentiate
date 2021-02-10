@@ -15,6 +15,6 @@ public class DifferentiateBlocks {
 	
 	public static final BlockHelper HELPER = Differentiate.REGISTRATOR.getBlockHelper();
 	
-	public static final RegistryObject<Block> BLOCK = HELPER.block("block", () -> new DifferSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> BLOCK = HELPER.registerBlock("block", () -> new DifferSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), ItemGroup.BUILDING_BLOCKS);
 	
 }

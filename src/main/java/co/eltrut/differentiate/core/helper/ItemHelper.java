@@ -8,12 +8,29 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemHelper extends AbstractHelper<Item> {
 
+	private String name;
+	private Supplier<Item> item;
+	
 	public ItemHelper(Registrator parent) {
 		super(parent, ForgeRegistries.ITEMS);
 	}
 	
-	public RegistryObject<Item> item(String name, Supplier<Item> item) {
-		return this.REGISTRY.register(name, item);
+	public ItemHelper setName(String name) {
+		this.name = name;
+		return this;
+	}
+	
+	public ItemHelper setItem(Supplier<Item> item) {
+		this.item = item;
+		return this;
+	}
+	
+	public RegistryObject<Item> build() {
+		return this.REGISTRY.register(this.name, this.item);
+	}
+	
+	public RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
+		return this.setName(name).setItem(item).build();
 	}
 
 }
