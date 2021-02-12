@@ -17,7 +17,7 @@ public class Registrator {
 	public static final ArrayList<Registrator> REGISTRATORS = new ArrayList<>();
 
 	protected final String MODID;
-	protected final ItemHelper ITEM_HELPER;
+	protected final ItemHelper ITEM_HELPER; // TODO: should the registries be stored in this class and new helpers created with every new object?
 	protected final BlockHelper BLOCK_HELPER;
 	
 	public Registrator(String modid) {
