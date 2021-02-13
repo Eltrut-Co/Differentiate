@@ -18,26 +18,26 @@ public class Registrator {
 	
 	public static final ArrayList<Registrator> REGISTRATORS = new ArrayList<>();
 
-	protected final String MODID;
-	protected final ItemSubRegistrator ITEMS;
-	protected final BlockSubRegistrator BLOCK_HELPER;
+	protected final String modid;
+	protected final ItemSubRegistrator items;
+	protected final BlockSubRegistrator blocks;
 	
 	public Registrator(String modid) {
-		this.MODID = modid;
+		this.modid = modid;
 		
-		this.ITEMS = new ItemSubRegistrator(this);
-		this.BLOCK_HELPER = new BlockSubRegistrator(this);
+		this.items = new ItemSubRegistrator(this);
+		this.blocks = new BlockSubRegistrator(this);
 		
 		REGISTRATORS.add(this);
 	}
 	
 	public void register(IEventBus bus) {
-		this.ITEMS.register(bus);
-		this.BLOCK_HELPER.register(bus);
+		this.items.register(bus);
+		this.blocks.register(bus);
 	}
 	
 	public void registerCommon(final FMLCommonSetupEvent event) {
-		for (RegistryObject<Block> blockObject : this.BLOCK_HELPER.getDeferredRegister().getEntries()) {
+		for (RegistryObject<Block> blockObject : this.blocks.getDeferredRegister().getEntries()) {
 			if (blockObject.get() instanceof ICompostableItem) {
 				ComposterBlock.CHANCES.put(blockObject.get().asItem(), ((ICompostableItem)blockObject.get()).getCompostableChance());
 			}
@@ -45,7 +45,7 @@ public class Registrator {
 	}
 	
 	public void registerClient(final FMLClientSetupEvent event) {
-		for (RegistryObject<Block> blockObject : this.BLOCK_HELPER.getDeferredRegister().getEntries()) {
+		for (RegistryObject<Block> blockObject : this.blocks.getDeferredRegister().getEntries()) {
 			if (blockObject.get() instanceof IRenderTypeBlock) {
 				RenderTypeLookup.setRenderLayer(blockObject.get(), ((IRenderTypeBlock)blockObject.get()).getRenderType());
 			}
@@ -53,15 +53,15 @@ public class Registrator {
 	}
 	
 	public String getModId() {
-		return this.MODID;
+		return this.modid;
 	}
 	
-	public BlockSubRegistrator getBlockHelper() {
-		return this.BLOCK_HELPER;
+	public BlockSubRegistrator getBlockSubRegistrator() {
+		return this.blocks;
 	}
 	
-	public ItemSubRegistrator getItemHelper() {
-		return this.ITEMS;
+	public ItemSubRegistrator getItemSubRegistrator() {
+		return this.items;
 	}
 	
 }

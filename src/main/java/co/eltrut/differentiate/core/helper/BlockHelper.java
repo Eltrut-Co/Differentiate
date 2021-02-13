@@ -44,7 +44,7 @@ public class BlockHelper extends AbstractHelper<BlockSubRegistrator> {
 	public RegistryObject<Block> build() {
 		RegistryObject<Block> registeredBlock = this.parent.getDeferredRegister().register(this.name, this.block);
 		ItemGroup determinedGroup = CompatUtil.areModsLoaded(this.mods) ? this.group : null;
-		this.parent.getParent().getItemHelper().createItem(this.name, () -> new BlockItem(registeredBlock.get(), new Item.Properties().group(determinedGroup)));
+		this.parent.getParent().getItemSubRegistrator().createItem(this.name, () -> new BlockItem(registeredBlock.get(), new Item.Properties().group(determinedGroup)));
 		return registeredBlock;
 	}
 	

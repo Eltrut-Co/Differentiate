@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @Mod.EventBusSubscriber(modid = Differentiate.MOD_ID, bus = Bus.MOD)
 public class DifferentiateBlocks {
 	
-	public static final BlockSubRegistrator HELPER = Differentiate.REGISTRATOR.getBlockHelper();
+	public static final BlockSubRegistrator HELPER = Differentiate.REGISTRATOR.getBlockSubRegistrator();
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new DifferSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), ItemGroup.BUILDING_BLOCKS);
 	
