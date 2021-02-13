@@ -29,9 +29,12 @@ minecraft {
 			jvmArg "-Dmixin.env.disableRefMap=true"
 
             mods {
-                examplemod {
+                differentiate {
                     source sourceSets.main
                 }
+				test {
+					source sourceSets.test
+				}
             }
         }
 
@@ -42,9 +45,12 @@ minecraft {
 			jvmArg "-Dmixin.env.disableRefMap=true"
 
             mods {
-                examplemod {
+                differentiate {
                     source sourceSets.main
                 }
+				test {
+					source sourceSets.test
+				}
             }
         }
 
@@ -55,9 +61,12 @@ minecraft {
             args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                examplemod {
+                differentiate {
                     source sourceSets.main
                 }
+				test {
+					source sourceSets.test
+				}
             }
         }
     }
