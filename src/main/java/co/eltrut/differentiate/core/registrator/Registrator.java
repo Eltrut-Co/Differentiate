@@ -2,8 +2,8 @@ package co.eltrut.differentiate.core.registrator;
 
 import java.util.ArrayList;
 
-import co.eltrut.differentiate.common.blocks.interf.ICompostableItem;
-import co.eltrut.differentiate.common.blocks.interf.IRenderTypeBlock;
+import co.eltrut.differentiate.common.interf.ICompostableItem;
+import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
 import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
 import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
 import net.minecraft.block.Block;

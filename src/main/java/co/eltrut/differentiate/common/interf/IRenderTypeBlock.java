@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.common.blocks.interf;
+package co.eltrut.differentiate.common.interf;
 
 import net.minecraft.client.renderer.RenderType;
 
