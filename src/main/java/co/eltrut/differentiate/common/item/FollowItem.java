@@ -1,24 +1,23 @@
-package co.eltrut.differentiate.common.block;
+package co.eltrut.differentiate.common.item;
 
 import co.eltrut.differentiate.core.util.GroupUtil;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class FollowBlock extends Block {
+public class FollowItem extends Item {
 	
 	private final Item followItem;
 
-	public FollowBlock(Properties properties, Item followItem) {
+	public FollowItem(Properties properties, Item followItem) {
 		super(properties);
 		this.followItem = followItem;
 	}
 	
 	@Override
 	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		GroupUtil.fillItem(this.asItem(), followItem, group, items);
+		GroupUtil.fillItem(this.asItem(), this.followItem, group, items);
 	}
 
 }

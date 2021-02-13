@@ -17,7 +17,7 @@ public class TestBlocks {
 	public static final BlockSubRegistrator HELPER = Test.REGISTRATOR.getBlockSubRegistrator();
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createBlock("block_two", () -> new FollowBlock(Block.Properties.from(Blocks.DIRT), Blocks.DIRT), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> BLOCK_THREE = HELPER.createBlock("block_three", () -> new FollowBlock(Block.Properties.from(Blocks.DIRT), Blocks.DIRT), ItemGroup.BUILDING_BLOCKS, "differentiate");
+	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createBlock("block_two", () -> new FollowBlock(Block.Properties.from(Blocks.DIRT), Blocks.DIRT.asItem()), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> BLOCK_THREE = HELPER.createBlock("block_three", () -> new FollowBlock(Block.Properties.from(Blocks.DIRT), Blocks.DIRT.asItem()), ItemGroup.BUILDING_BLOCKS, "differentiate");
 	
 }
