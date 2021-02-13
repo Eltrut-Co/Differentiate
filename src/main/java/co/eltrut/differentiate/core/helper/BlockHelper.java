@@ -40,7 +40,12 @@ public class BlockHelper extends AbstractHelper<BlockSubRegistrator> {
 		ItemSubRegistrator itemRegister = this.parent.getParent().getItemSubRegistrator();
 		Item.Properties props = new Item.Properties().group(this.helper.getDeterminedItemGroup());
 		itemRegister.createItem(this.name, () -> new DifferBlockItem(registeredBlock.get(), props, this.helper.getBurnTime()));
+		BlockSubRegistrator.BLOCK_MAP.put(registeredBlock.get(), this);
 		return registeredBlock;
+	}
+	
+	public BlockItemHelper getChild() {
+		return this.helper;
 	}
 	
 }

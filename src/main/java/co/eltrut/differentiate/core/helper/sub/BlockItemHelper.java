@@ -33,6 +33,10 @@ public class BlockItemHelper extends AbstractSubHelper<BlockHelper> {
 		return this.parent;
 	}
 	
+	public String[] getMods() {
+		return this.mods;
+	}
+	
 	public ItemGroup getDeterminedItemGroup() {
 		return CompatUtil.areModsLoaded(this.mods) ? this.group : null;
 	}
