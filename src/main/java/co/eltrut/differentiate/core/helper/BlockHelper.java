@@ -2,20 +2,19 @@ package co.eltrut.differentiate.core.helper;
 
 import java.util.function.Supplier;
 
+import co.eltrut.differentiate.common.item.DifferBlockItem;
+import co.eltrut.differentiate.core.helper.sub.BlockItemHelper;
 import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
-import co.eltrut.differentiate.core.util.CompatUtil;
+import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 
 public class BlockHelper extends AbstractHelper<BlockSubRegistrator> {
 	
 	private String name;
 	private Supplier<Block> block;
-	private ItemGroup group;
-	private String[] mods;
+	private BlockItemHelper helper;
 	
 	public BlockHelper(BlockSubRegistrator parent) {
 		super(parent);
@@ -31,20 +30,16 @@ public class BlockHelper extends AbstractHelper<BlockSubRegistrator> {
 		return this;
 	}
 	
-	public BlockHelper setItemGroup(ItemGroup group) {
-		this.group = group;
-		return this;
-	}
-	
-	public BlockHelper setMods(String ...mods) {
-		this.mods = mods;
-		return this;
+	public BlockItemHelper setItem() {
+		this.helper = new BlockItemHelper(this);
+		return this.helper;
 	}
 	
 	public RegistryObject<Block> build() {
 		RegistryObject<Block> registeredBlock = this.parent.getDeferredRegister().register(this.name, this.block);
-		ItemGroup determinedGroup = CompatUtil.areModsLoaded(this.mods) ? this.group : null;
-		this.parent.getParent().getItemSubRegistrator().createItem(this.name, () -> new BlockItem(registeredBlock.get(), new Item.Properties().group(determinedGroup)));
+		ItemSubRegistrator itemRegister = this.parent.getParent().getItemSubRegistrator();
+		Item.Properties props = new Item.Properties().group(this.helper.getDeterminedItemGroup());
+		itemRegister.createItem(this.name, () -> new DifferBlockItem(registeredBlock.get(), props, this.helper.getBurnTime()));
 		return registeredBlock;
 	}
 	

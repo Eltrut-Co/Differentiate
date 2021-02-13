@@ -5,6 +5,7 @@ import net.minecraftforge.fml.ModList;
 public class CompatUtil {
 	
 	public static boolean areModsLoaded(String ...mods) {
+		if (mods == null) return true;
 		for (String mod : mods)
 			if (!ModList.get().isLoaded(mod))
 				return false;

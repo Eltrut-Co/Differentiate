@@ -20,7 +20,7 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 	}
 	
 	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, ItemGroup group, String ...mods) {
-		return new BlockHelper(this).setName(name).setBlock(block).setItemGroup(group).setMods(mods).build();
+		return new BlockHelper(this).setName(name).setBlock(block).setItem().setItemGroup(group).setMods(mods).done().build();
 	}
 	
 }

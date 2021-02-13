@@ -4,7 +4,7 @@ import co.eltrut.differentiate.core.registrator.sub.ISubRegistrator;
 
 public class AbstractHelper<T extends ISubRegistrator<?>> implements IHelper<T> {
 	
-	protected T parent;
+	protected final T parent;
 	
 	public AbstractHelper(T parent) {
 		this.parent = parent;
