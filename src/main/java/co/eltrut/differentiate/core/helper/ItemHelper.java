@@ -2,17 +2,17 @@ package co.eltrut.differentiate.core.helper;
 
 import java.util.function.Supplier;
 
+import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemHelper extends AbstractHelper<Item> {
-
+public class ItemHelper extends AbstractHelper<ItemSubRegistrator> {
+	
 	private String name;
 	private Supplier<Item> item;
-	
-	public ItemHelper(Registrator parent) {
-		super(parent, ForgeRegistries.ITEMS);
+
+	public ItemHelper(ItemSubRegistrator parent) {
+		super(parent);
 	}
 	
 	public ItemHelper setName(String name) {
@@ -26,11 +26,7 @@ public class ItemHelper extends AbstractHelper<Item> {
 	}
 	
 	public RegistryObject<Item> build() {
-		return this.REGISTRY.register(this.name, this.item);
+		return this.parent.getDeferredRegister().register(this.name, this.item);
 	}
 	
-	public RegistryObject<Item> registerItem(String name, Supplier<Item> item) {
-		return this.setName(name).setItem(item).build();
-	}
-
 }

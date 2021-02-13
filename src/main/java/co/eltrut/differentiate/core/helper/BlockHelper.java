@@ -2,23 +2,23 @@ package co.eltrut.differentiate.core.helper;
 
 import java.util.function.Supplier;
 
+import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
 import co.eltrut.differentiate.core.util.CompatUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
 
-public class BlockHelper extends AbstractHelper<Block> {
+public class BlockHelper extends AbstractHelper<BlockSubRegistrator> {
 	
 	private String name;
 	private Supplier<Block> block;
 	private ItemGroup group;
 	private String[] mods;
 	
-	public BlockHelper(Registrator parent) {
-		super(parent, ForgeRegistries.BLOCKS);
+	public BlockHelper(BlockSubRegistrator parent) {
+		super(parent);
 	}
 	
 	public BlockHelper setName(String name) {
@@ -42,14 +42,10 @@ public class BlockHelper extends AbstractHelper<Block> {
 	}
 	
 	public RegistryObject<Block> build() {
-		RegistryObject<Block> registeredBlock = this.REGISTRY.register(this.name, this.block);
+		RegistryObject<Block> registeredBlock = this.parent.getDeferredRegister().register(this.name, this.block);
 		ItemGroup determinedGroup = CompatUtil.areModsLoaded(this.mods) ? this.group : null;
-		this.PARENT.ITEM_HELPER.registerItem(this.name, () -> new BlockItem(registeredBlock.get(), new Item.Properties().group(determinedGroup)));
+		this.parent.getParent().getItemHelper().createItem(this.name, () -> new BlockItem(registeredBlock.get(), new Item.Properties().group(determinedGroup)));
 		return registeredBlock;
-	}
-	
-	public RegistryObject<Block> registerBlock(String name, Supplier<Block> block, ItemGroup group, String ...mods) {
-		return this.setName(name).setBlock(block).setItemGroup(group).setMods(mods).build();
 	}
 	
 }

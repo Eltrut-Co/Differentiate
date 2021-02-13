@@ -3,7 +3,7 @@ package co.eltrut.differentiate.core;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import co.eltrut.differentiate.core.helper.Registrator;
+import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
