@@ -9,14 +9,17 @@ import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
 import net.minecraft.block.Block;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class Registrator {
 	
 	public static final ArrayList<Registrator> REGISTRATORS = new ArrayList<>();
+	
+	protected final ArrayList<Item> compostables = new ArrayList<>();
+	protected final ArrayList<Block> renderers = new ArrayList<>();
 
 	protected final String modid;
 	protected final ItemSubRegistrator items;
@@ -37,19 +40,11 @@ public class Registrator {
 	}
 	
 	public void registerCommon(final FMLCommonSetupEvent event) {
-		for (RegistryObject<Block> blockObject : this.blocks.getDeferredRegister().getEntries()) {
-			if (blockObject.get() instanceof ICompostableItem) {
-				ComposterBlock.CHANCES.put(blockObject.get().asItem(), ((ICompostableItem)blockObject.get()).getCompostableChance());
-			}
-		}
+		this.compostables.stream().forEach(s -> ComposterBlock.CHANCES.put(s, ((ICompostableItem)s).getCompostableChance()));
 	}
 	
 	public void registerClient(final FMLClientSetupEvent event) {
-		for (RegistryObject<Block> blockObject : this.blocks.getDeferredRegister().getEntries()) {
-			if (blockObject.get() instanceof IRenderTypeBlock) {
-				RenderTypeLookup.setRenderLayer(blockObject.get(), ((IRenderTypeBlock)blockObject.get()).getRenderType());
-			}
-		}
+		this.renderers.stream().forEach(s -> RenderTypeLookup.setRenderLayer(s, ((IRenderTypeBlock)s).getRenderType()));
 	}
 	
 	public String getModId() {
@@ -62,6 +57,14 @@ public class Registrator {
 	
 	public ItemSubRegistrator getItemSubRegistrator() {
 		return this.items;
+	}
+	
+	public ArrayList<Item> getCompostables() {
+		return this.compostables;
+	}
+	
+	public ArrayList<Block> getRenderers() {
+		return this.renderers;
 	}
 	
 }
