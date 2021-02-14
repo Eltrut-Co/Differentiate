@@ -31,11 +31,22 @@ public class CompatUtil {
 		public static final String UPGRADE_AQUATIC = "upgrade_aquatic";
 		
 		// Aurora
+		public static final String ABUNDANCE = "abundance";
+		public static final String BAYOU_BLUES = "bayou_blues";
 		public static final String BETTER_BADLANDS = "better_badlands";
 		public static final String ENHANCED_MUSHROOMS = "enhanced_mushrooms";
 		public static final String FRUITFUL	= "fruitful";
+		public static final String REFORESTED = "reforested";
 		
-		// Others
+		// Evoslab
+		public static final String BREADCRUMBS = "breadcrumbs";
+		public static final String COOKIELICIOUS = "cookielicious";
+		
+		// Eltrut & Co.
+		public static final String ADDENDUM = "addendum";
+		public static final String FLAMBOYANT = "flamboyant";
+		public static final String LEPTON = "lepton";
+		public static final String TOTALLY_WILD = "totally_wild";
 	}
 	
 }
