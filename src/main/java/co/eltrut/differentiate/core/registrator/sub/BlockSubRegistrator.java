@@ -1,7 +1,5 @@
 package co.eltrut.differentiate.core.registrator.sub;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import co.eltrut.differentiate.common.block.DifferStairsBlock;
@@ -16,7 +14,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
-	public final Map<Block, BlockHelper> block_map = new HashMap<>();
 	
 	public BlockSubRegistrator(Registrator parent) {
 		super(parent, ForgeRegistries.BLOCKS);
@@ -34,20 +31,16 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 		return new BlockHelper(this).setName(name).setBlock(block).setItem().setItemGroup(group).setBurnTime(burnTime).setMods(mods).done().build();
 	}
 	
-	public void createSlab(Block parent) {
-		this.createBlock(parent.getRegistryName() + "_slab", () -> new SlabBlock(Block.Properties.from(parent)), Groups.SLABS, this.block_map.get(parent).getChild().getMods());
+	public void createSlab(Block parent, String ...mods) {
+		this.createBlock(parent.getRegistryName() + "_slab", () -> new SlabBlock(Block.Properties.from(parent)), Groups.SLABS, mods);
 	}
 	
-	public void createStairs(Block parent) {
-		this.createBlock(parent.getRegistryName() + "_stairs", () -> new DifferStairsBlock(() -> parent.getDefaultState(), Block.Properties.from(parent)), Groups.STAIRS, this.block_map.get(parent).getChild().getMods());
+	public void createStairs(Block parent, String ...mods) {
+		this.createBlock(parent.getRegistryName() + "_stairs", () -> new DifferStairsBlock(() -> parent.getDefaultState(), Block.Properties.from(parent)), Groups.STAIRS, mods);
 	}
 	
-	public void createWall(Block parent) {
-		this.createBlock(parent.getRegistryName() + "_wall", () -> new WallBlock(Block.Properties.from(parent)), Groups.WALLS, this.block_map.get(parent).getChild().getMods());
-	}
-	
-	public Map<Block, BlockHelper> getBlockMap() {
-		return this.block_map;
+	public void createWall(Block parent, String ...mods) {
+		this.createBlock(parent.getRegistryName() + "_wall", () -> new WallBlock(Block.Properties.from(parent)), Groups.WALLS, mods);
 	}
 	
 }

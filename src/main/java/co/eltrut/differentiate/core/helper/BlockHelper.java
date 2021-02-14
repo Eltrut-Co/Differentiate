@@ -2,8 +2,6 @@ package co.eltrut.differentiate.core.helper;
 
 import java.util.function.Supplier;
 
-import co.eltrut.differentiate.common.interf.ICompostableItem;
-import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
 import co.eltrut.differentiate.common.item.DifferBlockItem;
 import co.eltrut.differentiate.core.helper.sub.BlockItemHelper;
 import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
@@ -43,14 +41,6 @@ public class BlockHelper extends AbstractHelper<BlockSubRegistrator> {
 		ItemSubRegistrator itemRegister = this.parent.getParent().getItemSubRegistrator();
 		Item.Properties props = new Item.Properties().group(this.helper.getDeterminedItemGroup());
 		itemRegister.createItem(this.name, () -> new DifferBlockItem(registeredBlock.get(), props, this.helper.getBurnTime()));
-		
-//		this.parent.getBlockMap().put(registeredBlock.get(), this);
-//		if (registeredBlock.get() instanceof ICompostableItem) {
-//			this.parent.getParent().getCompostables().add(registeredBlock.get().asItem());
-//		}
-//		if (registeredBlock.get() instanceof IRenderTypeBlock) {
-//			this.parent.getParent().getRenderers().add(registeredBlock.get());
-//		}
 		
 		return registeredBlock;
 	}
