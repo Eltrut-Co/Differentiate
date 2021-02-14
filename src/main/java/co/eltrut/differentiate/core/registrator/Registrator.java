@@ -2,11 +2,16 @@ package co.eltrut.differentiate.core.registrator;
 
 import java.util.ArrayList;
 
+import co.eltrut.differentiate.common.interf.IColoredBlock;
 import co.eltrut.differentiate.common.interf.ICompostableItem;
+import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
 import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
 import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.block.FireBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -39,6 +44,15 @@ public class Registrator {
 				.map(s -> s.get())
 				.filter(s -> (s instanceof ICompostableItem))
 				.forEach(s -> ComposterBlock.CHANCES.put(s.asItem(), ((ICompostableItem)s).getCompostableChance()));
+		this.items.getDeferredRegister().getEntries().stream()
+				.map(s -> s.get())
+				.filter(s -> (s instanceof ICompostableItem))
+				.forEach(s -> ComposterBlock.CHANCES.put(s, ((ICompostableItem)s).getCompostableChance()));
+		
+		this.blocks.getDeferredRegister().getEntries().stream()
+				.map(s -> s.get())
+				.filter(s -> (s instanceof IFlammableBlock))
+				.forEach(s -> ((FireBlock)Blocks.FIRE).setFireInfo(s, ((IFlammableBlock)s).getEncouragement(), ((IFlammableBlock)s).getFlammability()));
 	}
 	
 	public void registerClient(final FMLClientSetupEvent event) {
@@ -46,6 +60,14 @@ public class Registrator {
 				.map(s -> s.get())
 				.filter(s -> (s instanceof IRenderTypeBlock))
 				.forEach(s -> RenderTypeLookup.setRenderLayer(s, ((IRenderTypeBlock)s).getRenderType()));
+		
+		this.blocks.getDeferredRegister().getEntries().stream()
+				.map(s -> s.get())
+				.filter(s -> (s instanceof IColoredBlock))
+				.forEach(s -> {
+					Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s);
+					Minecraft.getInstance().getItemColors().register(((IColoredBlock)s).getItemColor(), s);
+					});
 	}
 	
 	public String getModId() {

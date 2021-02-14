@@ -1,5 +1,7 @@
 package co.eltrut.differentiate.core.util;
 
+import java.util.stream.Stream;
+
 import net.minecraftforge.fml.ModList;
 
 public class CompatUtil {
@@ -10,6 +12,10 @@ public class CompatUtil {
 			if (!ModList.get().isLoaded(mod))
 				return false;
 		return true;
+	}
+	
+	public static String[] mergeArray(String[] ...mods) {
+		return (String[])Stream.of(mods).flatMap(Stream::of).toArray();
 	}
 	
 	public static class Mods {
