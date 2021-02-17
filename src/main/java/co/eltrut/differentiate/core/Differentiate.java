@@ -18,8 +18,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod("differentiate")
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
-public class Differentiate
-{
+public class Differentiate {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "differentiate";
     public static final Registrator REGISTRATOR = new Registrator(MOD_ID);

@@ -42,28 +42,28 @@ public class Registrator {
 	public void registerCommon(final FMLCommonSetupEvent event) {
 		this.blocks.getDeferredRegister().getEntries().stream()
 				.map(s -> s.get())
-				.filter(s -> (s instanceof ICompostableItem))
+				.filter(ICompostableItem.class::isInstance)
 				.forEach(s -> ComposterBlock.CHANCES.put(s.asItem(), ((ICompostableItem)s).getCompostableChance()));
 		this.items.getDeferredRegister().getEntries().stream()
 				.map(s -> s.get())
-				.filter(s -> (s instanceof ICompostableItem))
+				.filter(ICompostableItem.class::isInstance)
 				.forEach(s -> ComposterBlock.CHANCES.put(s, ((ICompostableItem)s).getCompostableChance()));
 		
 		this.blocks.getDeferredRegister().getEntries().stream()
 				.map(s -> s.get())
-				.filter(s -> (s instanceof IFlammableBlock))
+				.filter(IFlammableBlock.class::isInstance)
 				.forEach(s -> ((FireBlock)Blocks.FIRE).setFireInfo(s, ((IFlammableBlock)s).getEncouragement(), ((IFlammableBlock)s).getFlammability()));
 	}
 	
 	public void registerClient(final FMLClientSetupEvent event) {
 		this.blocks.getDeferredRegister().getEntries().stream()
 				.map(s -> s.get())
-				.filter(s -> (s instanceof IRenderTypeBlock))
+				.filter(IRenderTypeBlock.class::isInstance)
 				.forEach(s -> RenderTypeLookup.setRenderLayer(s, ((IRenderTypeBlock)s).getRenderType()));
 		
 		this.blocks.getDeferredRegister().getEntries().stream()
 				.map(s -> s.get())
-				.filter(s -> (s instanceof IColoredBlock))
+				.filter(IColoredBlock.class::isInstance)
 				.forEach(s -> {
 					Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s);
 					Minecraft.getInstance().getItemColors().register(((IColoredBlock)s).getItemColor(), s);
@@ -81,5 +81,11 @@ public class Registrator {
 	public ItemSubRegistrator getItemSubRegistrator() {
 		return this.items;
 	}
+	
+//	public static <T extends ISubRegistrator<?>, U extends Interface> Stream<?> stream(T subregistrator, Class<U> clazz) {
+//		return subregistrator.getDeferredRegister().getEntries().stream()
+//				.map(s -> s.get())
+//				.filter(clazz::isInstance);
+//	}
 	
 }

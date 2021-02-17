@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.common.block;
+package co.eltrut.differentiate.common.block.wood;
 
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import net.minecraft.block.Block;
