@@ -1,12 +1,15 @@
 package co.eltrut.differentiate.core.registrator;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import co.eltrut.differentiate.common.interf.IColoredBlock;
 import co.eltrut.differentiate.common.interf.IColoredItem;
 import co.eltrut.differentiate.common.interf.ICompostableItem;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
+import co.eltrut.differentiate.common.interf.Interface;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
@@ -80,10 +83,8 @@ public class Registrator {
 		return this.items;
 	}
 	
-//	public static <T extends ISubRegistrator<?>, U extends Interface> Stream<?> stream(T subregistrator, Class<U> clazz) {
-//		return subregistrator.getDeferredRegister().getEntries().stream()
-//				.map(s -> s.get())
-//				.filter(clazz::isInstance);
-//	}
+	public static void registerBlock(Class<? extends Interface> clazz, Predicate<Block> pred) {
+		ForgeRegistries.BLOCKS.getValues().stream().filter(clazz::isInstance).forEach(pred::test);
+	}
 	
 }
