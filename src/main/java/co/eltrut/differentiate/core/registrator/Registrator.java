@@ -30,9 +30,16 @@ public class Registrator {
 	
 	public Registrator(String modid) {
 		this.modid = modid;
-		
 		this.items = new ItemSubRegistrator(this);
 		this.blocks = new BlockSubRegistrator(this);
+		
+		REGISTRATORS.add(this);
+	}
+	
+	public Registrator(String modid, ItemSubRegistrator items, BlockSubRegistrator blocks) {
+		this.modid = modid;
+		this.items = items;
+		this.blocks = blocks;
 		
 		REGISTRATORS.add(this);
 	}

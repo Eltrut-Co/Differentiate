@@ -12,7 +12,6 @@ import co.eltrut.differentiate.core.util.GroupUtil.SpecialGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.WallBlock;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,11 +26,8 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
 		
 		ItemSubRegistrator itemRegister = this.parent.getItemSubRegistrator();
-		if (block.get() instanceof IFuelItem) {
-			itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, ((IFuelItem)block.get()).getBurnTime()));
-		} else {
-			itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props));
-		}
+		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block).getBurnTime() : 0;
+		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
 		
 		return registeredBlock;
 	}

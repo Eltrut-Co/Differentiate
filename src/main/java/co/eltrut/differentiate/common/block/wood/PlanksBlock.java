@@ -39,7 +39,7 @@ public class PlanksBlock extends Block implements IFlammableBlock, IFuelItem {
 
 	@Override
 	public int getBurnTime() {
-		return 300;
+		return this.isNetherWood ? 0 : 300;
 	}
 
 }
