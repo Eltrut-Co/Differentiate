@@ -1,7 +1,5 @@
 package co.eltrut.differentiate.core;
 
-import java.util.ArrayList;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +20,6 @@ public class Differentiate {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "differentiate";
     public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
-    public static final ArrayList<Registrator> REGISTRATORS = Registrator.REGISTRATORS;
     public static Differentiate instance;
 
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -32,7 +29,7 @@ public class Differentiate {
         modEventBus.addListener(this::doClientStuff);
         instance = this;
         
-        REGISTRATORS.stream().forEach(s -> s.register(modEventBus));
+        Registrator.REGISTRATORS.stream().forEach(s -> s.register(modEventBus));
         
         MinecraftForge.EVENT_BUS.register(this);
         
@@ -44,13 +41,13 @@ public class Differentiate {
 
     private void doCommonStuff(final FMLCommonSetupEvent event) {
     	event.enqueueWork(() -> {
-    		REGISTRATORS.stream().forEach(s -> s.registerCommon(event));
+    		Registrator.registerCommon(event);
     	});
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {
     	event.enqueueWork(() -> {
-    		REGISTRATORS.stream().forEach(s -> s.registerClient(event));
+    		Registrator.registerClient(event);
     	});
     }
 }
