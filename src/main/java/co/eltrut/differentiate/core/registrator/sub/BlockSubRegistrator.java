@@ -1,5 +1,8 @@
 package co.eltrut.differentiate.core.registrator.sub;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 import co.eltrut.differentiate.common.block.DifferStairsBlock;
@@ -31,16 +34,20 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 		return new BlockHelper(this).setName(name).setBlock(block).setItem().setItemGroup(group).setBurnTime(burnTime).setMods(mods).done().build();
 	}
 	
-	public void createSlab(Block parent, String ...mods) {
-		this.createBlock(parent.getRegistryName() + "_slab", () -> new SlabBlock(Block.Properties.from(parent)), Groups.SLABS, mods);
+	public RegistryObject<Block> createSlabBlock(Block parent, Block.Properties properties, String ...mods) {
+		return this.createBlock(parent.getRegistryName().getPath() + "_slab", () -> new SlabBlock(properties), Groups.SLABS, mods);
 	}
 	
-	public void createStairs(Block parent, String ...mods) {
-		this.createBlock(parent.getRegistryName() + "_stairs", () -> new DifferStairsBlock(() -> parent.getDefaultState(), Block.Properties.from(parent)), Groups.STAIRS, mods);
+	public RegistryObject<Block> createStairsBlock(Block parent, Block.Properties properties, String ...mods) {
+		return this.createBlock(parent.getRegistryName().getPath() + "_stairs", () -> new DifferStairsBlock(() -> parent.getDefaultState(), properties), Groups.STAIRS, mods);
 	}
 	
-	public void createWall(Block parent, String ...mods) {
-		this.createBlock(parent.getRegistryName() + "_wall", () -> new WallBlock(Block.Properties.from(parent)), Groups.WALLS, mods);
+	public RegistryObject<Block> createWallBlock(Block parent, Block.Properties properties, String ...mods) {
+		return this.createBlock(parent.getRegistryName().getPath() + "_wall", () -> new WallBlock(properties), Groups.WALLS, mods);
+	}
+	
+	public List<RegistryObject<Block>> createSlabStairsWall(Block parent, Block.Properties properties, String ...mods) {
+		return new ArrayList<RegistryObject<Block>>(Arrays.asList(this.createSlabBlock(parent, properties, mods), this.createStairsBlock(parent, properties, mods), this.createWallBlock(parent, properties, mods)));
 	}
 	
 }
