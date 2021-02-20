@@ -26,9 +26,21 @@ public class GroupUtil {
 	}
 	
 	public static class Groups {
-		public static final ItemGroup SLABS = ItemGroup.BUILDING_BLOCKS;
-		public static final ItemGroup STAIRS = ItemGroup.BUILDING_BLOCKS;
-		public static final ItemGroup WALLS = ItemGroup.DECORATIONS;
+		public static final Item.Properties BUILDING_BLOCKS = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
+		public static final Item.Properties DECORATIONS = new Item.Properties().group(ItemGroup.DECORATIONS);
+		public static final Item.Properties REDSTONE = new Item.Properties().group(ItemGroup.REDSTONE);
+		public static final Item.Properties TRANSPORTATION = new Item.Properties().group(ItemGroup.TRANSPORTATION);
+		public static final Item.Properties MISCELLANEOUS = new Item.Properties().group(ItemGroup.MISC);
+		public static final Item.Properties FOODSTUFFS = new Item.Properties().group(ItemGroup.FOOD);
+		public static final Item.Properties TOOLS = new Item.Properties().group(ItemGroup.TOOLS);
+		public static final Item.Properties COMBAT = new Item.Properties().group(ItemGroup.COMBAT);
+		public static final Item.Properties BREWING = new Item.Properties().group(ItemGroup.BREWING);
+	}
+	
+	public static class SpecialGroups {
+		public static final Item.Properties SLABS = Groups.BUILDING_BLOCKS;
+		public static final Item.Properties STAIRS = Groups.BUILDING_BLOCKS;
+		public static final Item.Properties WALLS = Groups.DECORATIONS;
 	}
 	
 }

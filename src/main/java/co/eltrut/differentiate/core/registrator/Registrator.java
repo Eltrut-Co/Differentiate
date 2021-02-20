@@ -3,11 +3,10 @@ package co.eltrut.differentiate.core.registrator;
 import java.util.ArrayList;
 
 import co.eltrut.differentiate.common.interf.IColoredBlock;
+import co.eltrut.differentiate.common.interf.IColoredItem;
 import co.eltrut.differentiate.common.interf.ICompostableItem;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
-import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
-import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
@@ -68,6 +67,10 @@ public class Registrator {
 					Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s);
 					Minecraft.getInstance().getItemColors().register(((IColoredBlock)s).getItemColor(), s);
 					});
+		this.items.getDeferredRegister().getEntries().stream()
+				.map(s -> s.get())
+				.filter(IColoredItem.class::isInstance)
+				.forEach(s -> Minecraft.getInstance().getItemColors().register(((IColoredItem)s).getItemColor(), s));
 	}
 	
 	public String getModId() {

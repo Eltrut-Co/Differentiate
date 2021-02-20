@@ -1,6 +1,6 @@
 package co.eltrut.test.core.registry;
 
-import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
+import co.eltrut.differentiate.core.registrator.ItemSubRegistrator;
 import co.eltrut.test.core.Test;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
