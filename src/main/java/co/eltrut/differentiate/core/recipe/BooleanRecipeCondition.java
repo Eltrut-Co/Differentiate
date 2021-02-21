@@ -29,7 +29,7 @@ public static final Hashtable<String, ConfigValue<Boolean>> TABLE = new Hashtabl
 
 	@Override
 	public boolean test() {
-		return TABLE.containsKey(this.condition) ? TABLE.get(this.condition).get() : true;
+		return TABLE.containsKey(this.condition) && TABLE.get(this.condition).get();
 	}
 	
 	public static class Serializer implements IConditionSerializer<BooleanRecipeCondition> {
