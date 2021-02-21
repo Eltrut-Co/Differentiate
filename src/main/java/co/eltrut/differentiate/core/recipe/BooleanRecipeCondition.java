@@ -12,7 +12,7 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
 public class BooleanRecipeCondition implements ICondition {
 	
-public static final Hashtable<String, ConfigValue<Boolean>> TABLE = new Hashtable<>();
+	public static final Hashtable<String, ConfigValue<Boolean>> TABLE = new Hashtable<>();
 	
 	private final ResourceLocation location;
 	private final String condition;
