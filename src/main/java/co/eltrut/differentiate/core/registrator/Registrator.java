@@ -1,13 +1,15 @@
 package co.eltrut.differentiate.core.registrator;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import co.eltrut.differentiate.common.interf.IColoredBlock;
+import co.eltrut.differentiate.common.interf.IColoredItem;
 import co.eltrut.differentiate.common.interf.ICompostableItem;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
-import co.eltrut.differentiate.core.registrator.sub.BlockSubRegistrator;
-import co.eltrut.differentiate.core.registrator.sub.ItemSubRegistrator;
+import co.eltrut.differentiate.common.interf.Interface;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
@@ -16,6 +18,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class Registrator {
 	
@@ -27,9 +30,16 @@ public class Registrator {
 	
 	public Registrator(String modid) {
 		this.modid = modid;
-		
 		this.items = new ItemSubRegistrator(this);
 		this.blocks = new BlockSubRegistrator(this);
+		
+		REGISTRATORS.add(this);
+	}
+	
+	public Registrator(String modid, ItemSubRegistrator items, BlockSubRegistrator blocks) {
+		this.modid = modid;
+		this.items = items;
+		this.blocks = blocks;
 		
 		REGISTRATORS.add(this);
 	}
@@ -39,35 +49,33 @@ public class Registrator {
 		this.blocks.register(bus);
 	}
 	
-	public void registerCommon(final FMLCommonSetupEvent event) {
-		this.blocks.getDeferredRegister().getEntries().stream()
-				.map(s -> s.get())
+	public static void registerCommon(final FMLCommonSetupEvent event) {
+		ForgeRegistries.BLOCKS.getValues().stream()
 				.filter(ICompostableItem.class::isInstance)
 				.forEach(s -> ComposterBlock.CHANCES.put(s.asItem(), ((ICompostableItem)s).getCompostableChance()));
-		this.items.getDeferredRegister().getEntries().stream()
-				.map(s -> s.get())
+		ForgeRegistries.ITEMS.getValues().stream()
 				.filter(ICompostableItem.class::isInstance)
 				.forEach(s -> ComposterBlock.CHANCES.put(s, ((ICompostableItem)s).getCompostableChance()));
 		
-		this.blocks.getDeferredRegister().getEntries().stream()
-				.map(s -> s.get())
+		ForgeRegistries.BLOCKS.getValues().stream()
 				.filter(IFlammableBlock.class::isInstance)
 				.forEach(s -> ((FireBlock)Blocks.FIRE).setFireInfo(s, ((IFlammableBlock)s).getEncouragement(), ((IFlammableBlock)s).getFlammability()));
 	}
 	
-	public void registerClient(final FMLClientSetupEvent event) {
-		this.blocks.getDeferredRegister().getEntries().stream()
-				.map(s -> s.get())
+	public static void registerClient(final FMLClientSetupEvent event) {
+		ForgeRegistries.BLOCKS.getValues().stream()
 				.filter(IRenderTypeBlock.class::isInstance)
 				.forEach(s -> RenderTypeLookup.setRenderLayer(s, ((IRenderTypeBlock)s).getRenderType()));
 		
-		this.blocks.getDeferredRegister().getEntries().stream()
-				.map(s -> s.get())
+		ForgeRegistries.BLOCKS.getValues().stream()
 				.filter(IColoredBlock.class::isInstance)
 				.forEach(s -> {
 					Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s);
 					Minecraft.getInstance().getItemColors().register(((IColoredBlock)s).getItemColor(), s);
 					});
+		ForgeRegistries.ITEMS.getValues().stream()
+				.filter(IColoredItem.class::isInstance)
+				.forEach(s -> Minecraft.getInstance().getItemColors().register(((IColoredItem)s).getItemColor(), s));
 	}
 	
 	public String getModId() {
@@ -82,10 +90,8 @@ public class Registrator {
 		return this.items;
 	}
 	
-//	public static <T extends ISubRegistrator<?>, U extends Interface> Stream<?> stream(T subregistrator, Class<U> clazz) {
-//		return subregistrator.getDeferredRegister().getEntries().stream()
-//				.map(s -> s.get())
-//				.filter(clazz::isInstance);
-//	}
+	public static void registerBlock(Class<? extends Interface> clazz, Predicate<Block> pred) {
+		ForgeRegistries.BLOCKS.getValues().stream().filter(clazz::isInstance).forEach(pred::test);
+	}
 	
 }
