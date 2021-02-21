@@ -3,8 +3,10 @@ package co.eltrut.differentiate.core;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import co.eltrut.differentiate.core.recipe.BooleanRecipeCondition;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,6 +32,8 @@ public class Differentiate {
         instance = this;
         
         Registrator.REGISTRATORS.stream().forEach(s -> s.register(modEventBus));
+        
+        CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
         
         MinecraftForge.EVENT_BUS.register(this);
         
