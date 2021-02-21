@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "test:block_two"
+    }
+  },
+  "result": {
+    "item": "test:block",
+    "count": 6
+  },
+  "conditions": []
+}

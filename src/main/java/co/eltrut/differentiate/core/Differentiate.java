@@ -3,7 +3,7 @@ package co.eltrut.differentiate.core;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import co.eltrut.differentiate.core.recipe.BooleanRecipeCondition;
+import co.eltrut.differentiate.core.other.recipe.BooleanRecipeCondition;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;

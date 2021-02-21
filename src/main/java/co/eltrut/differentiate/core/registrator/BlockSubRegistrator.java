@@ -26,7 +26,7 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
 		
 		ItemSubRegistrator itemRegister = this.parent.getItemSubRegistrator();
-		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block).getBurnTime() : 0;
+		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block.get()).getBurnTime() : 0;
 		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
 		
 		return registeredBlock;

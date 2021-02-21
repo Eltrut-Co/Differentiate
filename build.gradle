@@ -59,7 +59,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+			jvmArg "-Dmixin.env.disableRefMap=true"
+            args '--mod', 'test', '--all', '--output', file('src/generated/resources/')
 
             mods {
                 differentiate {
@@ -76,8 +77,8 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     //implementation fg.deobf("curse.maven:abnormals-core-382216:${ac_id}")
-    implementation fg.deobf("curse.maven:autoreglib-250363:${arl_id}")
-    implementation fg.deobf("curse.maven:quark-243121:${quark_id}")
+    //implementation fg.deobf("curse.maven:autoreglib-250363:${arl_id}")
+    //implementation fg.deobf("curse.maven:quark-243121:${quark_id}")
 
 }
 
