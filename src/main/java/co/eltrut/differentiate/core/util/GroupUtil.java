@@ -1,5 +1,7 @@
 package co.eltrut.differentiate.core.util;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -25,23 +27,28 @@ public class GroupUtil {
 		}
 	}
 	
-	public static class Groups {
-		public static final Item.Properties BUILDING_BLOCKS = new Item.Properties().group(ItemGroup.BUILDING_BLOCKS);
-		public static final Item.Properties DECORATIONS = new Item.Properties().group(ItemGroup.DECORATIONS);
-		public static final Item.Properties REDSTONE = new Item.Properties().group(ItemGroup.REDSTONE);
-		public static final Item.Properties TRANSPORTATION = new Item.Properties().group(ItemGroup.TRANSPORTATION);
-		public static final Item.Properties MISCELLANEOUS = new Item.Properties().group(ItemGroup.MISC);
-		public static final Item.Properties FOODSTUFFS = new Item.Properties().group(ItemGroup.FOOD);
-		public static final Item.Properties TOOLS = new Item.Properties().group(ItemGroup.TOOLS);
-		public static final Item.Properties COMBAT = new Item.Properties().group(ItemGroup.COMBAT);
-		public static final Item.Properties BREWING = new Item.Properties().group(ItemGroup.BREWING);
+	public static Item.Properties getProps(ItemGroup group, String ...mods) {
+		return CompatUtil.areModsLoaded(mods) ? new Item.Properties().group(group) : new Item.Properties().group(null);
 	}
 	
-	public static class SpecialGroups {
-		public static final Item.Properties SLABS = Groups.BUILDING_BLOCKS;
-		public static final Item.Properties STAIRS = Groups.BUILDING_BLOCKS;
-		public static final Item.Properties WALLS = Groups.DECORATIONS;
-		public static final Item.Properties VERTICAL_SLABS = Groups.BUILDING_BLOCKS;
+	public static class Groups {
+		
+		public static Item.Properties slabs(String ...mods) {
+			return GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS, mods);
+		}
+		
+		public static Item.Properties stairs(String ...mods) {
+			return GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS, mods);
+		}
+		
+		public static Item.Properties walls(String ...mods) {
+			return GroupUtil.getProps(ItemGroup.DECORATIONS, mods);
+		}
+		
+		public static Item.Properties vertSlabs(String ...mods) {
+			return GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS, ArrayUtils.add(mods, "quark"));
+		}
+		
 	}
 	
 }

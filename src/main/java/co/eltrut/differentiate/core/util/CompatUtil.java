@@ -12,6 +12,19 @@ public class CompatUtil {
 		return true;
 	}
 	
+	public static boolean areModsLoaded(boolean requiresQuark, String ...mods) {
+		if (mods == null) return true;
+		for (String mod : mods) {
+			if (mod == "quark" && !requiresQuark) {
+				continue;
+			}
+			if (!ModList.get().isLoaded(mod)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public static class Mods {
 		// Vazkii
 		public static final String QUARK = "quark";
