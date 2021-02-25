@@ -41,6 +41,7 @@ public class GroupUtil {
 		public static final Item.Properties SLABS = Groups.BUILDING_BLOCKS;
 		public static final Item.Properties STAIRS = Groups.BUILDING_BLOCKS;
 		public static final Item.Properties WALLS = Groups.DECORATIONS;
+		public static final Item.Properties VERTICAL_SLABS = Groups.BUILDING_BLOCKS;
 	}
 	
 }
