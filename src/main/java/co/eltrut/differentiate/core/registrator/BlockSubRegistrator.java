@@ -11,7 +11,6 @@ import co.eltrut.differentiate.common.block.DifferStairsBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.interf.IFuelItem;
 import co.eltrut.differentiate.common.item.FuelBlockItem;
-import co.eltrut.differentiate.core.util.CompatUtil;
 import co.eltrut.differentiate.core.util.GroupUtil.SpecialGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
@@ -28,10 +27,9 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 	
 	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, Item.Properties props, String ...mods) {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
-		Item.Properties determinedProps = mods.length == 0 || CompatUtil.areModsLoaded(mods) ? props : props.group(null);
 		ItemSubRegistrator itemRegister = this.parent.getItemSubRegistrator();
 		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block.get()).getBurnTime() : 0;
-		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), determinedProps, burnTime));
+		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
 		
 		return registeredBlock;
 	}
