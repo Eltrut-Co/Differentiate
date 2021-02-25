@@ -28,9 +28,7 @@ public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
 	
 	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, Item.Properties props, String ...mods) {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
-		
-		Item.Properties determinedProps = mods.length > 0 && CompatUtil.areModsLoaded(mods) ? props : props.group(null);
-		
+		Item.Properties determinedProps = mods.length == 0 || CompatUtil.areModsLoaded(mods) ? props : props.group(null);
 		ItemSubRegistrator itemRegister = this.parent.getItemSubRegistrator();
 		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block.get()).getBurnTime() : 0;
 		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), determinedProps, burnTime));

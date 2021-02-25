@@ -19,7 +19,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("differentiate")
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
 public class Differentiate {
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "differentiate";
     public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
     public static Differentiate instance;
@@ -31,7 +31,7 @@ public class Differentiate {
         modEventBus.addListener(this::doClientStuff);
         instance = this;
         
-        Registrator.REGISTRATORS.stream().forEach(s -> s.register(modEventBus));
+        for (Registrator reg : Registrator.REGISTRATORS) reg.register(modEventBus);
         
         CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
         
