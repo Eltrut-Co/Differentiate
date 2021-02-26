@@ -1,6 +1,7 @@
 package co.eltrut.differentiate.core.registrator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class Registrator {
@@ -27,21 +29,24 @@ public class Registrator {
 	public static final List<Registrator> REGISTRATORS = new ArrayList<>();
 	
 	protected final String modid;
-	protected final ItemSubRegistrator items;
-	protected final BlockSubRegistrator blocks;
+	protected final ItemHelper items;
+	protected final BlockHelper blocks;
+	protected final List<IHelper<?>> helpers;
 	
 	public Registrator(String modid) {
 		this.modid = modid;
-		this.items = new ItemSubRegistrator(this);
-		this.blocks = new BlockSubRegistrator(this);
+		this.items = new ItemHelper(this);
+		this.blocks = new BlockHelper(this);
+		this.helpers = new ArrayList<>(Arrays.asList(this.items, this.blocks));
 		
 		REGISTRATORS.add(this);
 	}
 	
-	public Registrator(String modid, ItemSubRegistrator items, BlockSubRegistrator blocks) {
+	public Registrator(String modid, ItemHelper items, BlockHelper blocks) {
 		this.modid = modid;
 		this.items = items;
 		this.blocks = blocks;
+		this.helpers = new ArrayList<>(Arrays.asList(this.items, this.blocks));
 		
 		REGISTRATORS.add(this);
 	}
@@ -80,11 +85,20 @@ public class Registrator {
 		return this.modid;
 	}
 	
-	public BlockSubRegistrator getBlockSubRegistrator() {
+	public IHelper<?> getHelper(DeferredRegister<?> register) {
+		for (IHelper<?> helper : this.helpers) {
+			if (helper.getDeferredRegister().equals(register)) {
+				return helper;
+			}
+		}
+		return null;
+	}
+	
+	public BlockHelper getBlockSubRegistrator() {
 		return this.blocks;
 	}
 	
-	public ItemSubRegistrator getItemSubRegistrator() {
+	public ItemHelper getItemSubRegistrator() {
 		return this.items;
 	}
 	

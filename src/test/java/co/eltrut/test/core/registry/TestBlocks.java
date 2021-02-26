@@ -3,7 +3,7 @@ package co.eltrut.test.core.registry;
 import co.eltrut.differentiate.common.block.FollowBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.block.wood.PlanksBlock;
-import co.eltrut.differentiate.core.registrator.BlockSubRegistrator;
+import co.eltrut.differentiate.core.registrator.BlockHelper;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import co.eltrut.differentiate.core.util.GroupUtil.Groups;
 import co.eltrut.test.common.blocks.TestSlabBlock;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
 public class TestBlocks {
 	
-	public static final BlockSubRegistrator HELPER = Test.REGISTRATOR.getBlockSubRegistrator();
+	public static final BlockHelper HELPER = Test.REGISTRATOR.getBlockSubRegistrator();
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS).isImmuneToFire());
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createSimpleBlock("block_two", () -> new FollowBlock(Block.Properties.from(Blocks.DIRT), Blocks.DIRT.asItem()), ItemGroup.BUILDING_BLOCKS);

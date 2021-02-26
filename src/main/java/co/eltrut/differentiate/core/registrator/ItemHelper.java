@@ -6,9 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemSubRegistrator extends AbstractSubRegistrator<Item> {
+public class ItemHelper extends AbstractHelper<Item> {
 
-	public ItemSubRegistrator(Registrator parent) {
+	public ItemHelper(Registrator parent) {
 		super(parent, ForgeRegistries.ITEMS);
 	}
 	

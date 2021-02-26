@@ -19,20 +19,20 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class BlockSubRegistrator extends AbstractSubRegistrator<Block> {
+public class BlockHelper extends AbstractHelper<Block> {
 	
 	public static final int SLAB = 0;
 	public static final int STAIRS = 1;
 	public static final int WALL = 2;
 	public static final int VERTICAL_SLAB = 3;
 	
-	public BlockSubRegistrator(Registrator parent) {
+	public BlockHelper(Registrator parent) {
 		super(parent, ForgeRegistries.BLOCKS);
 	}
 	
 	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, Item.Properties props) {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
-		ItemSubRegistrator itemRegister = this.parent.getItemSubRegistrator();
+		ItemHelper itemRegister = this.parent.getItemSubRegistrator();
 		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block.get()).getBurnTime() : 0;
 		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
 		
