@@ -1,4 +1,6 @@
 bc1a70fb123b951f90c765a76e7666ad53bcee56 data/minecraft/advancements/recipes/building_blocks/minecraft/crafting/diamond_block.json
 cce8f4449ee52b7b62ce9de51d1df9562815e2f7 data/minecraft/advancements/recipes/building_blocks/test/crafting/block.json
+8568d5f3d72358d2ce465394d80dc2806f5dd198 data/minecraft/advancements/recipes/building_blocks/test/crafting/block_two.json
 510800f9da2ae620183c41d34006c8709c754d2a data/minecraft/recipes/minecraft/crafting/diamond_block.json
 a6a5736ad6525e123f1fb5ee8939070da7e30f35 data/minecraft/recipes/test/crafting/block.json
+22b3009a8436f09bcddf7274806e41617409e1a0 data/minecraft/recipes/test/crafting/block_two.json

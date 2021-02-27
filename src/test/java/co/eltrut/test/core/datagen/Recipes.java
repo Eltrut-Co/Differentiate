@@ -3,6 +3,7 @@ package co.eltrut.test.core.datagen;
 import java.util.function.Consumer;
 
 import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.helper.ShapedRecipeHelper;
 import co.eltrut.differentiate.core.util.DataGenUtil;
 import co.eltrut.test.core.registry.TestBlocks;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -28,11 +29,12 @@ public class Recipes extends RecipeProvider {
         	.key('#', Tags.Items.DYES_RED)
         	.setGroup("mytutorial")
         	.addCriterion("cobblestone", InventoryChangeTrigger.Instance.forItems(Blocks.COBBLESTONE))
-        	.setModCompat("quark", "cookielicious")
-        	.setConditions("honey_cookie_tiles")
+        	.addModCompat("quark", "cookielicious")
+        	.addConditions("honey_cookie_tiles")
         	.build(consumer);
 		
-		DataGenUtil.slabCraftingRecipe(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataGenUtil.EMPTY, DataGenUtil.EMPTY);
+		ShapedRecipeHelper.createSlab(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataGenUtil.EMPTY, DataGenUtil.EMPTY, DataGenUtil.EMPTY);
+		ShapedRecipeHelper.createVerticalSlab(consumer, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {"lepton"}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 	}
 
 }

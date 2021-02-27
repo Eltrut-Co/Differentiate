@@ -38,6 +38,7 @@ public class DifferShapedRecipeBuilder {
 	private String group;
 	private String[] mods;
 	private String[] conditions;
+	private String[] flags;
 
 	public DifferShapedRecipeBuilder(IItemProvider resultIn, int countIn) {
 		this.result = resultIn.asItem();
@@ -90,13 +91,18 @@ public class DifferShapedRecipeBuilder {
 		return this;
 	}
 	
-	public DifferShapedRecipeBuilder setModCompat(String ...mods) {
+	public DifferShapedRecipeBuilder addModCompat(String ...mods) {
 		this.mods = mods;
 		return this;
 	}
 	
-	public DifferShapedRecipeBuilder setConditions(String ...conditions) {
+	public DifferShapedRecipeBuilder addConditions(String ...conditions) {
 		this.conditions = conditions;
+		return this;
+	}
+	
+	public DifferShapedRecipeBuilder addFlags(String ...flags) {
+		this.flags = flags;
 		return this;
 	}
 
@@ -123,7 +129,8 @@ public class DifferShapedRecipeBuilder {
 				new DifferShapedRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group,
 						this.pattern, this.key, this.advancementBuilder, new ResourceLocation(id.getNamespace(),
 								"recipes/" + this.result.getGroup().getPath() + "/" + id.getPath()), 
-						this.mods == null ? new String[0] : this.mods, this.conditions == null ? new String[0] : this.conditions));
+						this.mods == null ? new String[0] : this.mods, this.conditions == null ? new String[0] : this.conditions,
+								this.flags == null ? new String[0] : this.flags));
 	}
 
 	private void validate(ResourceLocation id) {
@@ -167,10 +174,11 @@ public class DifferShapedRecipeBuilder {
 		private final ResourceLocation advancementId;
 		private final String[] mods;
 		private final String[] conditions;
+		private final String[] flags;
 
 		public Result(ResourceLocation idIn, Item resultIn, int countIn, String groupIn, List<String> patternIn,
 				Map<Character, Ingredient> keyIn, Advancement.Builder advancementBuilderIn,
-				ResourceLocation advancementIdIn, String[] mods, String[] conditions) {
+				ResourceLocation advancementIdIn, String[] mods, String[] conditions, String[] flags) {
 			this.id = idIn;
 			this.result = resultIn;
 			this.count = countIn;
@@ -181,6 +189,7 @@ public class DifferShapedRecipeBuilder {
 			this.advancementId = advancementIdIn;
 			this.mods = mods;
 			this.conditions = conditions;
+			this.flags = flags;
 		}
 
 		public void serialize(JsonObject json) {
@@ -221,6 +230,12 @@ public class DifferShapedRecipeBuilder {
 				JsonObject temp = new JsonObject();
 				temp.addProperty("type", "differentiate:condition");
 				temp.addProperty("condition", condition);
+				jsonarray1.add(temp);
+			}
+			for (String flag : flags) {
+				JsonObject temp = new JsonObject();
+				temp.addProperty("type", "differentiate:flag");
+				temp.addProperty("flag", flag);
 				jsonarray1.add(temp);
 			}
 			json.add("conditions", jsonarray1);

@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X  ",
+    "X  ",
+    "X  "
+  ],
+  "key": {
+    "X": {
+      "item": "test:block_three"
+    }
+  },
+  "result": {
+    "item": "test:block_two",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "mod": "lepton"
+    },
+    {
+      "type": "differentiate:condition",
+      "condition": "honey_cookie_tiles"
+    },
+    {
+      "type": "differentiate:condition",
+      "condition": "strawberry_cookie_tiles"
+    },
+    {
+      "type": "differentiate:flag",
+      "flag": "biotite"
+    },
+    {
+      "type": "differentiate:flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}
