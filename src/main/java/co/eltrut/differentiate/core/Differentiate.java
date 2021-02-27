@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import co.eltrut.differentiate.core.other.recipe.BooleanRecipeCondition;
+import co.eltrut.differentiate.core.other.recipe.QuarkRecipeCondition;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -34,6 +35,7 @@ public class Differentiate {
         for (Registrator reg : Registrator.REGISTRATORS) reg.register(modEventBus);
         
         CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
+        CraftingHelper.register(new QuarkRecipeCondition.Serializer("flag"));
         
         MinecraftForge.EVENT_BUS.register(this);
         

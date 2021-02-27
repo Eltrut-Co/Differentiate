@@ -33,6 +33,7 @@ public class BooleanRecipeCondition implements ICondition {
 	}
 	
 	public static class Serializer implements IConditionSerializer<BooleanRecipeCondition> {
+		
 		private final ResourceLocation location;
 		
 		public Serializer(String name) {
