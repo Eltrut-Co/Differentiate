@@ -14,11 +14,12 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
 public class TestBlocks {
 	
-	public static final BlockHelper HELPER = Test.REGISTRATOR.getBlockSubRegistrator();
+	public static final BlockHelper HELPER = Test.REGISTRATOR.getHelper(ForgeRegistries.BLOCKS);
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.from(Blocks.ACACIA_WOOD)), GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS).isImmuneToFire());
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createSimpleBlock("block_two", () -> new FollowBlock(Block.Properties.from(Blocks.DIRT), Blocks.DIRT.asItem()), ItemGroup.BUILDING_BLOCKS);

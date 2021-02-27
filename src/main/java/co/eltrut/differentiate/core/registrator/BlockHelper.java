@@ -32,7 +32,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 	
 	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, Item.Properties props) {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
-		ItemHelper itemRegister = this.parent.getItemSubRegistrator();
+		ItemHelper itemRegister = this.parent.getHelper(ForgeRegistries.ITEMS);
 		int burnTime = block.get() instanceof IFuelItem ? ((IFuelItem)block.get()).getBurnTime() : 0;
 		itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
 		
