@@ -90,25 +90,25 @@ public class DifferShapedRecipeBuilder {
 		this.group = groupIn;
 		return this;
 	}
-	
-	public DifferShapedRecipeBuilder addModCompat(String ...mods) {
+
+	public DifferShapedRecipeBuilder addModCompat(String... mods) {
 		this.mods = mods;
 		return this;
 	}
-	
-	public DifferShapedRecipeBuilder addConditions(String ...conditions) {
+
+	public DifferShapedRecipeBuilder addConditions(String... conditions) {
 		this.conditions = conditions;
 		return this;
 	}
-	
-	public DifferShapedRecipeBuilder addFlags(String ...flags) {
+
+	public DifferShapedRecipeBuilder addFlags(String... flags) {
 		this.flags = flags;
 		return this;
 	}
 
 	public void build(Consumer<IFinishedRecipe> consumerIn) {
 		ResourceLocation loc = ForgeRegistries.ITEMS.getKey(this.result);
-		this.build(consumerIn, loc.getNamespace() + "/crafting/" + loc.getPath());
+		this.build(consumerIn, new ResourceLocation(loc.getNamespace(), "crafting/" + loc.getPath()));
 	}
 
 	public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
@@ -125,12 +125,13 @@ public class DifferShapedRecipeBuilder {
 		this.advancementBuilder.withParentId(new ResourceLocation("recipes/root"))
 				.withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id))
 				.withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
-		consumerIn.accept(
-				new DifferShapedRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group,
-						this.pattern, this.key, this.advancementBuilder, new ResourceLocation(id.getNamespace(),
-								"recipes/" + this.result.getGroup().getPath() + "/" + id.getPath()), 
-						this.mods == null ? new String[0] : this.mods, this.conditions == null ? new String[0] : this.conditions,
-								this.flags == null ? new String[0] : this.flags));
+		consumerIn.accept(new DifferShapedRecipeBuilder.Result(id, this.result, this.count,
+				this.group == null ? "" : this.group, this.pattern, this.key, this.advancementBuilder,
+				new ResourceLocation(id.getNamespace(),
+						"recipes/" + this.result.getGroup().getPath() + "/" + id.getPath()),
+				this.mods == null ? new String[0] : this.mods,
+				this.conditions == null ? new String[0] : this.conditions,
+				this.flags == null ? new String[0] : this.flags));
 	}
 
 	private void validate(ResourceLocation id) {
@@ -218,27 +219,29 @@ public class DifferShapedRecipeBuilder {
 			}
 
 			json.add("result", jsonobject1);
-			
-			JsonArray jsonarray1 = new JsonArray();
-			for (String mod : mods) {
-				JsonObject temp = new JsonObject();
-				temp.addProperty("type", "forge:mod_loaded");
-				temp.addProperty("mod", mod);
-				jsonarray1.add(temp);
+
+			if (this.conditions.length != 0 && this.mods.length != 0 && this.flags.length != 0) {
+				JsonArray jsonarray1 = new JsonArray();
+				for (String mod : mods) {
+					JsonObject temp = new JsonObject();
+					temp.addProperty("type", "forge:mod_loaded");
+					temp.addProperty("mod", mod);
+					jsonarray1.add(temp);
+				}
+				for (String condition : conditions) {
+					JsonObject temp = new JsonObject();
+					temp.addProperty("type", "differentiate:condition");
+					temp.addProperty("condition", condition);
+					jsonarray1.add(temp);
+				}
+				for (String flag : flags) {
+					JsonObject temp = new JsonObject();
+					temp.addProperty("type", "differentiate:flag");
+					temp.addProperty("flag", flag);
+					jsonarray1.add(temp);
+				}
+				json.add("conditions", jsonarray1);
 			}
-			for (String condition : conditions) {
-				JsonObject temp = new JsonObject();
-				temp.addProperty("type", "differentiate:condition");
-				temp.addProperty("condition", condition);
-				jsonarray1.add(temp);
-			}
-			for (String flag : flags) {
-				JsonObject temp = new JsonObject();
-				temp.addProperty("type", "differentiate:flag");
-				temp.addProperty("flag", flag);
-				jsonarray1.add(temp);
-			}
-			json.add("conditions", jsonarray1);
 		}
 
 		public IRecipeSerializer<?> getSerializer() {

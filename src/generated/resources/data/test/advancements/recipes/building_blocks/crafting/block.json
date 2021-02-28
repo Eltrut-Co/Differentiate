@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:minecraft/crafting/diamond_block"
+      "test:crafting/block"
     ]
   },
   "criteria": {
-    "cobblestone": {
+    "item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:cobblestone"
+            "item": "test:block_two"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:minecraft/crafting/diamond_block"
+        "recipe": "test:crafting/block"
       }
     }
   },
   "requirements": [
     [
-      "cobblestone",
+      "item",
       "has_the_recipe"
     ]
   ]
