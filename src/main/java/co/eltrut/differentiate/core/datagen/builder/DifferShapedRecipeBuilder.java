@@ -1,24 +1,17 @@
 package co.eltrut.differentiate.core.datagen.builder;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -32,9 +25,8 @@ public class DifferShapedRecipeBuilder {
 
 	private final Item result;
 	private final int count;
-	private final List<String> pattern = Lists.newArrayList();
-	private final Map<Character, Ingredient> key = Maps.newLinkedHashMap();
-	private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
+	private final List<String> pattern = new ArrayList<>();
+	private final Map<Character, Ingredient> key = new LinkedHashMap<>();
 	private String group;
 	private String[] mods;
 	private String[] conditions;
@@ -81,11 +73,6 @@ public class DifferShapedRecipeBuilder {
 		}
 	}
 
-	public DifferShapedRecipeBuilder addCriterion(String name, ICriterionInstance criterionIn) {
-		this.advancementBuilder.withCriterion(name, criterionIn);
-		return this;
-	}
-
 	public DifferShapedRecipeBuilder setGroup(String groupIn) {
 		this.group = groupIn;
 		return this;
@@ -122,13 +109,8 @@ public class DifferShapedRecipeBuilder {
 
 	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
-		this.advancementBuilder.withParentId(new ResourceLocation("recipes/root"))
-				.withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id))
-				.withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
 		consumerIn.accept(new DifferShapedRecipeBuilder.Result(id, this.result, this.count,
-				this.group == null ? "" : this.group, this.pattern, this.key, this.advancementBuilder,
-				new ResourceLocation(id.getNamespace(),
-						"recipes/" + this.result.getGroup().getPath() + "/" + id.getPath()),
+				this.group == null ? "" : this.group, this.pattern, this.key,
 				this.mods == null ? new String[0] : this.mods,
 				this.conditions == null ? new String[0] : this.conditions,
 				this.flags == null ? new String[0] : this.flags));
@@ -138,7 +120,7 @@ public class DifferShapedRecipeBuilder {
 		if (this.pattern.isEmpty()) {
 			throw new IllegalStateException("No pattern is defined for shaped recipe " + id + "!");
 		} else {
-			Set<Character> set = Sets.newHashSet(this.key.keySet());
+			Set<Character> set = new HashSet<>(this.key.keySet());
 			set.remove(' ');
 
 			for (String s : this.pattern) {
@@ -158,8 +140,6 @@ public class DifferShapedRecipeBuilder {
 			} else if (this.pattern.size() == 1 && this.pattern.get(0).length() == 1) {
 				throw new IllegalStateException("Shaped recipe " + id
 						+ " only takes in a single item - should it be a shapeless recipe instead?");
-			} else if (this.advancementBuilder.getCriteria().isEmpty()) {
-				throw new IllegalStateException("No way of obtaining recipe " + id);
 			}
 		}
 	}
@@ -171,23 +151,18 @@ public class DifferShapedRecipeBuilder {
 		private final String group;
 		private final List<String> pattern;
 		private final Map<Character, Ingredient> key;
-		private final Advancement.Builder advancementBuilder;
-		private final ResourceLocation advancementId;
 		private final String[] mods;
 		private final String[] conditions;
 		private final String[] flags;
 
 		public Result(ResourceLocation idIn, Item resultIn, int countIn, String groupIn, List<String> patternIn,
-				Map<Character, Ingredient> keyIn, Advancement.Builder advancementBuilderIn,
-				ResourceLocation advancementIdIn, String[] mods, String[] conditions, String[] flags) {
+				Map<Character, Ingredient> keyIn, String[] mods, String[] conditions, String[] flags) {
 			this.id = idIn;
 			this.result = resultIn;
 			this.count = countIn;
 			this.group = groupIn;
 			this.pattern = patternIn;
 			this.key = keyIn;
-			this.advancementBuilder = advancementBuilderIn;
-			this.advancementId = advancementIdIn;
 			this.mods = mods;
 			this.conditions = conditions;
 			this.flags = flags;
@@ -252,15 +227,16 @@ public class DifferShapedRecipeBuilder {
 			return this.id;
 		}
 
-		@Nullable
+		@Override
 		public JsonObject getAdvancementJson() {
-			return this.advancementBuilder.serialize();
+			return null;
 		}
 
-		@Nullable
+		@Override
 		public ResourceLocation getAdvancementID() {
-			return this.advancementId;
+			return null;
 		}
+		
 	}
 
 }

@@ -6,7 +6,6 @@ import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.helper.ShapedRecipeHelper;
 import co.eltrut.differentiate.core.util.DataGenUtil;
 import co.eltrut.test.core.registry.TestBlocks;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -28,7 +27,6 @@ public class Recipes extends RecipeProvider {
         	.key('x', Blocks.COBBLESTONE)
         	.key('#', Tags.Items.DYES_RED)
         	.setGroup("mytutorial")
-        	.addCriterion("cobblestone", InventoryChangeTrigger.Instance.forItems(Blocks.COBBLESTONE))
         	.addModCompat("quark", "cookielicious")
         	.addConditions("honey_cookie_tiles")
         	.build(consumer);

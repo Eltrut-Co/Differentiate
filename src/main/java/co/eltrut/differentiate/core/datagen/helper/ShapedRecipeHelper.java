@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 import org.apache.commons.lang3.ArrayUtils;
 
 import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;
 
@@ -15,7 +14,6 @@ public class ShapedRecipeHelper {
 		DifferShapedRecipeBuilder.shapedRecipe(result, 6)
     		.patternLine("XXX")
     		.key('X', parent)
-    		.addCriterion("item", InventoryChangeTrigger.Instance.forItems(parent))
     		.addModCompat(mods)
     		.addConditions(conditions)
     		.addFlags(flags)
@@ -28,7 +26,6 @@ public class ShapedRecipeHelper {
     		.patternLine("XX ")
     		.patternLine("XXX")
     		.key('X', parent)
-    		.addCriterion("item", InventoryChangeTrigger.Instance.forItems(parent))
     		.addModCompat(mods)
     		.addConditions(conditions)
     		.addFlags(flags)
@@ -40,7 +37,6 @@ public class ShapedRecipeHelper {
     		.patternLine("XXX")
     		.patternLine("XXX")
     		.key('X', parent)
-    		.addCriterion("item", InventoryChangeTrigger.Instance.forItems(parent))
     		.addModCompat(mods)
     		.addConditions(conditions)
     		.addFlags(flags)
@@ -53,7 +49,6 @@ public class ShapedRecipeHelper {
     		.patternLine("X  ")
     		.patternLine("X  ")
     		.key('X', slab)
-    		.addCriterion("item", InventoryChangeTrigger.Instance.forItems(slab))
     		.addModCompat(mods)
     		.addConditions(conditions)
     		.addFlags(ArrayUtils.add(flags, "vertical_slabs"))
