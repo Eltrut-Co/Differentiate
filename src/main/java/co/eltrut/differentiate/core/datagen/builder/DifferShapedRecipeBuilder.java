@@ -195,7 +195,7 @@ public class DifferShapedRecipeBuilder {
 
 			json.add("result", jsonobject1);
 
-			if (this.conditions.length != 0 && this.mods.length != 0 && this.flags.length != 0) {
+			if (this.conditions.length != 0 || this.mods.length != 0 || this.flags.length != 0) {
 				JsonArray jsonarray1 = new JsonArray();
 				for (String mod : mods) {
 					JsonObject temp = new JsonObject();
