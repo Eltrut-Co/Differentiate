@@ -45,9 +45,9 @@ public class ShapedRecipeHelper {
 	
 	public static void createVerticalSlab(Consumer<IFinishedRecipe> consumer, Block verticalSlab, Block slab, String[] mods, String[] conditions, String[] flags) {
 		DifferShapedRecipeBuilder.shapedRecipe(verticalSlab, 3)
-    		.patternLine("X  ")
-    		.patternLine("X  ")
-    		.patternLine("X  ")
+    		.patternLine("X")
+    		.patternLine("X")
+    		.patternLine("X")
     		.key('X', slab)
     		.addModCompat(mods)
     		.addConditions(conditions)
