@@ -60,6 +60,10 @@ public class CompatUtil {
 		public static final String FLAMBOYANT = "flamboyant";
 		public static final String LEPTON = "lepton";
 		public static final String TOTALLY_WILD = "totally_wild";
+		
+		// Other
+		public static final String INFERNAL_EXPANSION = "infernalexp";
+		public static final String OUTER_END = "outer_end";
 	}
 	
 }
