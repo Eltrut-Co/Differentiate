@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.recipe;
+package co.eltrut.differentiate.core.other.recipe;
 
 import java.util.Hashtable;
 
@@ -33,6 +33,7 @@ public class BooleanRecipeCondition implements ICondition {
 	}
 	
 	public static class Serializer implements IConditionSerializer<BooleanRecipeCondition> {
+		
 		private final ResourceLocation location;
 		
 		public Serializer(String name) {

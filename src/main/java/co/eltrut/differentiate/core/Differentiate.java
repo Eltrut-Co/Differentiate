@@ -3,7 +3,8 @@ package co.eltrut.differentiate.core;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import co.eltrut.differentiate.core.recipe.BooleanRecipeCondition;
+import co.eltrut.differentiate.core.other.recipe.BooleanRecipeCondition;
+import co.eltrut.differentiate.core.other.recipe.QuarkRecipeCondition;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("differentiate")
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
 public class Differentiate {
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "differentiate";
     public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
     public static Differentiate instance;
@@ -31,9 +32,10 @@ public class Differentiate {
         modEventBus.addListener(this::doClientStuff);
         instance = this;
         
-        Registrator.REGISTRATORS.stream().forEach(s -> s.register(modEventBus));
+        for (Registrator reg : Registrator.REGISTRATORS) reg.register(modEventBus);
         
         CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
+        CraftingHelper.register(new QuarkRecipeCondition.Serializer("flag"));
         
         MinecraftForge.EVENT_BUS.register(this);
         

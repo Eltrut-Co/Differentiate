@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mytutorial",
+  "pattern": [
+    "xxx",
+    "x#x",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:cobblestone"
+    },
+    "#": {
+      "tag": "forge:dyes/red"
+    }
+  },
+  "result": {
+    "item": "minecraft:diamond_block"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "mod": "quark"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "mod": "cookielicious"
+    },
+    {
+      "type": "differentiate:condition",
+      "condition": "honey_cookie_tiles"
+    }
+  ]
+}

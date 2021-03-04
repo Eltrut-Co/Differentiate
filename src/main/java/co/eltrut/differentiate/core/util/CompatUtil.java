@@ -1,7 +1,5 @@
 package co.eltrut.differentiate.core.util;
 
-import java.util.stream.Stream;
-
 import net.minecraftforge.fml.ModList;
 
 public class CompatUtil {
@@ -14,8 +12,17 @@ public class CompatUtil {
 		return true;
 	}
 	
-	public static String[] mergeArray(String[] ...mods) {
-		return (String[])Stream.of(mods).flatMap(Stream::of).toArray();
+	public static boolean areModsLoaded(boolean requiresQuark, String ...mods) {
+		if (mods == null) return true;
+		for (String mod : mods) {
+			if (mod == "quark" && !requiresQuark) {
+				continue;
+			}
+			if (!ModList.get().isLoaded(mod)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static class Mods {
@@ -53,6 +60,10 @@ public class CompatUtil {
 		public static final String FLAMBOYANT = "flamboyant";
 		public static final String LEPTON = "lepton";
 		public static final String TOTALLY_WILD = "totally_wild";
+		
+		// Other
+		public static final String INFERNAL_EXPANSION = "infernalexp";
+		public static final String OUTER_END = "outer_end";
 	}
 	
 }
