@@ -29,8 +29,8 @@ public class Registrator {
 	
 	public static final List<Registrator> REGISTRATORS = new ArrayList<>();
 	
-	protected final String modid;
-	protected final Map<IForgeRegistry<?>, IHelper<?>> helpers = new HashMap<>();
+	private final String modid;
+	private final Map<IForgeRegistry<?>, IHelper<?>> helpers = new HashMap<>();
 	
 	public Registrator(String modid) {
 		this(modid, false);

@@ -1,5 +1,6 @@
 package co.eltrut.test.core.registry;
 
+import co.eltrut.differentiate.common.block.DifferStairsBlock;
 import co.eltrut.differentiate.common.block.FollowBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.block.wood.PlanksBlock;
@@ -26,6 +27,6 @@ public class TestBlocks {
 	public static final RegistryObject<Block> BLOCK_THREE = HELPER.createSimpleBlock("block_three", () -> new PlanksBlock(Block.Properties.from(Blocks.DIRT)), ItemGroup.BUILDING_BLOCKS, "differentiate");
 	
 	public static final RegistryObject<Block> SLABBY = HELPER.createBlock("vertical_slab", () -> new VerticalSlabBlock(Block.Properties.from(Blocks.DIRT)), Groups.vertSlabs());
-	public static final RegistryObject<Block> VERTICAL_SLAB = HELPER.createVerticalSlabBlock(Blocks.DIRT, Block.Properties.from(Blocks.DIRT));
+	public static final RegistryObject<Block> STAIRS = HELPER.createSimpleBlock("block_three_stairs", () -> new DifferStairsBlock(BLOCK_THREE.get()::getDefaultState, Block.Properties.from(Blocks.DIRT)), ItemGroup.BUILDING_BLOCKS);
 	
 }
