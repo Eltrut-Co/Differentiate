@@ -48,7 +48,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 	}
 	
 	public RegistryObject<Block> createStairsBlock(Block parent, Block.Properties properties, String ...mods) {
-		return this.createBlock(parent.getRegistryName().getPath() + "_stairs", () -> new DifferStairsBlock(() -> parent.getDefaultState(), properties), Groups.stairs(mods));
+		return this.createBlock(parent.getRegistryName().getPath() + "_stairs", () -> new DifferStairsBlock(parent::getDefaultState, properties), Groups.stairs(mods));
 	}
 	
 	public RegistryObject<Block> createWallBlock(Block parent, Block.Properties properties, String ...mods) {

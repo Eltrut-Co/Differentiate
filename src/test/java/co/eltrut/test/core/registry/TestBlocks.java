@@ -27,5 +27,6 @@ public class TestBlocks {
 	
 	public static final RegistryObject<Block> SLABBY = HELPER.createBlock("vertical_slab", () -> new VerticalSlabBlock(Block.Properties.from(Blocks.DIRT)), Groups.vertSlabs());
 	public static final RegistryObject<Block> VERTICAL_SLAB = HELPER.createVerticalSlabBlock(Blocks.DIRT, Block.Properties.from(Blocks.DIRT));
+	public static final RegistryObject<Block> STAIRS = HELPER.createStairsBlock(BLOCK_THREE.get(), Block.Properties.from(Blocks.DIRT));
 	
 }
