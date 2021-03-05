@@ -21,7 +21,6 @@ public class BlockHelper extends AbstractHelper<Block> {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
 		ItemHelper itemRegister = this.parent.getHelper(ForgeRegistries.ITEMS);
 		itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props));
-		Differentiate.LOGGER.debug("Registered block and item " + name);
 		
 		return registeredBlock;
 	}
