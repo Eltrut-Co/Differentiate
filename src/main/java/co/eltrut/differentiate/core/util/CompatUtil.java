@@ -30,16 +30,20 @@ public class CompatUtil {
 		public static final String QUARK = "quark";
 		
 		// Abnormals
+		public static final String ABNORMALS_DELIGHT = "abnormals_delight";
+		public static final String ALLUREMENT = "allurement";
 		public static final String ATMOSPHERIC = "atmospheric";
 		public static final String AUTUMNITY = "autumnity";
 		public static final String BAMBOO_BLOCKS = "bamboo_blocks";
 		public static final String BERRY_GOOD = "berry_good";
 		public static final String BUZZIER_BEES = "buzzier_bees";
+		public static final String CAVERNS_AND_CHASMS = "caverns_and_chasms";
 		public static final String ENDERGETIC_EXPANSION = "endergetic";
 		public static final String ENVIRONMENTAL = "environmental";
 		public static final String EXTRA_BOATS = "extraboats";
 		public static final String NEAPOLITAN = "neapolitan";
 		public static final String NETHER_EXTENSION = "nether_extension";
+		public static final String PERSONALITY = "personality";
 		public static final String SAVAGE_AND_RAVAGE = "savageandravage";
 		public static final String UPGRADE_AQUATIC = "upgrade_aquatic";
 		

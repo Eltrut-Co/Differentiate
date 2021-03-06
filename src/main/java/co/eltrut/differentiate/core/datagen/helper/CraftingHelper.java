@@ -65,5 +65,4 @@ public class CraftingHelper {
 			.build(consumer);
 	}
 	
-	
 }
