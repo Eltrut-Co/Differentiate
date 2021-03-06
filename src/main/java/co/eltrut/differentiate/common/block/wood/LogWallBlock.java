@@ -1,0 +1,29 @@
+package co.eltrut.differentiate.common.block.wood;
+
+import java.util.function.Supplier;
+
+import co.eltrut.differentiate.core.util.BlockUtil;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.WallBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
+
+public class LogWallBlock extends WallBlock {
+	private final Supplier<Block> block;
+	
+	public LogWallBlock(Supplier<Block> strippedBlock, Properties properties) {
+		super(properties);
+		this.block = strippedBlock;
+	}
+	
+	@Override
+	public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType) {
+		if (toolType == ToolType.AXE)
+			return BlockUtil.transferAllBlockStates(state, this.block.get().getDefaultState());
+		return super.getToolModifiedState(state, world, pos, player, stack, toolType);
+	}
+}
