@@ -8,7 +8,7 @@ import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;
 
-public class ShapedRecipeHelper {
+public class CraftingHelper {
 
 	public static void createSlab(Consumer<IFinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
 		DifferShapedRecipeBuilder.shapedRecipe(result, 6)
