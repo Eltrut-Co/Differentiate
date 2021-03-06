@@ -43,6 +43,7 @@ public class Registrator {
 		if (!isCustom) {
 			this.helpers.put(ForgeRegistries.ITEMS, new ItemHelper(this));
 			this.helpers.put(ForgeRegistries.BLOCKS, new BlockHelper(this));
+			this.helpers.put(ForgeRegistries.TILE_ENTITIES, new TileEntityHelper(this));
 		}
 	}
 	
