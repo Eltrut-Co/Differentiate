@@ -2,6 +2,7 @@ package co.eltrut.test.core.datagen;
 
 import java.util.function.Consumer;
 
+import co.eltrut.differentiate.core.datagen.builder.CuttingRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.helper.CraftingHelper;
 import co.eltrut.differentiate.core.util.DataGenUtil;
@@ -10,6 +11,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
 public class Recipes extends RecipeProvider {
@@ -33,6 +37,10 @@ public class Recipes extends RecipeProvider {
 		
 		CraftingHelper.createSlab(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataGenUtil.EMPTY, DataGenUtil.EMPTY, DataGenUtil.EMPTY);
 		CraftingHelper.createVerticalSlab(consumer, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {"lepton"}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
+		
+		CuttingRecipeBuilder.sawingRecipe(new Ingredient[] {Ingredient.fromStacks(new ItemStack(TestBlocks.BLOCK_THREE.get().asItem()))}, TestBlocks.BLOCK.get().asItem())
+			.addModCompat("environmental")
+			.build(consumer, new ResourceLocation("test", "sawing/block"));
 	}
 
 }
