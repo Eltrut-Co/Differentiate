@@ -38,4 +38,8 @@ public class BlockHelper extends AbstractHelper<Block> {
 		return registeredBlock;
 	}
 	
+	public RegistryObject<Block> createSimpleFuelBlock(String name, Supplier<Block> block, ItemGroup group, int burnTime, String ...mods) {
+		return this.createFuelBlock(name, block, GroupUtil.getProps(group, mods), burnTime);
+	}
+	
 }
