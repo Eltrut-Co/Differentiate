@@ -1,6 +1,5 @@
 package co.eltrut.differentiate.core.util;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -11,8 +10,6 @@ import co.eltrut.differentiate.core.datagen.recipe.DifferShapedRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.recipe.DifferShapelessRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CookingRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -21,10 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeUtil {
-	
-	public static Ingredient[] toIngredients(Item ...items) {
-		return Arrays.stream(items).map(s -> Ingredient.fromStacks(new ItemStack(s))).toArray(Ingredient[]::new);
-	}
 	
 	public static DifferShapedRecipeBuilder shapedRecipe(IItemProvider resultIn) {
 		return shapedRecipe(resultIn, 1);
@@ -68,19 +61,19 @@ public class RecipeUtil {
 				(CookingRecipeSerializer<?>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "baking")));
 	}
 	
-	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn) {
+	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, IItemProvider resultIn) {
 		return stonecuttingRecipe(ingredientIn, resultIn, 1);
 	}
 
-	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn, int countIn) {
+	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, IItemProvider resultIn, int countIn) {
 		return new CuttingRecipeBuilder(IRecipeSerializer.STONECUTTING, ingredientIn, resultIn, countIn);
 	}
 	
-	public static CuttingRecipeBuilder sawingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn) {
+	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, IItemProvider resultIn) {
 		return sawingRecipe(ingredientIn, resultIn, 1);
 	}
 	
-	public static CuttingRecipeBuilder sawingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn, int countIn) {
+	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, IItemProvider resultIn, int countIn) {
 		return new CuttingRecipeBuilder(ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "sawing")), ingredientIn, resultIn, countIn);
 	}
 	

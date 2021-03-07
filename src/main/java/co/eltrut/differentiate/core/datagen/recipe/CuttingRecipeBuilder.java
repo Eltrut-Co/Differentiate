@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class CuttingRecipeBuilder {
 
 	private final Item result;
-	private final Ingredient[] ingredients;
+	private final Ingredient ingredient;
 	private final int count;
 	private String group;
 	private final IRecipeSerializer<?> serializer;
@@ -24,10 +24,10 @@ public class CuttingRecipeBuilder {
 	private String[] conditions;
 	private String[] flags;
 
-	public CuttingRecipeBuilder(IRecipeSerializer<?> serializerIn, Ingredient[] ingredients, IItemProvider resultProviderIn, int countIn) {
+	public CuttingRecipeBuilder(IRecipeSerializer<?> serializerIn, Ingredient ingredientIn, IItemProvider resultProviderIn, int countIn) {
 	      this.serializer = serializerIn;
 	      this.result = resultProviderIn.asItem();
-	      this.ingredients = ingredients;
+	      this.ingredient = ingredientIn;
 	      this.count = countIn;
 	   }
 	
@@ -58,7 +58,7 @@ public class CuttingRecipeBuilder {
 	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
 		consumerIn.accept(new CuttingRecipeBuilder.Result(id, this.serializer, this.group == null ? "" : this.group,
-				this.ingredients, this.result, this.count, this.mods == null ? new String[0] : this.mods,
+				this.ingredient, this.result, this.count, this.mods == null ? new String[0] : this.mods,
 				this.conditions == null ? new String[0] : this.conditions,
 				this.flags == null ? new String[0] : this.flags));
 	}
@@ -69,7 +69,7 @@ public class CuttingRecipeBuilder {
 	public static class Result implements IFinishedRecipe {
 		private final ResourceLocation id;
 		private final String group;
-		private final Ingredient[] ingredients;
+		private final Ingredient ingredient;
 		private final Item result;
 		private final int count;
 		private final IRecipeSerializer<?> serializer;
@@ -77,12 +77,12 @@ public class CuttingRecipeBuilder {
 		private final String[] conditions;
 		private final String[] flags;
 
-		public Result(ResourceLocation idIn, IRecipeSerializer<?> serializerIn, String groupIn, Ingredient[] ingredients,
+		public Result(ResourceLocation idIn, IRecipeSerializer<?> serializerIn, String groupIn, Ingredient ingredientIn,
 				Item resultIn, int countIn, String[] mods, String[] conditions, String[] flags) {
 			this.id = idIn;
 			this.serializer = serializerIn;
 			this.group = groupIn;
-			this.ingredients = ingredients;
+			this.ingredient = ingredientIn;
 			this.result = resultIn;
 			this.count = countIn;
 			this.mods = mods;
@@ -94,12 +94,8 @@ public class CuttingRecipeBuilder {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
 			}
-
-			JsonArray temp1 = new JsonArray();
-			for (Ingredient i : this.ingredients) {
-				temp1.add(i.serialize());
-			}
-			json.add("ingredient", temp1);
+			
+			json.add("ingredient", ingredient.serialize());
 			
 			json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).toString());
 			json.addProperty("count", this.count);

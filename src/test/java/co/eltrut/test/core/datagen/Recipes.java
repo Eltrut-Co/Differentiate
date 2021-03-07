@@ -35,7 +35,7 @@ public class Recipes extends RecipeProvider {
 		RecipeUtil.slabCraftingRecipe(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataGenUtil.EMPTY, DataGenUtil.EMPTY, DataGenUtil.EMPTY);
 		RecipeUtil.verticalSlabCraftingRecipe(consumer, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {"lepton"}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 		
-		RecipeUtil.sawingRecipe(RecipeUtil.toIngredients(TestBlocks.BLOCK_THREE.get().asItem()), TestBlocks.BLOCK.get().asItem())
+		RecipeUtil.sawingRecipe(Ingredient.fromItems(TestBlocks.BLOCK_THREE.get(), TestBlocks.BLOCK.get()), TestBlocks.BLOCK.get())
 			.addModCompat("environmental")
 			.build(consumer, new ResourceLocation("test", "sawing/block"));
 		

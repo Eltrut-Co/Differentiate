@@ -3,6 +3,9 @@
   "ingredient": [
     {
       "item": "test:block_three"
+    },
+    {
+      "item": "test:block"
     }
   ],
   "result": "test:block",
