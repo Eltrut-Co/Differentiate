@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.datagen.builder;
+package co.eltrut.differentiate.core.datagen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +30,6 @@ public class DifferShapelessRecipeBuilder {
 	      this.result = resultIn.asItem();
 	      this.count = countIn;
 	   }
-
-	public static DifferShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn) {
-		return new DifferShapelessRecipeBuilder(resultIn, 1);
-	}
-
-	public static DifferShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn, int countIn) {
-		return new DifferShapelessRecipeBuilder(resultIn, countIn);
-	}
 
 	public DifferShapelessRecipeBuilder addIngredient(ITag<Item> tagIn) {
 		return this.addIngredient(Ingredient.fromTag(tagIn));

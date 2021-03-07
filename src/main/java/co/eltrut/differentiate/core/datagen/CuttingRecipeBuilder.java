@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.datagen.builder;
+package co.eltrut.differentiate.core.datagen;
 
 import java.util.function.Consumer;
 
@@ -30,22 +30,6 @@ public class CuttingRecipeBuilder {
 	      this.ingredients = ingredients;
 	      this.count = countIn;
 	   }
-
-	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn) {
-		return new CuttingRecipeBuilder(IRecipeSerializer.STONECUTTING, ingredientIn, resultIn, 1);
-	}
-
-	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn, int countIn) {
-		return new CuttingRecipeBuilder(IRecipeSerializer.STONECUTTING, ingredientIn, resultIn, countIn);
-	}
-	
-	public static CuttingRecipeBuilder sawingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn) {
-		return new CuttingRecipeBuilder(ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "sawing")), ingredientIn, resultIn, 1);
-	}
-	
-	public static CuttingRecipeBuilder sawingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn, int countIn) {
-		return new CuttingRecipeBuilder(ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "sawing")), ingredientIn, resultIn, countIn);
-	}
 	
 	public CuttingRecipeBuilder addModCompat(String... mods) {
 		this.mods = mods;

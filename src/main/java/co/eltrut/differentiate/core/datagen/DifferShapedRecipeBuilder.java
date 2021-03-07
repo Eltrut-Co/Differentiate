@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.datagen.builder;
+package co.eltrut.differentiate.core.datagen;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,14 +35,6 @@ public class DifferShapedRecipeBuilder {
 	public DifferShapedRecipeBuilder(IItemProvider resultIn, int countIn) {
 		this.result = resultIn.asItem();
 		this.count = countIn;
-	}
-
-	public static DifferShapedRecipeBuilder shapedRecipe(IItemProvider resultIn) {
-		return shapedRecipe(resultIn, 1);
-	}
-
-	public static DifferShapedRecipeBuilder shapedRecipe(IItemProvider resultIn, int countIn) {
-		return new DifferShapedRecipeBuilder(resultIn, countIn);
 	}
 
 	public DifferShapedRecipeBuilder key(Character symbol, ITag<Item> tagIn) {

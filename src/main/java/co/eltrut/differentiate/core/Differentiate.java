@@ -3,8 +3,8 @@ package co.eltrut.differentiate.core;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import co.eltrut.differentiate.core.other.recipe.BooleanRecipeCondition;
-import co.eltrut.differentiate.core.other.recipe.QuarkRecipeCondition;
+import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
+import co.eltrut.differentiate.core.condition.QuarkRecipeCondition;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;

@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.other.recipe;
+package co.eltrut.differentiate.core.condition;
 
 import java.util.Hashtable;
 
