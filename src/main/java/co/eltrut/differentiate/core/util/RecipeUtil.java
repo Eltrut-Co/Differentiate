@@ -8,6 +8,7 @@ import co.eltrut.differentiate.core.datagen.recipe.CuttingRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.recipe.DifferCookingRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.recipe.DifferShapedRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.recipe.DifferShapelessRecipeBuilder;
+import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.CookingRecipeSerializer;
@@ -58,7 +59,7 @@ public class RecipeUtil {
 	public static DifferCookingRecipeBuilder bakingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
 			float experienceIn, int cookingTimeIn) {
 		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn,
-				(CookingRecipeSerializer<?>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "baking")));
+				(CookingRecipeSerializer<?>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation(Mods.ENVIRONMENTAL, "baking")));
 	}
 	
 	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, IItemProvider resultIn) {
@@ -74,7 +75,7 @@ public class RecipeUtil {
 	}
 	
 	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, IItemProvider resultIn, int countIn) {
-		return new CuttingRecipeBuilder(ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "sawing")), ingredientIn, resultIn, countIn);
+		return new CuttingRecipeBuilder(ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation(Mods.ENVIRONMENTAL, "sawing")), ingredientIn, resultIn, countIn);
 	}
 	
 	public static void slabCraftingRecipe(Consumer<IFinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
