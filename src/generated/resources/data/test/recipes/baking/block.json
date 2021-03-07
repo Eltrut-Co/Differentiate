@@ -1,0 +1,20 @@
+{
+  "type": "environmental:baking",
+  "ingredient": [
+    {
+      "item": "test:block_two"
+    },
+    {
+      "item": "test:block_three"
+    }
+  ],
+  "result": "test:block",
+  "experience": 5.0,
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "mod": "environmental"
+    }
+  ]
+}

@@ -5,13 +5,15 @@ import java.util.function.Consumer;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import co.eltrut.differentiate.core.datagen.CuttingRecipeBuilder;
-import co.eltrut.differentiate.core.datagen.DifferShapedRecipeBuilder;
-import co.eltrut.differentiate.core.datagen.DifferShapelessRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.recipe.CuttingRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.recipe.DifferCookingRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.recipe.DifferShapedRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.recipe.DifferShapelessRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CookingRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
@@ -38,6 +40,32 @@ public class RecipeUtil {
 
 	public static DifferShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn, int countIn) {
 		return new DifferShapelessRecipeBuilder(resultIn, countIn);
+	}
+	
+	public static DifferCookingRecipeBuilder cookingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+			float experienceIn, int cookingTimeIn, CookingRecipeSerializer<?> serializer) {
+		return new DifferCookingRecipeBuilder(resultIn, ingredientIn, experienceIn, cookingTimeIn, serializer);
+	}
+
+	public static DifferCookingRecipeBuilder blastingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+			float experienceIn, int cookingTimeIn) {
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.BLASTING);
+	}
+
+	public static DifferCookingRecipeBuilder smeltingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+			float experienceIn, int cookingTimeIn) {
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMELTING);
+	}
+	
+	public static DifferCookingRecipeBuilder smokingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+			float experienceIn, int cookingTimeIn) {
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMOKING);
+	}
+	
+	public static DifferCookingRecipeBuilder bakingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+			float experienceIn, int cookingTimeIn) {
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn,
+				(CookingRecipeSerializer<?>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation("environmental", "baking")));
 	}
 	
 	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient[] ingredientIn, IItemProvider resultIn) {

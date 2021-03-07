@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
@@ -37,6 +38,10 @@ public class Recipes extends RecipeProvider {
 		RecipeUtil.sawingRecipe(RecipeUtil.toIngredients(TestBlocks.BLOCK_THREE.get().asItem()), TestBlocks.BLOCK.get().asItem())
 			.addModCompat("environmental")
 			.build(consumer, new ResourceLocation("test", "sawing/block"));
+		
+		RecipeUtil.bakingRecipe(Ingredient.fromItems(TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get()), TestBlocks.BLOCK.get(), 5, 200)
+			.addModCompat("environmental")
+			.build(consumer, new ResourceLocation("test", "baking/block"));
 	}
 
 }
