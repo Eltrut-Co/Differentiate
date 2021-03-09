@@ -118,7 +118,7 @@ public class DifferCookingRecipeBuilder {
 					if (mod == null) continue;
 					JsonObject temp = new JsonObject();
 					temp.addProperty("type", "forge:mod_loaded");
-					temp.addProperty("mod", mod);
+					temp.addProperty("modid", mod);
 					jsonarray1.add(temp);
 				}
 				for (String condition : conditions) {
