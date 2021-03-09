@@ -26,10 +26,16 @@ public class CompatUtil {
 	}
 	
 	public static class Mods {
+		// Core
+		public static final String MINECRAFT = "minecraft";
+		public static final String FORGE = "forge";
+		
 		// Vazkii
+		public static final String AUTOREGLIB = "autoreglib";
 		public static final String QUARK = "quark";
 		
 		// Abnormals
+		public static final String ABNORMALS_CORE = "abnormals_core";
 		public static final String ABNORMALS_DELIGHT = "abnormals_delight";
 		public static final String ALLUREMENT = "allurement";
 		public static final String ATMOSPHERIC = "atmospheric";
