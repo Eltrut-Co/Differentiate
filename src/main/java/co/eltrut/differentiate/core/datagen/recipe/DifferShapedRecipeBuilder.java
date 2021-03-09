@@ -190,18 +190,21 @@ public class DifferShapedRecipeBuilder {
 			if (this.conditions.length != 0 || this.mods.length != 0 || this.flags.length != 0) {
 				JsonArray jsonarray1 = new JsonArray();
 				for (String mod : mods) {
+					if (mod == null) continue;
 					JsonObject temp = new JsonObject();
 					temp.addProperty("type", "forge:mod_loaded");
 					temp.addProperty("mod", mod);
 					jsonarray1.add(temp);
 				}
 				for (String condition : conditions) {
+					if (condition == null) continue;
 					JsonObject temp = new JsonObject();
 					temp.addProperty("type", "differentiate:condition");
 					temp.addProperty("condition", condition);
 					jsonarray1.add(temp);
 				}
 				for (String flag : flags) {
+					if (flag == null) continue;
 					JsonObject temp = new JsonObject();
 					temp.addProperty("type", "differentiate:flag");
 					temp.addProperty("flag", flag);
