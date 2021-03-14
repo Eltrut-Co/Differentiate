@@ -1,8 +1,5 @@
 package co.eltrut.differentiate.core;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
 import co.eltrut.differentiate.core.condition.QuarkRecipeCondition;
 import co.eltrut.differentiate.core.registrator.Registrator;
@@ -20,7 +17,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("differentiate")
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
 public class Differentiate {
-    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "differentiate";
     public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
     public static Differentiate instance;
