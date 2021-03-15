@@ -16,8 +16,8 @@ public class TileEntityHelper extends AbstractHelper<TileEntityType<?>> {
 		super(parent, ForgeRegistries.TILE_ENTITIES);
 	}
 	
-	public <T extends TileEntity> RegistryObject<TileEntityType<T>> createTileEntity(String name, Supplier<? extends T> tileEntity, Block ...blocks) {
-		return this.registry.register(name, () -> new TileEntityType<T>(tileEntity, new HashSet<Block>(Arrays.asList(blocks)), null));
+	public <T extends TileEntity> RegistryObject<TileEntityType<T>> createTileEntity(String name, Supplier<? extends T> tileEntity, Supplier<Block[]> blocks) {
+		return this.registry.register(name, () -> new TileEntityType<T>(tileEntity, new HashSet<Block>(Arrays.asList(blocks.get())), null));
 	}
 
 }
