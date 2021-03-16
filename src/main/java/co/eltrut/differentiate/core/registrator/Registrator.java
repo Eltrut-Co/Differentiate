@@ -72,10 +72,7 @@ public class Registrator {
 		registerAttribute(ForgeRegistries.BLOCKS, IRenderTypeBlock.class, s -> RenderTypeLookup.setRenderLayer(s, ((IRenderTypeBlock)s).getRenderType()));
 		LOGGER.info("Registered block cutouts");
 		
-		registerAttribute(ForgeRegistries.BLOCKS, IColoredBlock.class, s -> {
-					Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s);
-					Minecraft.getInstance().getItemColors().register(((IColoredBlock)s).getItemColor(), s);
-					});
+		registerAttribute(ForgeRegistries.BLOCKS, IColoredBlock.class, s -> Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s));
 		registerAttribute(ForgeRegistries.ITEMS, IColoredItem.class, s -> Minecraft.getInstance().getItemColors().register(((IColoredItem)s).getItemColor(), s));
 		LOGGER.info("Registered block and item colors");
 		
