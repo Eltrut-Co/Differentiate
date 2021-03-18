@@ -28,25 +28,25 @@ public class GroupUtil {
 	}
 	
 	public static Item.Properties getProps(ItemGroup group, String ...mods) {
-		return CompatUtil.areModsLoaded(mods) ? new Item.Properties().group(group) : new Item.Properties().group(null);
+		return CompatUtil.areModsLoaded(mods) ? new Item.Properties().tab(group) : new Item.Properties().tab(null);
 	}
 	
 	public static class Groups {
 		
 		public static Item.Properties slabs(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS, mods);
+			return GroupUtil.getProps(ItemGroup.TAB_BUILDING_BLOCKS, mods);
 		}
 		
 		public static Item.Properties stairs(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS, mods);
+			return GroupUtil.getProps(ItemGroup.TAB_BUILDING_BLOCKS, mods);
 		}
 		
 		public static Item.Properties walls(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.DECORATIONS, mods);
+			return GroupUtil.getProps(ItemGroup.TAB_DECORATIONS, mods);
 		}
 		
 		public static Item.Properties vertSlabs(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.BUILDING_BLOCKS, ArrayUtils.add(mods, "quark"));
+			return GroupUtil.getProps(ItemGroup.TAB_BUILDING_BLOCKS, ArrayUtils.add(mods, "quark"));
 		}
 		
 	}

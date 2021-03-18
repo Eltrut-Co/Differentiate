@@ -43,17 +43,17 @@ public class RecipeUtil {
 
 	public static DifferCookingRecipeBuilder blastingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
 			float experienceIn, int cookingTimeIn) {
-		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.BLASTING);
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.BLASTING_RECIPE);
 	}
 
 	public static DifferCookingRecipeBuilder smeltingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
 			float experienceIn, int cookingTimeIn) {
-		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMELTING);
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMELTING_RECIPE);
 	}
 	
 	public static DifferCookingRecipeBuilder smokingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
 			float experienceIn, int cookingTimeIn) {
-		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMOKING);
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMOKING_RECIPE);
 	}
 	
 	public static DifferCookingRecipeBuilder bakingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
@@ -67,7 +67,7 @@ public class RecipeUtil {
 	}
 
 	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, IItemProvider resultIn, int countIn) {
-		return new CuttingRecipeBuilder(IRecipeSerializer.STONECUTTING, ingredientIn, resultIn, countIn);
+		return new CuttingRecipeBuilder(IRecipeSerializer.STONECUTTER, ingredientIn, resultIn, countIn);
 	}
 	
 	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, IItemProvider resultIn) {

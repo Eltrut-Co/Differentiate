@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
     }
 }
 
@@ -74,10 +74,20 @@ minecraft {
     }
 }
 
+if (project.hasProperty('UPDATE_MAPPINGS')) {
+   extractRangeMap {
+     sources sourceSets.test.java.srcDirs
+   }
+   applyRangeMap {
+     sources sourceSets.test.java.srcDirs
+   }
+   sourceSets.test.java.srcDirs.each { extractMappedNew.addTarget it }
+ }
+
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf("curse.maven:abnormals-core-382216:${ac_id}")
-	implementation fg.deobf("curse.maven:environmental-388992:${environmental_id}")
+    //implementation fg.deobf("curse.maven:abnormals-core-382216:${ac_id}")
+	//implementation fg.deobf("curse.maven:environmental-388992:${environmental_id}")
     //implementation fg.deobf("curse.maven:autoreglib-250363:${arl_id}")
     //implementation fg.deobf("curse.maven:quark-243121:${quark_id}")
 

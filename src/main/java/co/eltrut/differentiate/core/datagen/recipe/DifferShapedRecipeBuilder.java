@@ -38,11 +38,11 @@ public class DifferShapedRecipeBuilder {
 	}
 
 	public DifferShapedRecipeBuilder key(Character symbol, ITag<Item> tagIn) {
-		return this.key(symbol, Ingredient.fromTag(tagIn));
+		return this.key(symbol, Ingredient.of(tagIn));
 	}
 
 	public DifferShapedRecipeBuilder key(Character symbol, IItemProvider itemIn) {
-		return this.key(symbol, Ingredient.fromItems(itemIn));
+		return this.key(symbol, Ingredient.of(itemIn));
 	}
 
 	public DifferShapedRecipeBuilder key(Character symbol, Ingredient ingredientIn) {
@@ -160,7 +160,7 @@ public class DifferShapedRecipeBuilder {
 			this.flags = flags;
 		}
 
-		public void serialize(JsonObject json) {
+		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
 			}
@@ -175,7 +175,7 @@ public class DifferShapedRecipeBuilder {
 			JsonObject jsonobject = new JsonObject();
 
 			for (Entry<Character, Ingredient> entry : this.key.entrySet()) {
-				jsonobject.add(String.valueOf(entry.getKey()), entry.getValue().serialize());
+				jsonobject.add(String.valueOf(entry.getKey()), entry.getValue().toJson());
 			}
 
 			json.add("key", jsonobject);
@@ -214,21 +214,21 @@ public class DifferShapedRecipeBuilder {
 			}
 		}
 
-		public IRecipeSerializer<?> getSerializer() {
-			return IRecipeSerializer.CRAFTING_SHAPED;
+		public IRecipeSerializer<?> getType() {
+			return IRecipeSerializer.SHAPED_RECIPE;
 		}
 
-		public ResourceLocation getID() {
+		public ResourceLocation getId() {
 			return this.id;
 		}
 
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject serializeAdvancement() {
 			return null;
 		}
 
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public ResourceLocation getAdvancementId() {
 			return null;
 		}
 		

@@ -34,67 +34,67 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
 	}
 	
 	@Override
-	public boolean isTransparent(BlockState state) {
-		return state.get(TYPE) != VerticalSlabType.DOUBLE;
+	public boolean useShapeForLightOcclusion(BlockState state) {
+		return state.getValue(TYPE) != VerticalSlabType.DOUBLE;
 	}
 	
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		return state.get(TYPE).shape;
+		return state.getValue(TYPE).shape;
 	}
 	
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		BlockPos blockpos = context.getPos();
-		BlockState blockstate = context.getWorld().getBlockState(blockpos);
+		BlockPos blockpos = context.getClickedPos();
+		BlockState blockstate = context.getLevel().getBlockState(blockpos);
 		if (blockstate.getBlock() == this)
-			return blockstate.with(TYPE, VerticalSlabType.DOUBLE).with(WATERLOGGED, false);
-		return this.getDefaultState().with(WATERLOGGED, context.getWorld().getFluidState(blockpos).getFluid() == Fluids.WATER).with(TYPE, VerticalSlabType.fromDirection(this.getDirectionForPlacement(context)));
+			return blockstate.setValue(TYPE, VerticalSlabType.DOUBLE).setValue(WATERLOGGED, false);
+		return this.defaultBlockState().setValue(WATERLOGGED, context.getLevel().getFluidState(blockpos).getType() == Fluids.WATER).setValue(TYPE, VerticalSlabType.fromDirection(this.getDirectionForPlacement(context)));
 	}
 	
 	private Direction getDirectionForPlacement(BlockItemUseContext context) {
-		Direction direction = context.getFace();
+		Direction direction = context.getClickedFace();
 		if (direction.getAxis() != Axis.Y) return direction;
 		
-		Vector3d diff = context.getHitVec().subtract(Vector3d.copy(context.getPos())).subtract(0.5, 0, 0.5);
+		Vector3d diff = context.getClickLocation().subtract(Vector3d.atLowerCornerOf(context.getClickedPos())).subtract(0.5, 0, 0.5);
 		double angle = -Math.toDegrees(Math.atan2(diff.x, diff.z));
-		return Direction.fromAngle(angle).getOpposite();
+		return Direction.fromYRot(angle).getOpposite();
 	}
 	
 	@Override
-	public boolean isReplaceable(BlockState state, BlockItemUseContext context) {
-		VerticalSlabType slabtype = state.get(TYPE);
-		return slabtype != VerticalSlabType.DOUBLE && context.getItem().getItem() == this.asItem() && context.replacingClickedOnBlock() && context.getFace() == slabtype.direction && this.getDirectionForPlacement(context) == slabtype.direction;
+	public boolean canBeReplaced(BlockState state, BlockItemUseContext context) {
+		VerticalSlabType slabtype = state.getValue(TYPE);
+		return slabtype != VerticalSlabType.DOUBLE && context.getItemInHand().getItem() == this.asItem() && context.replacingClickedOnBlock() && context.getClickedFace() == slabtype.direction && this.getDirectionForPlacement(context) == slabtype.direction;
 	}
 	
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
 	}
 	
 	@Override
-	public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-		return state.get(TYPE) != VerticalSlabType.DOUBLE && IWaterLoggable.super.receiveFluid(worldIn, pos, state, fluidStateIn);
+	public boolean placeLiquid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+		return state.getValue(TYPE) != VerticalSlabType.DOUBLE && IWaterLoggable.super.placeLiquid(worldIn, pos, state, fluidStateIn);
 	}
 	
 	@Override
-	public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
-		return state.get(TYPE) != VerticalSlabType.DOUBLE && IWaterLoggable.super.canContainFluid(worldIn, pos, state, fluidIn);
+	public boolean canPlaceLiquid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+		return state.getValue(TYPE) != VerticalSlabType.DOUBLE && IWaterLoggable.super.canPlaceLiquid(worldIn, pos, state, fluidIn);
 	}
 	
 	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (stateIn.get(WATERLOGGED)) worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+		if (stateIn.getValue(WATERLOGGED)) worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
 		return stateIn;
 	}
 	
 	@Override
-	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-		return type == PathType.WATER && worldIn.getFluidState(pos).isTagged(FluidTags.WATER);
+	public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+		return type == PathType.WATER && worldIn.getFluidState(pos).is(FluidTags.WATER);
 	}
 	
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(TYPE, WATERLOGGED);
 	}
 
@@ -112,14 +112,14 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
 
 		VerticalSlabType(Direction direction) {
 			this.direction = direction;
-			this.name = direction == null ? "double" : direction.getString();
+			this.name = direction == null ? "double" : direction.getSerializedName();
 			if (direction == null) {
-				this.shape = VoxelShapes.fullCube();
+				this.shape = VoxelShapes.block();
 			} else {
 				boolean isNegativeAxis = direction.getAxisDirection() == Direction.AxisDirection.NEGATIVE;
 				double min = isNegativeAxis ? 8 : 0;
 				double max = isNegativeAxis ? 16 : 8;
-				this.shape = direction.getAxis() == Direction.Axis.X ? Block.makeCuboidShape(min, 0, 0, max, 16, 16) : Block.makeCuboidShape(0, 0, min, 16, 16, max);
+				this.shape = direction.getAxis() == Direction.Axis.X ? Block.box(min, 0, 0, max, 16, 16) : Block.box(0, 0, min, 16, 16, max);
 			}
 		}
 
@@ -133,7 +133,7 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
 		}
 
 		@Override
-		public String getString() {
+		public String getSerializedName() {
 			return this.name;
 		}
 		

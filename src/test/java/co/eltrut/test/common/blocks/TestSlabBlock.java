@@ -18,7 +18,7 @@ public class TestSlabBlock extends SlabBlock implements ICompostableItem, IRende
 
 	@Override
 	public RenderType getRenderType() {
-		return RenderType.getTranslucent();
+		return RenderType.translucent();
 	}
 
 }

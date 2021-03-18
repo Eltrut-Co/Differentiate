@@ -21,7 +21,7 @@ public class Recipes extends RecipeProvider {
 	}
 	
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
 		RecipeUtil.shapedRecipe(Blocks.DIAMOND_BLOCK)
         	.patternLine("xxx")
         	.patternLine("x#x")
@@ -36,11 +36,11 @@ public class Recipes extends RecipeProvider {
 		RecipeUtil.slabCraftingRecipe(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataGenUtil.EMPTY, DataGenUtil.EMPTY, DataGenUtil.EMPTY);
 		RecipeUtil.verticalSlabCraftingRecipe(consumer, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 		
-		RecipeUtil.sawingRecipe(Ingredient.fromItems(TestBlocks.BLOCK_THREE.get(), TestBlocks.BLOCK.get()), TestBlocks.BLOCK.get())
+		RecipeUtil.sawingRecipe(Ingredient.of(TestBlocks.BLOCK_THREE.get(), TestBlocks.BLOCK.get()), TestBlocks.BLOCK.get())
 			.addModCompat(Mods.ENVIRONMENTAL)
 			.build(consumer, new ResourceLocation("test", "sawing/block"));
 		
-		RecipeUtil.bakingRecipe(Ingredient.fromItems(TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get()), TestBlocks.BLOCK.get(), 5, 200)
+		RecipeUtil.bakingRecipe(Ingredient.of(TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get()), TestBlocks.BLOCK.get(), 5, 200)
 			.addModCompat(Mods.ENVIRONMENTAL)
 			.build(consumer, new ResourceLocation("test", "baking/block"));
 	}

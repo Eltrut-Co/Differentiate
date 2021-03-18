@@ -90,12 +90,12 @@ public class CuttingRecipeBuilder {
 			this.flags = flags;
 		}
 
-		public void serialize(JsonObject json) {
+		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
 			}
 			
-			json.add("ingredient", ingredient.serialize());
+			json.add("ingredient", ingredient.toJson());
 			
 			json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).toString());
 			json.addProperty("count", this.count);
@@ -127,21 +127,21 @@ public class CuttingRecipeBuilder {
 			}
 		}
 
-		public ResourceLocation getID() {
+		public ResourceLocation getId() {
 			return this.id;
 		}
 
-		public IRecipeSerializer<?> getSerializer() {
+		public IRecipeSerializer<?> getType() {
 			return this.serializer;
 		}
 
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject serializeAdvancement() {
 			return null;
 		}
 
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public ResourceLocation getAdvancementId() {
 			return null;
 		}
 	}

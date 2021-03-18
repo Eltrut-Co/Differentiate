@@ -32,7 +32,7 @@ public class DifferShapelessRecipeBuilder {
 	   }
 
 	public DifferShapelessRecipeBuilder addIngredient(ITag<Item> tagIn) {
-		return this.addIngredient(Ingredient.fromTag(tagIn));
+		return this.addIngredient(Ingredient.of(tagIn));
 	}
 
 	public DifferShapelessRecipeBuilder addIngredient(IItemProvider itemIn) {
@@ -41,7 +41,7 @@ public class DifferShapelessRecipeBuilder {
 
 	public DifferShapelessRecipeBuilder addIngredient(IItemProvider itemIn, int quantity) {
 		for (int i = 0; i < quantity; ++i) {
-			this.addIngredient(Ingredient.fromItems(itemIn));
+			this.addIngredient(Ingredient.of(itemIn));
 		}
 
 		return this;
@@ -127,7 +127,7 @@ public class DifferShapelessRecipeBuilder {
 			this.flags = flags;
 		}
 
-		public void serialize(JsonObject json) {
+		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
 			}
@@ -135,7 +135,7 @@ public class DifferShapelessRecipeBuilder {
 			JsonArray jsonarray = new JsonArray();
 
 			for (Ingredient ingredient : this.ingredients) {
-				jsonarray.add(ingredient.serialize());
+				jsonarray.add(ingredient.toJson());
 			}
 
 			json.add("ingredients", jsonarray);
@@ -174,21 +174,21 @@ public class DifferShapelessRecipeBuilder {
 			}
 		}
 
-		public IRecipeSerializer<?> getSerializer() {
-			return IRecipeSerializer.CRAFTING_SHAPELESS;
+		public IRecipeSerializer<?> getType() {
+			return IRecipeSerializer.SHAPELESS_RECIPE;
 		}
 
-		public ResourceLocation getID() {
+		public ResourceLocation getId() {
 			return this.id;
 		}
 
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject serializeAdvancement() {
 			return null;
 		}
 
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public ResourceLocation getAdvancementId() {
 			return null;
 		}
 	}

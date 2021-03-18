@@ -59,11 +59,11 @@ public class Registrator {
 	}
 	
 	public static void registerCommon(final FMLCommonSetupEvent event) {
-		registerAttribute(ForgeRegistries.BLOCKS, ICompostableItem.class, s -> ComposterBlock.CHANCES.put(s.asItem(), ((ICompostableItem)s).getCompostableChance()));
-		registerAttribute(ForgeRegistries.ITEMS, ICompostableItem.class, s -> ComposterBlock.CHANCES.put(s, ((ICompostableItem)s).getCompostableChance()));
+		registerAttribute(ForgeRegistries.BLOCKS, ICompostableItem.class, s -> ComposterBlock.COMPOSTABLES.put(s.asItem(), ((ICompostableItem)s).getCompostableChance()));
+		registerAttribute(ForgeRegistries.ITEMS, ICompostableItem.class, s -> ComposterBlock.COMPOSTABLES.put(s, ((ICompostableItem)s).getCompostableChance()));
 		LOGGER.info("Registered block and item compostables");
 		
-		registerAttribute(ForgeRegistries.BLOCKS, IFlammableBlock.class, s -> ((FireBlock)Blocks.FIRE).setFireInfo(s, ((IFlammableBlock)s).getEncouragement(), ((IFlammableBlock)s).getFlammability()));
+		registerAttribute(ForgeRegistries.BLOCKS, IFlammableBlock.class, s -> ((FireBlock)Blocks.FIRE).setFlammable(s, ((IFlammableBlock)s).getEncouragement(), ((IFlammableBlock)s).getFlammability()));
 		LOGGER.info("Registered block flammables");
 	}
 	

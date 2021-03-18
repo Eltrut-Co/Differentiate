@@ -39,7 +39,7 @@ public class LogStairsBlock extends DifferStairsBlock implements IFlammableBlock
 	@Override
 	public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType) {
 		if (toolType == ToolType.AXE && this.block != null)
-			return BlockUtil.transferAllBlockStates(state, this.block.get().getDefaultState());
+			return BlockUtil.transferAllBlockStates(state, this.block.get().defaultBlockState());
 		return super.getToolModifiedState(state, world, pos, player, stack, toolType);
 	}
 
