@@ -33,20 +33,25 @@ public class GroupUtil {
 	
 	public static class Groups {
 		
-		public static Item.Properties slabs(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.TAB_BUILDING_BLOCKS, mods);
+		public static final ItemGroup SLABS = ItemGroup.TAB_BUILDING_BLOCKS;
+		public static final ItemGroup STAIRS = ItemGroup.TAB_BUILDING_BLOCKS;
+		public static final ItemGroup WALLS = ItemGroup.TAB_DECORATIONS;
+		public static final ItemGroup VERTICAL_SLABS = ItemGroup.TAB_BUILDING_BLOCKS;
+		
+		public static Item.Properties getSlabProps(String ...mods) {
+			return GroupUtil.getProps(SLABS, mods);
 		}
 		
-		public static Item.Properties stairs(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.TAB_BUILDING_BLOCKS, mods);
+		public static Item.Properties getStairProps(String ...mods) {
+			return GroupUtil.getProps(STAIRS, mods);
 		}
 		
-		public static Item.Properties walls(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.TAB_DECORATIONS, mods);
+		public static Item.Properties getWallProps(String ...mods) {
+			return GroupUtil.getProps(WALLS, mods);
 		}
 		
-		public static Item.Properties vertSlabs(String ...mods) {
-			return GroupUtil.getProps(ItemGroup.TAB_BUILDING_BLOCKS, ArrayUtils.add(mods, "quark"));
+		public static Item.Properties getVerticalSlabProps(String ...mods) {
+			return GroupUtil.getProps(VERTICAL_SLABS, ArrayUtils.add(mods, "quark"));
 		}
 		
 	}
