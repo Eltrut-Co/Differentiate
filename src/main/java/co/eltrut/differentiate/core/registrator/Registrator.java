@@ -37,19 +37,14 @@ public class Registrator {
 	private final String modid;
 	private final Map<IForgeRegistry<?>, IHelper<?>> helpers = new HashMap<>();
 	
+	// TODO: find a way to allow custom helpers
 	public Registrator(String modid) {
-		this(modid, false);
-	}
-	
-	public Registrator(String modid, boolean isCustom) {
 		this.modid = modid;
 		REGISTRATORS.add(this);
 		
-		if (!isCustom) {
-			this.helpers.put(ForgeRegistries.ITEMS, new ItemHelper(this));
-			this.helpers.put(ForgeRegistries.BLOCKS, new BlockHelper(this));
-			this.helpers.put(ForgeRegistries.TILE_ENTITIES, new TileEntityHelper(this));
-		}
+		this.helpers.put(ForgeRegistries.ITEMS, new ItemHelper(this));
+		this.helpers.put(ForgeRegistries.BLOCKS, new BlockHelper(this));
+		this.helpers.put(ForgeRegistries.TILE_ENTITIES, new TileEntityHelper(this));
 	}
 	
 	public void register(IEventBus bus) {
