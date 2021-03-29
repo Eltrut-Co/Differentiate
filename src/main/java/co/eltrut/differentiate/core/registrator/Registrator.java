@@ -47,6 +47,12 @@ public class Registrator {
 		this.helpers.put(ForgeRegistries.TILE_ENTITIES, new TileEntityHelper(this));
 	}
 	
+	public static Registrator create(String modid, Consumer<Registrator> consumer) {
+		Registrator registrator = new Registrator(modid);
+		consumer.accept(registrator);
+		return registrator;
+	}
+	
 	public void register(IEventBus bus) {
 		for (IHelper<?> helper : this.helpers.values()) {
 			helper.register(bus);
