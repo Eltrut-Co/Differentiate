@@ -5,7 +5,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public class AbstractHelper<T extends IForgeRegistryEntry<T>> implements IHelper<T> {
+public abstract class AbstractHelper<T extends IForgeRegistryEntry<T>> implements IHelper<T> {
 	
 	protected final Registrator parent;
 	protected final DeferredRegister<T> registry;
