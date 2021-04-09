@@ -1,11 +1,17 @@
 package co.eltrut.differentiate.core.util;
 
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.dispenser.IDispenseItemBehavior;
+import net.minecraft.item.Item;
 import net.minecraft.state.Property;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.ToolType;
 
 public class BlockUtil {
@@ -18,6 +24,17 @@ public class BlockUtil {
 			state = state.setValue(property, initial.getValue(property));
 		}
 		return state;
+	}
+	
+	public static void registerDispenserBehavior(Item item, Block block, IDispenseItemBehavior newBehavior) {
+		IDispenseItemBehavior oldBehavior = DispenserBlock.DISPENSER_REGISTRY.get(item);
+		DispenserBlock.registerBehavior(item, (source, stack) -> {
+			Direction dir = source.getBlockState().getValue(DispenserBlock.FACING);
+			BlockPos pos = source.getPos().relative(dir);
+			BlockState state = source.getLevel().getBlockState(pos);
+			
+			return state.is(block) ? newBehavior.dispense(source, stack) : oldBehavior.dispense(source, stack);
+		});
 	}
 	
 	public static class QuarkProperties {
