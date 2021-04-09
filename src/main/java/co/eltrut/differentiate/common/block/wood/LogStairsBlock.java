@@ -15,8 +15,8 @@ import net.minecraftforge.common.ToolType;
 
 public class LogStairsBlock extends DifferStairsBlock implements IFlammableBlock {
 	
-	private final boolean isNetherWood;
-	private final Supplier<Block> block;
+	protected final boolean isNetherWood;
+	protected final Supplier<Block> block;
 
 	public LogStairsBlock(Supplier<BlockState> state, Properties properties) {
 		this(null, state, properties);

@@ -15,8 +15,8 @@ import net.minecraftforge.common.ToolType;
 
 public class LogSlabBlock extends SlabBlock implements IFlammableBlock {
 	
-	private final boolean isNetherWood;
-	private final Supplier<Block> block;
+	protected final boolean isNetherWood;
+	protected final Supplier<Block> block;
 	
 	public LogSlabBlock(Properties properties) {
 		this(null, properties);

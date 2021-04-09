@@ -10,7 +10,7 @@ import net.minecraft.util.NonNullList;
 
 public class PlanksBlock extends Block implements IFlammableBlock {
 
-	private final boolean isNetherWood;
+	protected final boolean isNetherWood;
 	
 	public PlanksBlock(Properties properties) {
 		this(properties, false);
@@ -28,7 +28,7 @@ public class PlanksBlock extends Block implements IFlammableBlock {
 
 	@Override
 	public int getFlammability() {
-		return this.isNetherWood ? 0 : 5;
+		return this.isNetherWood ? 0 : 20;
 	}
 	
 	@Override

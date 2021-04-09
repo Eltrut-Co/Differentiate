@@ -15,8 +15,8 @@ import net.minecraftforge.common.ToolType;
 
 public class LogWallBlock extends WallBlock implements IFlammableBlock {
 	
-	private final boolean isNetherWood;
-	private final Supplier<Block> block;
+	protected final boolean isNetherWood;
+	protected final Supplier<Block> block;
 	
 	public LogWallBlock(Properties properties) {
 		this(null, properties);
