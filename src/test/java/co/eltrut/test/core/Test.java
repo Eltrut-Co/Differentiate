@@ -55,8 +55,8 @@ public class Test {
         	.setGroup("mytutorial")
         	.addModCompat(Mods.QUARK, Mods.COOKIELICIOUS)
         	.addConditions("honey_cookie_tiles")
-        	.build(s);}
-		);
+        	.build(s);
+		});
 		generator.addRecipe(s -> {
 			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataGenUtil.EMPTY, DataGenUtil.EMPTY, DataGenUtil.EMPTY);
 			RecipeUtil.verticalSlabCraftingRecipe(s, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
