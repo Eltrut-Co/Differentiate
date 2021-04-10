@@ -1,9 +1,12 @@
 package co.eltrut.differentiate.core.datagen.provider;
 
+import java.io.IOException;
+
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock.VerticalSlabType;
 import co.eltrut.differentiate.core.Differentiate;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
@@ -21,6 +24,12 @@ public abstract class DifferBlockModelProvider extends BlockStateProvider {
 		this.provider = new DifferModelProvider(gen, modid, exFileHelper) {
 			@Override protected void registerModels() {}
 		};
+	}
+	
+	@Override
+	public void run(DirectoryCache cache) throws IOException {
+		super.run(cache);
+		provider.run(cache);
 	}
 	
 	public void verticalSlabBlock(VerticalSlabBlock block, ResourceLocation texture, ResourceLocation doubleslab) {
@@ -43,7 +52,8 @@ public abstract class DifferBlockModelProvider extends BlockStateProvider {
 		}
 
 		public BlockModelBuilder verticalSlab(String name, ResourceLocation model) {
-			return this.withExistingParent(name, new ResourceLocation("block/slab")/*new ResourceLocation(Differentiate.MOD_ID, "block/vertical_slab")*/)
+			return this.getBuilder(name)
+					.parent(new ModelFile.UncheckedModelFile(new ResourceLocation(Differentiate.MOD_ID, "block/vertical_slab")))
 					.texture("side", model)
 					.texture("bottom", model)
 					.texture("top", model);

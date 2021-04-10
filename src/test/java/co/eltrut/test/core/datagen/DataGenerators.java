@@ -17,6 +17,7 @@ public class DataGenerators {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 		//generator.addProvider(new Recipes(generator));
 		generator.addProvider(new BlockModels(generator, Test.MOD_ID, helper));
+		generator.addProvider(new ItemModels(generator, Test.MOD_ID, helper));
 	}
 	
 }
