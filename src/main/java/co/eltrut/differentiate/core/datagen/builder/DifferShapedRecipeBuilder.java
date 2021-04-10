@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.datagen.recipe;
+package co.eltrut.differentiate.core.datagen.builder;
 
 import java.util.ArrayList;
 import java.util.HashSet;

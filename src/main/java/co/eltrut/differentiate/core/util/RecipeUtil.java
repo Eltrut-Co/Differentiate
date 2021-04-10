@@ -4,10 +4,10 @@ import java.util.function.Consumer;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import co.eltrut.differentiate.core.datagen.recipe.CuttingRecipeBuilder;
-import co.eltrut.differentiate.core.datagen.recipe.DifferCookingRecipeBuilder;
-import co.eltrut.differentiate.core.datagen.recipe.DifferShapedRecipeBuilder;
-import co.eltrut.differentiate.core.datagen.recipe.DifferShapelessRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.builder.CuttingRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.builder.DifferCookingRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
+import co.eltrut.differentiate.core.datagen.builder.DifferShapelessRecipeBuilder;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;

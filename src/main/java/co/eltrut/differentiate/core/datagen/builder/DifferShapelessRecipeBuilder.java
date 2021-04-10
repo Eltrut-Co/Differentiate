@@ -1,5 +1,7 @@
-package co.eltrut.differentiate.core.datagen.recipe;
+package co.eltrut.differentiate.core.datagen.builder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import com.google.gson.JsonArray;
@@ -9,47 +11,83 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class CuttingRecipeBuilder {
+public class DifferShapelessRecipeBuilder {
 
 	private final Item result;
-	private final Ingredient ingredient;
 	private final int count;
+	private final List<Ingredient> ingredients = new ArrayList<>();
 	private String group;
-	private final IRecipeSerializer<?> serializer;
 	private String[] mods;
 	private String[] conditions;
 	private String[] flags;
 
-	public CuttingRecipeBuilder(IRecipeSerializer<?> serializerIn, Ingredient ingredientIn, IItemProvider resultProviderIn, int countIn) {
-	      this.serializer = serializerIn;
-	      this.result = resultProviderIn.asItem();
-	      this.ingredient = ingredientIn;
+	public DifferShapelessRecipeBuilder(IItemProvider resultIn, int countIn) {
+	      this.result = resultIn.asItem();
 	      this.count = countIn;
 	   }
+
+	public DifferShapelessRecipeBuilder addIngredient(ITag<Item> tagIn) {
+		return this.addIngredient(Ingredient.of(tagIn));
+	}
+
+	public DifferShapelessRecipeBuilder addIngredient(IItemProvider itemIn) {
+		return this.addIngredient(itemIn, 1);
+	}
+
+	public DifferShapelessRecipeBuilder addIngredient(IItemProvider itemIn, int quantity) {
+		for (int i = 0; i < quantity; ++i) {
+			this.addIngredient(Ingredient.of(itemIn));
+		}
+
+		return this;
+	}
+
+	public DifferShapelessRecipeBuilder addIngredient(Ingredient ingredientIn) {
+		return this.addIngredient(ingredientIn, 1);
+	}
+
+	public DifferShapelessRecipeBuilder addIngredient(Ingredient ingredientIn, int quantity) {
+		for (int i = 0; i < quantity; ++i) {
+			this.ingredients.add(ingredientIn);
+		}
+
+		return this;
+	}
+
+	public DifferShapelessRecipeBuilder setGroup(String groupIn) {
+		this.group = groupIn;
+		return this;
+	}
 	
-	public CuttingRecipeBuilder addModCompat(String... mods) {
+	public DifferShapelessRecipeBuilder addModCompat(String... mods) {
 		this.mods = mods;
 		return this;
 	}
 
-	public CuttingRecipeBuilder addConditions(String... conditions) {
+	public DifferShapelessRecipeBuilder addConditions(String... conditions) {
 		this.conditions = conditions;
 		return this;
 	}
 
-	public CuttingRecipeBuilder addFlags(String... flags) {
+	public DifferShapelessRecipeBuilder addFlags(String... flags) {
 		this.flags = flags;
 		return this;
+	}
+
+	public void build(Consumer<IFinishedRecipe> consumerIn) {
+		ResourceLocation loc = ForgeRegistries.ITEMS.getKey(this.result);
+		this.build(consumerIn, new ResourceLocation(loc.getNamespace(), "crafting/" + loc.getPath()));
 	}
 
 	public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
 		ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
 		if ((new ResourceLocation(save)).equals(resourcelocation)) {
-			throw new IllegalStateException("Single Item Recipe " + save + " should remove its 'save' argument");
+			throw new IllegalStateException("Shapeless Recipe " + save + " should remove its 'save' argument");
 		} else {
 			this.build(consumerIn, new ResourceLocation(save));
 		}
@@ -57,8 +95,9 @@ public class CuttingRecipeBuilder {
 
 	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
-		consumerIn.accept(new CuttingRecipeBuilder.Result(id, this.serializer, this.group == null ? "" : this.group,
-				this.ingredient, this.result, this.count, this.mods == null ? new String[0] : this.mods,
+		consumerIn.accept(new DifferShapelessRecipeBuilder.Result(id, this.result, this.count,
+				this.group == null ? "" : this.group, this.ingredients,
+				this.mods == null ? new String[0] : this.mods,
 				this.conditions == null ? new String[0] : this.conditions,
 				this.flags == null ? new String[0] : this.flags));
 	}
@@ -68,23 +107,21 @@ public class CuttingRecipeBuilder {
 
 	public static class Result implements IFinishedRecipe {
 		private final ResourceLocation id;
-		private final String group;
-		private final Ingredient ingredient;
 		private final Item result;
 		private final int count;
-		private final IRecipeSerializer<?> serializer;
+		private final String group;
+		private final List<Ingredient> ingredients;
 		private final String[] mods;
 		private final String[] conditions;
 		private final String[] flags;
 
-		public Result(ResourceLocation idIn, IRecipeSerializer<?> serializerIn, String groupIn, Ingredient ingredientIn,
-				Item resultIn, int countIn, String[] mods, String[] conditions, String[] flags) {
+		public Result(ResourceLocation idIn, Item resultIn, int countIn, String groupIn, List<Ingredient> ingredientsIn,
+				String[] mods, String[] conditions, String[] flags) {
 			this.id = idIn;
-			this.serializer = serializerIn;
-			this.group = groupIn;
-			this.ingredient = ingredientIn;
 			this.result = resultIn;
 			this.count = countIn;
+			this.group = groupIn;
+			this.ingredients = ingredientsIn;
 			this.mods = mods;
 			this.conditions = conditions;
 			this.flags = flags;
@@ -94,11 +131,21 @@ public class CuttingRecipeBuilder {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
 			}
-			
-			json.add("ingredient", ingredient.toJson());
-			
-			json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).toString());
-			json.addProperty("count", this.count);
+
+			JsonArray jsonarray = new JsonArray();
+
+			for (Ingredient ingredient : this.ingredients) {
+				jsonarray.add(ingredient.toJson());
+			}
+
+			json.add("ingredients", jsonarray);
+			JsonObject jsonobject = new JsonObject();
+			jsonobject.addProperty("item", ForgeRegistries.ITEMS.getKey(this.result).toString());
+			if (this.count > 1) {
+				jsonobject.addProperty("count", this.count);
+			}
+
+			json.add("result", jsonobject);
 			
 			if (this.conditions.length != 0 || this.mods.length != 0 || this.flags.length != 0) {
 				JsonArray jsonarray1 = new JsonArray();
@@ -127,12 +174,12 @@ public class CuttingRecipeBuilder {
 			}
 		}
 
-		public ResourceLocation getId() {
-			return this.id;
+		public IRecipeSerializer<?> getType() {
+			return IRecipeSerializer.SHAPELESS_RECIPE;
 		}
 
-		public IRecipeSerializer<?> getType() {
-			return this.serializer;
+		public ResourceLocation getId() {
+			return this.id;
 		}
 
 		@Override
