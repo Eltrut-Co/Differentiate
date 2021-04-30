@@ -15,14 +15,17 @@ public abstract class AbstractHelper<T extends IForgeRegistryEntry<T>> implement
 		this.registry = DeferredRegister.create(registry, parent.getModId());
 	}
 	
+	@Override
 	public Registrator getParent() {
 		return this.parent;
 	}
 	
+	@Override
 	public DeferredRegister<T> getDeferredRegister() {
 		return this.registry;
 	}
 	
+	@Override
 	public void register(IEventBus bus) {
 		this.registry.register(bus);
 	}

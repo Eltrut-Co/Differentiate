@@ -90,6 +90,7 @@ public class CuttingRecipeBuilder {
 			this.flags = flags;
 		}
 
+		@Override
 		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
@@ -127,10 +128,12 @@ public class CuttingRecipeBuilder {
 			}
 		}
 
+		@Override
 		public ResourceLocation getId() {
 			return this.id;
 		}
 
+		@Override
 		public IRecipeSerializer<?> getType() {
 			return this.serializer;
 		}

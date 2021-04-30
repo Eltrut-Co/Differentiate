@@ -160,6 +160,7 @@ public class DifferShapedRecipeBuilder {
 			this.flags = flags;
 		}
 
+		@Override
 		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
@@ -214,10 +215,12 @@ public class DifferShapedRecipeBuilder {
 			}
 		}
 
+		@Override
 		public IRecipeSerializer<?> getType() {
 			return IRecipeSerializer.SHAPED_RECIPE;
 		}
 
+		@Override
 		public ResourceLocation getId() {
 			return this.id;
 		}

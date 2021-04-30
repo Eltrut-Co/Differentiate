@@ -102,6 +102,7 @@ public class DifferCookingRecipeBuilder {
 			this.flags = flags;
 		}
 
+		@Override
 		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
@@ -139,10 +140,12 @@ public class DifferCookingRecipeBuilder {
 			}
 		}
 
+		@Override
 		public IRecipeSerializer<?> getType() {
 			return this.serializer;
 		}
 
+		@Override
 		public ResourceLocation getId() {
 			return this.id;
 		}

@@ -127,6 +127,7 @@ public class DifferShapelessRecipeBuilder {
 			this.flags = flags;
 		}
 
+		@Override
 		public void serializeRecipeData(JsonObject json) {
 			if (!this.group.isEmpty()) {
 				json.addProperty("group", this.group);
@@ -174,10 +175,12 @@ public class DifferShapelessRecipeBuilder {
 			}
 		}
 
+		@Override
 		public IRecipeSerializer<?> getType() {
 			return IRecipeSerializer.SHAPELESS_RECIPE;
 		}
 
+		@Override
 		public ResourceLocation getId() {
 			return this.id;
 		}
