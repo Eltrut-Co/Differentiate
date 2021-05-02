@@ -53,13 +53,16 @@ public class CompatUtil {
 		public static final String REFORESTED = "reforested";
 		
 		// Evoslab
+		public static final String ASSEMBLY = "assembly";
 		public static final String BREADCRUMBS = "breadcrumbs";
 		public static final String COOKIELICIOUS = "cookielicious";
 		
 		// Eltrut & Co.
 		public static final String ADDENDUM = "addendum";
+		public static final String DIFFERENTIATE = "differentiate";
 		public static final String FLAMBOYANT = "flamboyant";
 		public static final String LEPTON = "lepton";
+		public static final String MORE_RESPAWN_ANCHORS = "morerespawnanchors";
 		public static final String TOTALLY_WILD = "totally_wild";
 		
 		// Other
