@@ -6,19 +6,10 @@ public class CompatUtil {
 	
 	public static boolean areModsLoaded(String ...mods) {
 		if (mods == null) return true;
-		for (String mod : mods)
-			if (!ModList.get().isLoaded(mod))
-				return false;
-		return true;
-	}
-	
-	public static boolean areModsLoaded(boolean requiresQuark, String ...mods) {
-		if (mods == null) return true;
 		for (String mod : mods) {
-			if (mod == "quark" && !requiresQuark) {
-				continue;
-			}
-			if (!ModList.get().isLoaded(mod)) {
+			if (mod.startsWith("!") && ModList.get().isLoaded(mod)) {
+				return false;
+			} else if (!ModList.get().isLoaded(mod)) {
 				return false;
 			}
 		}
