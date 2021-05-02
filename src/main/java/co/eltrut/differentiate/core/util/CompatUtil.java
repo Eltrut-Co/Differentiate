@@ -65,6 +65,8 @@ public class CompatUtil {
 		// Other
 		public static final String INFERNAL_EXPANSION = "infernalexp";
 		public static final String OUTER_END = "outer_end";
+		public static final String CREATE = "create";
+		public static final String CRUMBS = "crumbs";
 	}
 	
 }
