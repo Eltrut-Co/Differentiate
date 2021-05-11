@@ -66,10 +66,11 @@ public class CompatUtil {
 		public static final String TOTALLY_WILD = "totally_wild";
 		
 		// Other
-		public static final String INFERNAL_EXPANSION = "infernalexp";
-		public static final String OUTER_END = "outer_end";
 		public static final String CREATE = "create";
 		public static final String CRUMBS = "crumbs";
+		public static final String FARMERS_DELIGHT = "farmersdelight";
+		public static final String INFERNAL_EXPANSION = "infernalexp";
+		public static final String OUTER_END = "outer_end";
 	}
 	
 }
