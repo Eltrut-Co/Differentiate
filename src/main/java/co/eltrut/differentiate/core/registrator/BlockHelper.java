@@ -58,14 +58,18 @@ public class BlockHelper extends AbstractHelper<Block> {
 		return Arrays.stream(array).map(mapper).collect(Collectors.toList());
 	}
 	
-	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Properties props, ItemGroup group, String ...mods) {
+	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Supplier<Block> block, Properties props, ItemGroup group, String ...mods) {
 		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
-		RegistryObject<Block> baseBlock = this.createSimpleBlock(name, () -> new Block(props), group, mods);
+		RegistryObject<Block> baseBlock = this.createSimpleBlock(name, block, group, mods);
 		RegistryObject<Block> slabBlock = this.createSimpleBlock(name + "_slab", () -> new SlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, mods);
 		RegistryObject<Block> stairsBlock = this.createSimpleBlock(name + "_stairs", () -> new DifferStairsBlock(baseBlock.get()::defaultBlockState, props), ItemGroup.TAB_BUILDING_BLOCKS, mods);
 		RegistryObject<Block> wallBlock = this.createSimpleBlock(name + "_wall", () -> new WallBlock(props), ItemGroup.TAB_DECORATIONS, mods);
 		RegistryObject<Block> verticalSlabBlock = this.createSimpleBlock(name + "_vertical_slab", () -> new VerticalSlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, modsWithQuark);
 		return new VariantBlocksRepo.Builder().setBlock(baseBlock).setSlabBlock(slabBlock).setStairsBlock(stairsBlock).setWallBlock(wallBlock).setVerticalSlabBlock(verticalSlabBlock).build();
+	}
+	
+	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Properties props, ItemGroup group, String ...mods) {
+		return this.createSimpleBlockWithVariants(name, () -> new Block(props), props, group, mods);
 	}
 	
 }
