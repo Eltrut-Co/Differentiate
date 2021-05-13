@@ -15,7 +15,6 @@ import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.item.BlockItem;
@@ -62,7 +61,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Supplier<Block> block, Properties props, ItemGroup group, String ...mods) {
 		RegistryObject<Block> baseBlock = this.createSimpleBlock(name, block, group, mods);
 		RegistryObject<Block> slabBlock = this.createSlabBlock(name, props, mods);
-		RegistryObject<Block> stairsBlock = this.createStairsBlock(name, baseBlock.get()::defaultBlockState, props, mods);
+		RegistryObject<Block> stairsBlock = this.createStairsBlock(name, () -> new DifferStairsBlock(baseBlock.get()::defaultBlockState, props), mods);
 		RegistryObject<Block> wallBlock = this.createWallBlock(name, props, mods);
 		RegistryObject<Block> verticalSlabBlock = this.createVerticalSlabBlock(name, props, mods);
 		return new VariantBlocksRepo.Builder().setBlock(baseBlock).setSlabBlock(slabBlock).setStairsBlock(stairsBlock).setWallBlock(wallBlock).setVerticalSlabBlock(verticalSlabBlock).build();
@@ -72,19 +71,19 @@ public class BlockHelper extends AbstractHelper<Block> {
 		return this.createSimpleBlockWithVariants(name, () -> new Block(props), props, group, mods);
 	}
 	
-	public RegistryObject<Block> createSlabBlock(String name, Properties props, String ...mods) {
+	protected RegistryObject<Block> createSlabBlock(String name, Properties props, String ...mods) {
 		return this.createSimpleBlock(name + "_slab", () -> new SlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, mods);
 	}
 	
-	public RegistryObject<Block> createStairsBlock(String name, Supplier<BlockState> state, Properties props, String ...mods) {
-		return this.createSimpleBlock(name + "_stairs", () -> new DifferStairsBlock(state, props), ItemGroup.TAB_BUILDING_BLOCKS, mods);
+	protected RegistryObject<Block> createStairsBlock(String name, Supplier<Block> block, String ...mods) {
+		return this.createSimpleBlock(name + "_stairs", block, ItemGroup.TAB_BUILDING_BLOCKS, mods);
 	}
 	
-	public RegistryObject<Block> createWallBlock(String name, Properties props, String ...mods) {
+	protected RegistryObject<Block> createWallBlock(String name, Properties props, String ...mods) {
 		return this.createSimpleBlock(name + "_wall", () -> new WallBlock(props), ItemGroup.TAB_DECORATIONS, mods);
 	}
 	
-	public RegistryObject<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
+	protected RegistryObject<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
 		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
 		return this.createSimpleBlock(name + "_vertical_slab", () -> new VerticalSlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, modsWithQuark);
 	}
