@@ -4,7 +4,9 @@ import co.eltrut.differentiate.common.block.DifferStairsBlock;
 import co.eltrut.differentiate.common.block.FollowBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.block.wood.PlanksBlock;
+import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.core.registrator.BlockHelper;
+import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import co.eltrut.differentiate.core.util.GroupUtil.Groups;
 import co.eltrut.test.common.blocks.TestSlabBlock;
@@ -29,5 +31,7 @@ public class TestBlocks {
 	
 	public static final RegistryObject<Block> SLABBY = HELPER.createBlock("vertical_slab", () -> new VerticalSlabBlock(AbstractBlock.Properties.copy(Blocks.DIRT)), Groups.getVerticalSlabProps());
 	public static final RegistryObject<Block> STAIRS = HELPER.createSimpleBlock("block_three_stairs", () -> new DifferStairsBlock(BLOCK_THREE.get()::defaultBlockState, AbstractBlock.Properties.copy(Blocks.DIRT)), ItemGroup.TAB_BUILDING_BLOCKS);
+	
+	public static final VariantBlocksRepo REPO = HELPER.createSimpleBlockWithVariants("dirttt", Block.Properties.copy(Blocks.DIRT), ItemGroup.TAB_REDSTONE, Mods.DIFFERENTIATE);
 	
 }
