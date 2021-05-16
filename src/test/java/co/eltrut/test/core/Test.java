@@ -7,7 +7,7 @@ import co.eltrut.differentiate.core.datagen.Generator;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.test.core.registry.TestBlocks;
-import co.eltrut.differentiate.core.util.DataUtil;
+import co.eltrut.differentiate.core.util.DatagenUtil;
 import co.eltrut.differentiate.core.util.RecipeUtil;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,7 +58,7 @@ public class Test {
         	.build(s);
 		});
 		generator.addRecipe(s -> {
-			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DataUtil.EMPTY, DataUtil.EMPTY, DataUtil.EMPTY);
+			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DatagenUtil.EMPTY, DatagenUtil.EMPTY, DatagenUtil.EMPTY);
 			RecipeUtil.verticalSlabCraftingRecipe(s, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 		});
 		

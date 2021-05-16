@@ -36,7 +36,7 @@ public abstract class AbstractHelper<T extends IForgeRegistryEntry<T>> implement
 		this.registry.register(bus);
 	}
 	
-	public <U> List<RegistryObject<T>> createMultipleObjects(U[] array, Function<? super U, ? extends RegistryObject<T>> mapper) {
+	public <U> List<RegistryObject<T>> createMultipleEntries(U[] array, Function<? super U, ? extends RegistryObject<T>> mapper) {
 		return Arrays.stream(array).map(mapper).collect(Collectors.toList());
 	}
 	

@@ -16,11 +16,9 @@ import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
 import co.eltrut.differentiate.common.interf.IRendererTileEntity;
 import co.eltrut.differentiate.common.interf.Interface;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.FireBlock;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import co.eltrut.differentiate.core.util.DataUtil;
+import net.minecraft.block.Block;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -59,21 +57,21 @@ public class Registrator {
 	}
 	
 	public static void registerCommon(final FMLCommonSetupEvent event) {
-		registerAttribute(ForgeRegistries.BLOCKS, ICompostableItem.class, s -> ComposterBlock.COMPOSTABLES.put(s.asItem(), ((ICompostableItem)s).getCompostableChance()));
-		registerAttribute(ForgeRegistries.ITEMS, ICompostableItem.class, s -> ComposterBlock.COMPOSTABLES.put(s, ((ICompostableItem)s).getCompostableChance()));
+		registerAttribute(ForgeRegistries.BLOCKS, ICompostableItem.class, Registrator::registerCompostable);
+		registerAttribute(ForgeRegistries.ITEMS, ICompostableItem.class, Registrator::registerCompostable);
 		LOGGER.info("Registered block and item compostables");
 		
-		registerAttribute(ForgeRegistries.BLOCKS, IFlammableBlock.class, s -> ((FireBlock)Blocks.FIRE).setFlammable(s, ((IFlammableBlock)s).getEncouragement(), ((IFlammableBlock)s).getFlammability()));
+		registerAttribute(ForgeRegistries.BLOCKS, IFlammableBlock.class, Registrator::registerFlammable);
 		LOGGER.info("Registered block flammables");
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void registerClient(final FMLClientSetupEvent event) {
-		registerAttribute(ForgeRegistries.BLOCKS, IRenderTypeBlock.class, s -> RenderTypeLookup.setRenderLayer(s, ((IRenderTypeBlock)s).getRenderType()));
+		registerAttribute(ForgeRegistries.BLOCKS, IRenderTypeBlock.class, Registrator::registerCutout);
 		LOGGER.info("Registered block cutouts");
 		
-		registerAttribute(ForgeRegistries.BLOCKS, IColoredBlock.class, s -> Minecraft.getInstance().getBlockColors().register(((IColoredBlock)s).getBlockColor(), s));
-		registerAttribute(ForgeRegistries.ITEMS, IColoredItem.class, s -> Minecraft.getInstance().getItemColors().register(((IColoredItem)s).getItemColor(), s));
+		registerAttribute(ForgeRegistries.BLOCKS, IColoredBlock.class, Registrator::registerBlockColor);
+		registerAttribute(ForgeRegistries.ITEMS, IColoredItem.class, Registrator::registerItemColor);
 		LOGGER.info("Registered block and item colors");
 		
 		registerAttribute(ForgeRegistries.TILE_ENTITIES, IRendererTileEntity.class, s -> ClientRegistry.bindTileEntityRenderer(s, ((IRendererTileEntity)s).getRendererFactory()));
@@ -95,6 +93,31 @@ public class Registrator {
 	
 	public static <T extends IForgeRegistryEntry<T>> void registerAttribute(IForgeRegistry<T> registry, Class<? extends Interface> clazz, Consumer<T> consumer) {
 		registry.getValues().stream().filter(clazz::isInstance).forEach(consumer);
+	}
+	
+	private static void registerCompostable(IItemProvider item) {
+		ICompostableItem compostableItem = (ICompostableItem)item;
+		DataUtil.registerCompostable(item, compostableItem.getCompostableChance());
+	}
+	
+	private static void registerFlammable(Block block) {
+		IFlammableBlock flammableBlock = (IFlammableBlock)block;
+		DataUtil.registerFlammable(block, flammableBlock.getEncouragement(), flammableBlock.getFlammability());
+	}
+	
+	private static void registerCutout(Block block) {
+		IRenderTypeBlock renderTypeBlock = (IRenderTypeBlock)block;
+		DataUtil.registerCutout(block, renderTypeBlock.getRenderType());
+	}
+	
+	private static void registerBlockColor(Block block) {
+		IColoredBlock coloredBlock = (IColoredBlock)block;
+		DataUtil.registerBlockColor(coloredBlock.getBlockColor(), block);
+	}
+	
+	private static void registerItemColor(IItemProvider item) {
+		IColoredItem coloredItem = (IColoredItem)item;
+		DataUtil.registerItemColor(coloredItem.getItemColor(), item);
 	}
 	
 }
