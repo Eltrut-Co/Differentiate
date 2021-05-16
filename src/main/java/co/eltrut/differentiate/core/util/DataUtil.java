@@ -3,7 +3,7 @@ package co.eltrut.differentiate.core.util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IDataProvider;
 
-public class DataGenUtil {
+public class DataUtil {
 	
 	public static final String[] EMPTY = new String[0];
 	

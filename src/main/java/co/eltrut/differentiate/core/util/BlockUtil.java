@@ -1,5 +1,7 @@
 package co.eltrut.differentiate.core.util;
 
+import java.util.List;
+
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,6 +15,8 @@ import net.minecraft.state.Property;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class BlockUtil {
 
@@ -35,6 +39,11 @@ public class BlockUtil {
 			
 			return state.is(block) ? newBehavior.dispense(source, stack) : oldBehavior.dispense(source, stack);
 		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends IForgeRegistryEntry<T>> T[] toArray(List<RegistryObject<T>> list) {
+		return (T[])list.stream().map(RegistryObject::get).toArray();
 	}
 	
 	public static class QuarkProperties {
