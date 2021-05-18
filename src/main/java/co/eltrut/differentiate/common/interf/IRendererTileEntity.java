@@ -1,5 +1,7 @@
 package co.eltrut.differentiate.common.interf;
 
+import java.util.function.Supplier;
+
 import com.google.common.base.Function;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -8,6 +10,6 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IRendererTileEntity<T extends TileEntity> extends Interface {
 	
-	public Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> getRendererFactory();
+	public Supplier<Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>>> getRendererFactory();
 
 }

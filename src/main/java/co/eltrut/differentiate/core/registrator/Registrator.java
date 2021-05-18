@@ -18,9 +18,10 @@ import co.eltrut.differentiate.common.interf.IRendererTileEntity;
 import co.eltrut.differentiate.common.interf.Interface;
 import co.eltrut.differentiate.core.util.DataUtil;
 import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -65,7 +66,6 @@ public class Registrator {
 		LOGGER.info("Registered block flammables");
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void registerClient(final FMLClientSetupEvent event) {
 		registerAttribute(ForgeRegistries.BLOCKS, IRenderTypeBlock.class, Registrator::registerCutout);
 		LOGGER.info("Registered block cutouts");
@@ -74,7 +74,7 @@ public class Registrator {
 		registerAttribute(ForgeRegistries.ITEMS, IColoredItem.class, Registrator::registerItemColor);
 		LOGGER.info("Registered block and item colors");
 		
-		registerAttribute(ForgeRegistries.TILE_ENTITIES, IRendererTileEntity.class, s -> ClientRegistry.bindTileEntityRenderer(s, ((IRendererTileEntity)s).getRendererFactory()));
+		registerAttribute(ForgeRegistries.TILE_ENTITIES, IRendererTileEntity.class, Registrator::registerTileEntityRenderer);
 		LOGGER.info("Registered tile entity renderers");
 	}
 	
@@ -118,6 +118,12 @@ public class Registrator {
 	private static void registerItemColor(IItemProvider item) {
 		IColoredItem coloredItem = (IColoredItem)item;
 		DataUtil.registerItemColor(coloredItem.getItemColor(), item);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static <T extends TileEntity> void registerTileEntityRenderer(TileEntityType<T> tileentity) {
+		IRendererTileEntity<T> rendererTileEntity = (IRendererTileEntity<T>)tileentity;
+		DataUtil.registerTileEntityRenderer(tileentity, rendererTileEntity.getRendererFactory().get());
 	}
 	
 }
