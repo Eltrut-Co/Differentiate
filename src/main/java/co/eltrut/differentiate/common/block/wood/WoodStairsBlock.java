@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import co.eltrut.differentiate.common.block.DifferStairsBlock;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
+import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
 import net.minecraft.block.BlockState;
 
 public class WoodStairsBlock extends DifferStairsBlock implements IFlammableBlock {
@@ -21,12 +22,12 @@ public class WoodStairsBlock extends DifferStairsBlock implements IFlammableBloc
 
 	@Override
 	public int getEncouragement() {
-		return this.isNetherWood ? 0 : 5;
+		return this.isNetherWood ? 0 : FlammableChance.PLANKS.getLeft();
 	}
 
 	@Override
 	public int getFlammability() {
-		return this.isNetherWood ? 0 : 20;
+		return this.isNetherWood ? 0 : FlammableChance.PLANKS.getRight();
 	}
 
 }

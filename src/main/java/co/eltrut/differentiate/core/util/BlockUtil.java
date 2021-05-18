@@ -47,6 +47,7 @@ public class BlockUtil {
 	}
 	
 	public static class QuarkProperties {
+		
 		public static final AbstractBlock.Properties SOUL_SANDSTONE = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BROWN).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(0.8F);
 		public static final AbstractBlock.Properties BIOTITE = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(0.8F);
 		public static final AbstractBlock.Properties MIDORI = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GREEN).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
@@ -57,6 +58,7 @@ public class BlockUtil {
 		public static final AbstractBlock.Properties VOIDSTONE = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
 		public static final AbstractBlock.Properties MYALITE = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
 		public static final AbstractBlock.Properties ELDER_PRISMARINE = AbstractBlock.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 10F).sound(SoundType.STONE);
+		
 	}
 	
 }

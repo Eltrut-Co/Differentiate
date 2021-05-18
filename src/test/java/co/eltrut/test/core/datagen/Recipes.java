@@ -2,9 +2,10 @@ package co.eltrut.test.core.datagen;
 
 import java.util.function.Consumer;
 
-import co.eltrut.differentiate.core.util.DatagenUtil;
-import co.eltrut.differentiate.core.util.RecipeUtil;
+import org.apache.commons.lang3.ArrayUtils;
+
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
+import co.eltrut.differentiate.core.util.RecipeUtil;
 import co.eltrut.test.core.registry.TestBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -33,7 +34,7 @@ public class Recipes extends RecipeProvider {
         	.addConditions("honey_cookie_tiles")
         	.build(consumer);
 		
-		RecipeUtil.slabCraftingRecipe(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DatagenUtil.EMPTY, DatagenUtil.EMPTY, DatagenUtil.EMPTY);
+		RecipeUtil.slabCraftingRecipe(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
 		RecipeUtil.verticalSlabCraftingRecipe(consumer, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 		
 		RecipeUtil.sawingRecipe(Ingredient.of(TestBlocks.BLOCK_THREE.get(), TestBlocks.BLOCK.get()), TestBlocks.BLOCK.get())

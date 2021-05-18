@@ -1,6 +1,7 @@
 package co.eltrut.differentiate.common.block.wood;
 
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
+import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
 import net.minecraft.block.SlabBlock;
 
 public class WoodSlabBlock extends SlabBlock implements IFlammableBlock {
@@ -18,12 +19,12 @@ public class WoodSlabBlock extends SlabBlock implements IFlammableBlock {
 
 	@Override
 	public int getEncouragement() {
-		return this.isNetherWood ? 0: 5;
+		return this.isNetherWood ? 0 : FlammableChance.PLANKS.getLeft();
 	}
 
 	@Override
 	public int getFlammability() {
-		return this.isNetherWood ? 0 : 20;
+		return this.isNetherWood ? 0 : FlammableChance.PLANKS.getRight();
 	}
 
 }

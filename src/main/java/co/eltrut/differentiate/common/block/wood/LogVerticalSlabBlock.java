@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.core.util.BlockUtil;
+import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,12 +46,12 @@ public class LogVerticalSlabBlock extends VerticalSlabBlock implements IFlammabl
 
 	@Override
 	public int getEncouragement() {
-		return this.isNetherWood ? 0 : 5;
+		return this.isNetherWood ? 0 : FlammableChance.WOOD.getLeft();
 	}
 
 	@Override
 	public int getFlammability() {
-		return this.isNetherWood ? 0 : 5;
+		return this.isNetherWood ? 0 : FlammableChance.WOOD.getRight();
 	}
 	
 }

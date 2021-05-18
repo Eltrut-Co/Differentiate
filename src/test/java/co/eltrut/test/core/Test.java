@@ -1,14 +1,12 @@
 package co.eltrut.test.core;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.lang3.ArrayUtils;
 
 import co.eltrut.differentiate.core.datagen.Generator;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
-import co.eltrut.test.core.registry.TestBlocks;
-import co.eltrut.differentiate.core.util.DatagenUtil;
 import co.eltrut.differentiate.core.util.RecipeUtil;
+import co.eltrut.test.core.registry.TestBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
@@ -23,7 +21,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("test")
 @Mod.EventBusSubscriber(modid = "test", bus = Bus.MOD)
 public class Test {
-	private static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "test";
     public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
 	public static Test instance;
@@ -58,7 +55,7 @@ public class Test {
         	.build(s);
 		});
 		generator.addRecipe(s -> {
-			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), DatagenUtil.EMPTY, DatagenUtil.EMPTY, DatagenUtil.EMPTY);
+			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
 			RecipeUtil.verticalSlabCraftingRecipe(s, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 		});
 		
