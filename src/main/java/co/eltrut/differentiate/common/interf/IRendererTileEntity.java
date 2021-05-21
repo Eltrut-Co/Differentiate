@@ -1,8 +1,7 @@
 package co.eltrut.differentiate.common.interf;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
-
-import com.google.common.base.Function;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
