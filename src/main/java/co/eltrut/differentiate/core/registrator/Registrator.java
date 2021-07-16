@@ -113,6 +113,7 @@ public class Registrator {
 	private static void registerBlockColor(Block block) {
 		IColoredBlock coloredBlock = (IColoredBlock)block;
 		DataUtil.registerBlockColor(coloredBlock.getBlockColor(), block);
+		DataUtil.registerItemColor(coloredBlock.getItemColor(), block);
 	}
 	
 	private static void registerItemColor(IItemProvider item) {
