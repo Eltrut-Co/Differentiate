@@ -64,20 +64,24 @@ public class BlockHelper extends AbstractHelper<Block> {
 	}
 	
 	protected RegistryObject<Block> createSlabBlock(String name, Properties props, String ...mods) {
-		return this.createSimpleBlock(name + "_slab", () -> new SlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, mods);
+		String prefix = name.endsWith("bricks") ? name.replace("_bricks", "_brick") : name;
+		return this.createSimpleBlock(prefix + "_slab", () -> new SlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, mods);
 	}
 	
 	protected RegistryObject<Block> createStairsBlock(String name, Supplier<Block> block, String ...mods) {
-		return this.createSimpleBlock(name + "_stairs", block, ItemGroup.TAB_BUILDING_BLOCKS, mods);
+		String prefix = name.endsWith("bricks") ? name.replace("_bricks", "_brick") : name;
+		return this.createSimpleBlock(prefix + "_stairs", block, ItemGroup.TAB_BUILDING_BLOCKS, mods);
 	}
 	
 	protected RegistryObject<Block> createWallBlock(String name, Properties props, String ...mods) {
-		return this.createSimpleBlock(name + "_wall", () -> new WallBlock(props), ItemGroup.TAB_DECORATIONS, mods);
+		String prefix = name.endsWith("bricks") ? name.replace("_bricks", "_brick") : name;
+		return this.createSimpleBlock(prefix + "_wall", () -> new WallBlock(props), ItemGroup.TAB_DECORATIONS, mods);
 	}
 	
 	protected RegistryObject<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
+		String prefix = name.endsWith("bricks") ? name.replace("_bricks", "_brick") : name;
 		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
-		return this.createSimpleBlock(name + "_vertical_slab", () -> new VerticalSlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, modsWithQuark);
+		return this.createSimpleBlock(prefix + "_vertical_slab", () -> new VerticalSlabBlock(props), ItemGroup.TAB_BUILDING_BLOCKS, modsWithQuark);
 	}
 	
 }
