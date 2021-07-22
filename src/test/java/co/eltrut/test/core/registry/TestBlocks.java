@@ -33,6 +33,6 @@ public class TestBlocks {
 	public static final RegistryObject<Block> STAIRS = HELPER.createSimpleBlock("block_three_stairs", () -> new DifferStairsBlock(BLOCK_THREE.get()::defaultBlockState, AbstractBlock.Properties.copy(Blocks.DIRT)), ItemGroup.TAB_BUILDING_BLOCKS);
 	
 	public static final VariantBlocksRepo REPO = HELPER.createSimpleBlockWithVariants("dirttt", () -> new Block(Block.Properties.copy(Blocks.DIRT)), Block.Properties.copy(Blocks.DIRT), ItemGroup.TAB_REDSTONE, Mods.DIFFERENTIATE);
-	public static final VariantBlocksRepo REEPO = HELPER.createSimpleBlockWithVariants("dirt_bricks", Block.Properties.copy(Blocks.DIRT), ItemGroup.TAB_BUILDING_BLOCKS);
+	public static final VariantBlocksRepo REEPO = HELPER.createSimpleBlockWithVariants("dirt_tiles", Block.Properties.copy(Blocks.DIRT), ItemGroup.TAB_BUILDING_BLOCKS);
 	
 }
