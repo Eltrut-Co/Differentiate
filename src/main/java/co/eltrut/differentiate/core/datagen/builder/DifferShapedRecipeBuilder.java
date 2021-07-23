@@ -12,13 +12,13 @@ import java.util.function.Consumer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class DifferShapedRecipeBuilder {
@@ -32,16 +32,16 @@ public class DifferShapedRecipeBuilder {
 	private String[] conditions;
 	private String[] flags;
 
-	public DifferShapedRecipeBuilder(IItemProvider resultIn, int countIn) {
+	public DifferShapedRecipeBuilder(ItemLike resultIn, int countIn) {
 		this.result = resultIn.asItem();
 		this.count = countIn;
 	}
 
-	public DifferShapedRecipeBuilder key(Character symbol, ITag<Item> tagIn) {
+	public DifferShapedRecipeBuilder key(Character symbol, Tag<Item> tagIn) {
 		return this.key(symbol, Ingredient.of(tagIn));
 	}
 
-	public DifferShapedRecipeBuilder key(Character symbol, IItemProvider itemIn) {
+	public DifferShapedRecipeBuilder key(Character symbol, ItemLike itemIn) {
 		return this.key(symbol, Ingredient.of(itemIn));
 	}
 
@@ -85,12 +85,12 @@ public class DifferShapedRecipeBuilder {
 		return this;
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn) {
+	public void build(Consumer<FinishedRecipe> consumerIn) {
 		ResourceLocation loc = ForgeRegistries.ITEMS.getKey(this.result);
 		this.build(consumerIn, new ResourceLocation(loc.getNamespace(), "crafting/" + loc.getPath()));
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
+	public void build(Consumer<FinishedRecipe> consumerIn, String save) {
 		ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
 		if ((new ResourceLocation(save)).equals(resourcelocation)) {
 			throw new IllegalStateException("Shaped Recipe " + save + " should remove its 'save' argument");
@@ -99,7 +99,7 @@ public class DifferShapedRecipeBuilder {
 		}
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+	public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
 		consumerIn.accept(new DifferShapedRecipeBuilder.Result(id, this.result, this.count,
 				this.group == null ? "" : this.group, this.pattern, this.key,
@@ -136,7 +136,7 @@ public class DifferShapedRecipeBuilder {
 		}
 	}
 
-	public class Result implements IFinishedRecipe {
+	public class Result implements FinishedRecipe {
 		private final ResourceLocation id;
 		private final Item result;
 		private final int count;
@@ -216,8 +216,8 @@ public class DifferShapedRecipeBuilder {
 		}
 
 		@Override
-		public IRecipeSerializer<?> getType() {
-			return IRecipeSerializer.SHAPED_RECIPE;
+		public RecipeSerializer<?> getType() {
+			return RecipeSerializer.SHAPED_RECIPE;
 		}
 
 		@Override

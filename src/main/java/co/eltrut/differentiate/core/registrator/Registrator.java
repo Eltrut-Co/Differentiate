@@ -14,13 +14,10 @@ import co.eltrut.differentiate.common.interf.IColoredItem;
 import co.eltrut.differentiate.common.interf.ICompostableItem;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
-import co.eltrut.differentiate.common.interf.IRendererTileEntity;
 import co.eltrut.differentiate.common.interf.Interface;
 import co.eltrut.differentiate.core.util.DataUtil;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -73,9 +70,6 @@ public class Registrator {
 		registerAttribute(ForgeRegistries.BLOCKS, IColoredBlock.class, Registrator::registerBlockColor);
 		registerAttribute(ForgeRegistries.ITEMS, IColoredItem.class, Registrator::registerItemColor);
 		LOGGER.info("Registered block and item colors");
-		
-		registerAttribute(ForgeRegistries.TILE_ENTITIES, IRendererTileEntity.class, Registrator::registerTileEntityRenderer);
-		LOGGER.info("Registered tile entity renderers");
 	}
 	
 	public String getModId() {
@@ -119,12 +113,6 @@ public class Registrator {
 	private static void registerItemColor(ItemLike item) {
 		IColoredItem coloredItem = (IColoredItem)item;
 		DataUtil.registerItemColor(coloredItem.getItemColor(), item);
-	}
-	
-	@SuppressWarnings("unchecked")
-	private static <T extends BlockEntity> void registerTileEntityRenderer(BlockEntityType<T> tileentity) {
-		IRendererTileEntity<T> rendererTileEntity = (IRendererTileEntity<T>)tileentity;
-		DataUtil.registerTileEntityRenderer(tileentity, rendererTileEntity.getRendererFactory().get());
 	}
 	
 }

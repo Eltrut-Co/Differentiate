@@ -4,9 +4,9 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.SpawnEggItem;
 
 public class DifferSpawnEggItem extends SpawnEggItem {
 	
@@ -18,9 +18,9 @@ public class DifferSpawnEggItem extends SpawnEggItem {
 	}
 	
 	@Override
-	public EntityType<?> getType(@Nullable CompoundNBT nbt) {
+	public EntityType<?> getType(@Nullable CompoundTag nbt) {
 		if (nbt != null && nbt.contains("EntityTag", 10)) {
-	         CompoundNBT compoundnbt = nbt.getCompound("EntityTag");
+	         CompoundTag compoundnbt = nbt.getCompound("EntityTag");
 	         if (compoundnbt.contains("id", 8)) {
 	            return EntityType.byString(compoundnbt.getString("id")).orElse(this.defaultType.get());
 	         }

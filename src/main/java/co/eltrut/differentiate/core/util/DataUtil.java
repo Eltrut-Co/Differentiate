@@ -43,10 +43,6 @@ public class DataUtil {
 		Minecraft.getInstance().getItemColors().register(color, items);
 	}
 	
-	public static <T extends BlockEntity> void registerTileEntityRenderer(BlockEntityType<T> tileEntityType, Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> rendererFactory) {
-		ClientRegistry.bindTileEntityRenderer(tileEntityType, rendererFactory);
-	}
-	
 	public static class CompostableChance {
 		
 		public static final float SEEDS = 0.3F;

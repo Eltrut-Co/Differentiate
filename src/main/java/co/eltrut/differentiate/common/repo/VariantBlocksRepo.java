@@ -1,7 +1,7 @@
 package co.eltrut.differentiate.common.repo;
 
-import net.minecraft.block.Block;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 public class VariantBlocksRepo {
 	

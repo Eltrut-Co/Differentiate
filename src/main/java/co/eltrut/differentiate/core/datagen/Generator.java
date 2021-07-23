@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import co.eltrut.differentiate.core.datagen.provider.DifferRecipeProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class Generator {
@@ -21,7 +21,7 @@ public class Generator {
 		this.recipes = new DifferRecipeProvider(generator);
 	}
 	
-	public void addRecipe(Consumer<Consumer<IFinishedRecipe>> recipe) {
+	public void addRecipe(Consumer<Consumer<FinishedRecipe>> recipe) {
 		this.recipes.addRecipe(recipe);
 	}
 	

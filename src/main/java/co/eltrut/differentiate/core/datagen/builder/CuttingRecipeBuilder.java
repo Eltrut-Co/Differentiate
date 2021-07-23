@@ -5,12 +5,12 @@ import java.util.function.Consumer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class CuttingRecipeBuilder {
@@ -19,12 +19,12 @@ public class CuttingRecipeBuilder {
 	private final Ingredient ingredient;
 	private final int count;
 	private String group;
-	private final IRecipeSerializer<?> serializer;
+	private final RecipeSerializer<?> serializer;
 	private String[] mods;
 	private String[] conditions;
 	private String[] flags;
 
-	public CuttingRecipeBuilder(IRecipeSerializer<?> serializerIn, Ingredient ingredientIn, IItemProvider resultProviderIn, int countIn) {
+	public CuttingRecipeBuilder(RecipeSerializer<?> serializerIn, Ingredient ingredientIn, ItemLike resultProviderIn, int countIn) {
 	      this.serializer = serializerIn;
 	      this.result = resultProviderIn.asItem();
 	      this.ingredient = ingredientIn;
@@ -46,7 +46,7 @@ public class CuttingRecipeBuilder {
 		return this;
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
+	public void build(Consumer<FinishedRecipe> consumerIn, String save) {
 		ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
 		if ((new ResourceLocation(save)).equals(resourcelocation)) {
 			throw new IllegalStateException("Single Item Recipe " + save + " should remove its 'save' argument");
@@ -55,7 +55,7 @@ public class CuttingRecipeBuilder {
 		}
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+	public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
 		consumerIn.accept(new CuttingRecipeBuilder.Result(id, this.serializer, this.group == null ? "" : this.group,
 				this.ingredient, this.result, this.count, this.mods == null ? new String[0] : this.mods,
@@ -66,18 +66,18 @@ public class CuttingRecipeBuilder {
 	private void validate(ResourceLocation id) {
 	}
 
-	public static class Result implements IFinishedRecipe {
+	public static class Result implements FinishedRecipe {
 		private final ResourceLocation id;
 		private final String group;
 		private final Ingredient ingredient;
 		private final Item result;
 		private final int count;
-		private final IRecipeSerializer<?> serializer;
+		private final RecipeSerializer<?> serializer;
 		private final String[] mods;
 		private final String[] conditions;
 		private final String[] flags;
 
-		public Result(ResourceLocation idIn, IRecipeSerializer<?> serializerIn, String groupIn, Ingredient ingredientIn,
+		public Result(ResourceLocation idIn, RecipeSerializer<?> serializerIn, String groupIn, Ingredient ingredientIn,
 				Item resultIn, int countIn, String[] mods, String[] conditions, String[] flags) {
 			this.id = idIn;
 			this.serializer = serializerIn;
@@ -134,7 +134,7 @@ public class CuttingRecipeBuilder {
 		}
 
 		@Override
-		public IRecipeSerializer<?> getType() {
+		public RecipeSerializer<?> getType() {
 			return this.serializer;
 		}
 

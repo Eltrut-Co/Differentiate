@@ -6,13 +6,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.item.crafting.CookingRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -23,12 +22,12 @@ public class DifferCookingRecipeBuilder {
 	private final float experience;
 	private final int cookingTime;
 	private String group;
-	private final CookingRecipeSerializer<?> recipeSerializer;
+	private final SimpleCookingSerializer<?> recipeSerializer;
 	private String[] mods;
 	private String[] conditions;
 	private String[] flags;
 
-	public DifferCookingRecipeBuilder(ItemLike resultIn, Ingredient ingredientIn, float experienceIn, int cookingTimeIn, CookingRecipeSerializer<?> serializer) {
+	public DifferCookingRecipeBuilder(ItemLike resultIn, Ingredient ingredientIn, float experienceIn, int cookingTimeIn, SimpleCookingSerializer<?> serializer) {
 	      this.result = resultIn.asItem();
 	      this.ingredient = ingredientIn;
 	      this.experience = experienceIn;

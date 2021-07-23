@@ -6,8 +6,8 @@ import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock.VerticalSlabType;
 import co.eltrut.differentiate.core.Differentiate;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -27,7 +27,7 @@ public abstract class DifferBlockModelProvider extends BlockStateProvider {
 	}
 	
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		super.run(cache);
 		provider.run(cache);
 	}

@@ -9,76 +9,76 @@ import co.eltrut.differentiate.core.datagen.builder.DifferCookingRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.builder.DifferShapelessRecipeBuilder;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
-import net.minecraft.block.Block;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.CookingRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCookingSerializer;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeUtil {
 	
-	public static DifferShapedRecipeBuilder shapedRecipe(IItemProvider resultIn) {
+	public static DifferShapedRecipeBuilder shapedRecipe(ItemLike resultIn) {
 		return shapedRecipe(resultIn, 1);
 	}
 
-	public static DifferShapedRecipeBuilder shapedRecipe(IItemProvider resultIn, int countIn) {
+	public static DifferShapedRecipeBuilder shapedRecipe(ItemLike resultIn, int countIn) {
 		return new DifferShapedRecipeBuilder(resultIn, countIn);
 	}
 	
-	public static DifferShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn) {
+	public static DifferShapelessRecipeBuilder shapelessRecipe(ItemLike resultIn) {
 		return shapelessRecipe(resultIn, 1);
 	}
 
-	public static DifferShapelessRecipeBuilder shapelessRecipe(IItemProvider resultIn, int countIn) {
+	public static DifferShapelessRecipeBuilder shapelessRecipe(ItemLike resultIn, int countIn) {
 		return new DifferShapelessRecipeBuilder(resultIn, countIn);
 	}
 	
-	public static DifferCookingRecipeBuilder cookingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
-			float experienceIn, int cookingTimeIn, CookingRecipeSerializer<?> serializer) {
+	public static DifferCookingRecipeBuilder cookingRecipe(Ingredient ingredientIn, ItemLike resultIn,
+			float experienceIn, int cookingTimeIn, SimpleCookingSerializer<?> serializer) {
 		return new DifferCookingRecipeBuilder(resultIn, ingredientIn, experienceIn, cookingTimeIn, serializer);
 	}
 
-	public static DifferCookingRecipeBuilder blastingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+	public static DifferCookingRecipeBuilder blastingRecipe(Ingredient ingredientIn, ItemLike resultIn,
 			float experienceIn, int cookingTimeIn) {
-		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.BLASTING_RECIPE);
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, RecipeSerializer.BLASTING_RECIPE);
 	}
 
-	public static DifferCookingRecipeBuilder smeltingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+	public static DifferCookingRecipeBuilder smeltingRecipe(Ingredient ingredientIn, ItemLike resultIn,
 			float experienceIn, int cookingTimeIn) {
-		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMELTING_RECIPE);
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, RecipeSerializer.SMELTING_RECIPE);
 	}
 	
-	public static DifferCookingRecipeBuilder smokingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+	public static DifferCookingRecipeBuilder smokingRecipe(Ingredient ingredientIn, ItemLike resultIn,
 			float experienceIn, int cookingTimeIn) {
-		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, IRecipeSerializer.SMOKING_RECIPE);
+		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn, RecipeSerializer.SMOKING_RECIPE);
 	}
 	
-	public static DifferCookingRecipeBuilder bakingRecipe(Ingredient ingredientIn, IItemProvider resultIn,
+	public static DifferCookingRecipeBuilder bakingRecipe(Ingredient ingredientIn, ItemLike resultIn,
 			float experienceIn, int cookingTimeIn) {
 		return cookingRecipe(ingredientIn, resultIn, experienceIn, cookingTimeIn,
-				(CookingRecipeSerializer<?>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation(Mods.ENVIRONMENTAL, "baking")));
+				(SimpleCookingSerializer<?>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation(Mods.ENVIRONMENTAL, "baking")));
 	}
 	
-	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, IItemProvider resultIn) {
+	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, ItemLike resultIn) {
 		return stonecuttingRecipe(ingredientIn, resultIn, 1);
 	}
 
-	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, IItemProvider resultIn, int countIn) {
-		return new CuttingRecipeBuilder(IRecipeSerializer.STONECUTTER, ingredientIn, resultIn, countIn);
+	public static CuttingRecipeBuilder stonecuttingRecipe(Ingredient ingredientIn, ItemLike resultIn, int countIn) {
+		return new CuttingRecipeBuilder(RecipeSerializer.STONECUTTER, ingredientIn, resultIn, countIn);
 	}
 	
-	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, IItemProvider resultIn) {
+	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, ItemLike resultIn) {
 		return sawingRecipe(ingredientIn, resultIn, 1);
 	}
 	
-	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, IItemProvider resultIn, int countIn) {
+	public static CuttingRecipeBuilder sawingRecipe(Ingredient ingredientIn, ItemLike resultIn, int countIn) {
 		return new CuttingRecipeBuilder(ForgeRegistries.RECIPE_SERIALIZERS.getValue(new ResourceLocation(Mods.ENVIRONMENTAL, "sawing")), ingredientIn, resultIn, countIn);
 	}
 	
-	public static void slabCraftingRecipe(Consumer<IFinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
+	public static void slabCraftingRecipe(Consumer<FinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
 		shapedRecipe(result, 6)
     		.patternLine("XXX")
     		.key('X', parent)
@@ -88,7 +88,7 @@ public class RecipeUtil {
     		.build(consumer);
 	}
 	
-	public static void stairsCraftingRecipe(Consumer<IFinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
+	public static void stairsCraftingRecipe(Consumer<FinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
 		shapedRecipe(result, 4)
     		.patternLine("X  ")
     		.patternLine("XX ")
@@ -100,7 +100,7 @@ public class RecipeUtil {
     		.build(consumer);
 	}
 	
-	public static void wallCraftingRecipe(Consumer<IFinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
+	public static void wallCraftingRecipe(Consumer<FinishedRecipe> consumer, Block result, Block parent, String[] mods, String[] conditions, String[] flags) {
 		shapedRecipe(result, 6)
     		.patternLine("XXX")
     		.patternLine("XXX")
@@ -111,7 +111,7 @@ public class RecipeUtil {
     		.build(consumer);
 	}
 	
-	public static void verticalSlabCraftingRecipe(Consumer<IFinishedRecipe> consumer, Block verticalSlab, Block slab, String[] mods, String[] conditions, String[] flags) {
+	public static void verticalSlabCraftingRecipe(Consumer<FinishedRecipe> consumer, Block verticalSlab, Block slab, String[] mods, String[] conditions, String[] flags) {
 		shapedRecipe(verticalSlab, 3)
     		.patternLine("X")
     		.patternLine("X")
@@ -123,7 +123,7 @@ public class RecipeUtil {
     		.build(consumer);
 	}
 	
-	public static void verticalSlabRevertCraftingRecipe(Consumer<IFinishedRecipe> consumer, Block slab, Block verticalSlab, String[] mods, String[] conditions, String[] flags) {
+	public static void verticalSlabRevertCraftingRecipe(Consumer<FinishedRecipe> consumer, Block slab, Block verticalSlab, String[] mods, String[] conditions, String[] flags) {
 		shapelessRecipe(slab)
 			.addIngredient(verticalSlab.asItem())
 			.addModCompat(mods)

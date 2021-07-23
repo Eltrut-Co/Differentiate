@@ -1,7 +1,7 @@
 package co.eltrut.differentiate.common.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class FuelItem extends Item {
 

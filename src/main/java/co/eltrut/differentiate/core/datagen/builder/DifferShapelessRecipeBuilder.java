@@ -7,13 +7,13 @@ import java.util.function.Consumer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class DifferShapelessRecipeBuilder {
@@ -26,20 +26,20 @@ public class DifferShapelessRecipeBuilder {
 	private String[] conditions;
 	private String[] flags;
 
-	public DifferShapelessRecipeBuilder(IItemProvider resultIn, int countIn) {
+	public DifferShapelessRecipeBuilder(ItemLike resultIn, int countIn) {
 	      this.result = resultIn.asItem();
 	      this.count = countIn;
 	   }
 
-	public DifferShapelessRecipeBuilder addIngredient(ITag<Item> tagIn) {
+	public DifferShapelessRecipeBuilder addIngredient(Tag<Item> tagIn) {
 		return this.addIngredient(Ingredient.of(tagIn));
 	}
 
-	public DifferShapelessRecipeBuilder addIngredient(IItemProvider itemIn) {
+	public DifferShapelessRecipeBuilder addIngredient(ItemLike itemIn) {
 		return this.addIngredient(itemIn, 1);
 	}
 
-	public DifferShapelessRecipeBuilder addIngredient(IItemProvider itemIn, int quantity) {
+	public DifferShapelessRecipeBuilder addIngredient(ItemLike itemIn, int quantity) {
 		for (int i = 0; i < quantity; ++i) {
 			this.addIngredient(Ingredient.of(itemIn));
 		}
@@ -79,12 +79,12 @@ public class DifferShapelessRecipeBuilder {
 		return this;
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn) {
+	public void build(Consumer<FinishedRecipe> consumerIn) {
 		ResourceLocation loc = ForgeRegistries.ITEMS.getKey(this.result);
 		this.build(consumerIn, new ResourceLocation(loc.getNamespace(), "crafting/" + loc.getPath()));
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
+	public void build(Consumer<FinishedRecipe> consumerIn, String save) {
 		ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
 		if ((new ResourceLocation(save)).equals(resourcelocation)) {
 			throw new IllegalStateException("Shapeless Recipe " + save + " should remove its 'save' argument");
@@ -93,7 +93,7 @@ public class DifferShapelessRecipeBuilder {
 		}
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+	public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
 		consumerIn.accept(new DifferShapelessRecipeBuilder.Result(id, this.result, this.count,
 				this.group == null ? "" : this.group, this.ingredients,
@@ -105,7 +105,7 @@ public class DifferShapelessRecipeBuilder {
 	private void validate(ResourceLocation id) {
 	}
 
-	public static class Result implements IFinishedRecipe {
+	public static class Result implements FinishedRecipe {
 		private final ResourceLocation id;
 		private final Item result;
 		private final int count;
@@ -176,8 +176,8 @@ public class DifferShapelessRecipeBuilder {
 		}
 
 		@Override
-		public IRecipeSerializer<?> getType() {
-			return IRecipeSerializer.SHAPELESS_RECIPE;
+		public RecipeSerializer<?> getType() {
+			return RecipeSerializer.SHAPELESS_RECIPE;
 		}
 
 		@Override

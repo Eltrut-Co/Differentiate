@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import com.google.gson.JsonObject;
 
 import co.eltrut.differentiate.core.Differentiate;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
