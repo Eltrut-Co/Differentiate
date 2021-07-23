@@ -2,9 +2,9 @@ package co.eltrut.differentiate.common.block.myalite;
 
 import co.eltrut.differentiate.client.provider.MyaliteColorProvider;
 import co.eltrut.differentiate.common.interf.IColoredBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.world.level.block.SlabBlock;
 
 public class MyaliteSlabBlock extends SlabBlock implements IColoredBlock {
 
@@ -13,12 +13,12 @@ public class MyaliteSlabBlock extends SlabBlock implements IColoredBlock {
 	}
 
 	@Override
-	public IItemColor getItemColor() {
+	public ItemColor getItemColor() {
 		return MyaliteColorProvider.getItemColor();
 	}
 
 	@Override
-	public IBlockColor getBlockColor() {
+	public BlockColor getBlockColor() {
 		return MyaliteColorProvider.getBlockColor();
 	}
 

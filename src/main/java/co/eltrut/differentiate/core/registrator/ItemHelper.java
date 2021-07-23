@@ -4,9 +4,9 @@ import java.util.function.Supplier;
 
 import co.eltrut.differentiate.common.item.FuelItem;
 import co.eltrut.differentiate.core.util.GroupUtil;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemHelper extends AbstractHelper<Item> {
@@ -19,7 +19,7 @@ public class ItemHelper extends AbstractHelper<Item> {
 		return this.registry.register(name, item);
 	}
 	
-	public RegistryObject<Item> createSimpleItem(String name, ItemGroup group, String ...mods) {
+	public RegistryObject<Item> createSimpleItem(String name, CreativeModeTab group, String ...mods) {
 		return this.createItem(name, () -> new Item(GroupUtil.getProps(group, mods)));
 	}
 	

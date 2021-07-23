@@ -1,9 +1,9 @@
 package co.eltrut.differentiate.common.interf;
 
-import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.color.block.BlockColor;
 
 public interface IColoredBlock extends IColoredItem {
 	
-	public IBlockColor getBlockColor();
+	public BlockColor getBlockColor();
 	
 }

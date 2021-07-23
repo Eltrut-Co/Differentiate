@@ -17,10 +17,10 @@ import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
 import co.eltrut.differentiate.common.interf.IRendererTileEntity;
 import co.eltrut.differentiate.common.interf.Interface;
 import co.eltrut.differentiate.core.util.DataUtil;
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -42,7 +42,7 @@ public class Registrator {
 		
 		this.helpers.put(ForgeRegistries.ITEMS, new ItemHelper(this));
 		this.helpers.put(ForgeRegistries.BLOCKS, new BlockHelper(this));
-		this.helpers.put(ForgeRegistries.TILE_ENTITIES, new TileEntityHelper(this));
+		this.helpers.put(ForgeRegistries.BLOCK_ENTITIES, new BlockEntityHelper(this));
 	}
 	
 	public static Registrator create(String modid, Consumer<Registrator> consumer) {
@@ -95,7 +95,7 @@ public class Registrator {
 		registry.getValues().stream().filter(clazz::isInstance).forEach(consumer);
 	}
 	
-	private static void registerCompostable(IItemProvider item) {
+	private static void registerCompostable(ItemLike item) {
 		ICompostableItem compostableItem = (ICompostableItem)item;
 		DataUtil.registerCompostable(item, compostableItem.getCompostableChance());
 	}
@@ -116,13 +116,13 @@ public class Registrator {
 		DataUtil.registerItemColor(coloredBlock.getItemColor(), block);
 	}
 	
-	private static void registerItemColor(IItemProvider item) {
+	private static void registerItemColor(ItemLike item) {
 		IColoredItem coloredItem = (IColoredItem)item;
 		DataUtil.registerItemColor(coloredItem.getItemColor(), item);
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static <T extends TileEntity> void registerTileEntityRenderer(TileEntityType<T> tileentity) {
+	private static <T extends BlockEntity> void registerTileEntityRenderer(BlockEntityType<T> tileentity) {
 		IRendererTileEntity<T> rendererTileEntity = (IRendererTileEntity<T>)tileentity;
 		DataUtil.registerTileEntityRenderer(tileentity, rendererTileEntity.getRendererFactory().get());
 	}

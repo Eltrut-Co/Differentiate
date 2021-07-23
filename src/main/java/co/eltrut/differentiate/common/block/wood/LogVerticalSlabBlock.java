@@ -6,12 +6,12 @@ import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.core.util.BlockUtil;
 import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolType;
 
 public class LogVerticalSlabBlock extends VerticalSlabBlock implements IFlammableBlock {
@@ -37,12 +37,12 @@ public class LogVerticalSlabBlock extends VerticalSlabBlock implements IFlammabl
 		this.isNetherWood = isNetherWood;
 	}
 	
-	@Override
-	public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType) {
-		if (toolType == ToolType.AXE && this.block != null)
-			return BlockUtil.transferAllBlockStates(state, this.block.get().defaultBlockState());
-		return super.getToolModifiedState(state, world, pos, player, stack, toolType);
-	}
+//	@Override
+//	public BlockState getToolModifiedState(BlockState state, LevelAccessor world, BlockPos pos, Player player, ItemStack stack, ToolType toolType) {
+//		if (toolType == ToolType.AXE && this.block != null)
+//			return BlockUtil.transferAllBlockStates(state, this.block.get().defaultBlockState());
+//		return super.getToolModifiedState(state, world, pos, player, stack, toolType);
+//	}
 
 	@Override
 	public int getEncouragement() {

@@ -2,7 +2,7 @@ package co.eltrut.differentiate.common.block.wood;
 
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.world.level.block.SlabBlock;
 
 public class WoodSlabBlock extends SlabBlock implements IFlammableBlock {
 

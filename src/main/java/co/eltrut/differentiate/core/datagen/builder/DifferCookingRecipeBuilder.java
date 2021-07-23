@@ -5,14 +5,15 @@ import java.util.function.Consumer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.item.crafting.CookingRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class DifferCookingRecipeBuilder {
@@ -27,7 +28,7 @@ public class DifferCookingRecipeBuilder {
 	private String[] conditions;
 	private String[] flags;
 
-	public DifferCookingRecipeBuilder(IItemProvider resultIn, Ingredient ingredientIn, float experienceIn, int cookingTimeIn, CookingRecipeSerializer<?> serializer) {
+	public DifferCookingRecipeBuilder(ItemLike resultIn, Ingredient ingredientIn, float experienceIn, int cookingTimeIn, CookingRecipeSerializer<?> serializer) {
 	      this.result = resultIn.asItem();
 	      this.ingredient = ingredientIn;
 	      this.experience = experienceIn;
@@ -50,11 +51,11 @@ public class DifferCookingRecipeBuilder {
 		return this;
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn) {
+	public void build(Consumer<FinishedRecipe> consumerIn) {
 		this.build(consumerIn, ForgeRegistries.ITEMS.getKey(this.result));
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, String save) {
+	public void build(Consumer<FinishedRecipe> consumerIn, String save) {
 		ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
 		ResourceLocation resourcelocation1 = new ResourceLocation(save);
 		if (resourcelocation1.equals(resourcelocation)) {
@@ -64,7 +65,7 @@ public class DifferCookingRecipeBuilder {
 		}
 	}
 
-	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+	public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
 		consumerIn.accept(new DifferCookingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.ingredient,
 						this.result, this.experience, this.cookingTime, this.recipeSerializer, this.mods == null ? new String[0] : this.mods,
@@ -75,20 +76,20 @@ public class DifferCookingRecipeBuilder {
 	private void validate(ResourceLocation id) {
 	}
 
-	public static class Result implements IFinishedRecipe {
+	public static class Result implements FinishedRecipe {
 		private final ResourceLocation id;
 		private final String group;
 		private final Ingredient ingredient;
 		private final Item result;
 		private final float experience;
 		private final int cookingTime;
-		private final IRecipeSerializer<? extends AbstractCookingRecipe> serializer;
+		private final RecipeSerializer<? extends AbstractCookingRecipe> serializer;
 		private final String[] mods;
 		private final String[] conditions;
 		private final String[] flags;
 
 		public Result(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, Item resultIn, float experienceIn,
-				int cookingTimeIn, IRecipeSerializer<? extends AbstractCookingRecipe> serializerIn, String[] mods,
+				int cookingTimeIn, RecipeSerializer<? extends AbstractCookingRecipe> serializerIn, String[] mods,
 				String[] conditions, String[] flags) {
 			this.id = idIn;
 			this.group = groupIn;
@@ -141,7 +142,7 @@ public class DifferCookingRecipeBuilder {
 		}
 
 		@Override
-		public IRecipeSerializer<?> getType() {
+		public RecipeSerializer<?> getType() {
 			return this.serializer;
 		}
 

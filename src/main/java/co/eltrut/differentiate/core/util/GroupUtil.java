@@ -2,10 +2,10 @@ package co.eltrut.differentiate.core.util;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class GroupUtil {
 	
@@ -18,7 +18,7 @@ public class GroupUtil {
 		return -1;
 	}
 	
-	public static void fillItem(Item item, Item followItem, ItemGroup group, NonNullList<ItemStack> items) {
+	public static void fillItem(Item item, Item followItem, CreativeModeTab group, NonNullList<ItemStack> items) {
 		int index = getIndex(followItem, items);
 		if (index != -1) {
 			items.add(++index, new ItemStack(item));
@@ -27,16 +27,16 @@ public class GroupUtil {
 		}
 	}
 	
-	public static Item.Properties getProps(ItemGroup group, String ...mods) {
+	public static Item.Properties getProps(CreativeModeTab group, String ...mods) {
 		return CompatUtil.areModsLoaded(mods) ? new Item.Properties().tab(group) : new Item.Properties().tab(null);
 	}
 	
 	public static class Groups {
 		
-		public static final ItemGroup SLABS = ItemGroup.TAB_BUILDING_BLOCKS;
-		public static final ItemGroup STAIRS = ItemGroup.TAB_BUILDING_BLOCKS;
-		public static final ItemGroup WALLS = ItemGroup.TAB_DECORATIONS;
-		public static final ItemGroup VERTICAL_SLABS = ItemGroup.TAB_BUILDING_BLOCKS;
+		public static final CreativeModeTab SLABS = CreativeModeTab.TAB_BUILDING_BLOCKS;
+		public static final CreativeModeTab STAIRS = CreativeModeTab.TAB_BUILDING_BLOCKS;
+		public static final CreativeModeTab WALLS = CreativeModeTab.TAB_DECORATIONS;
+		public static final CreativeModeTab VERTICAL_SLABS = CreativeModeTab.TAB_BUILDING_BLOCKS;
 		
 		public static Item.Properties getSlabProps(String ...mods) {
 			return GroupUtil.getProps(SLABS, mods);

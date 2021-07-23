@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.util.stream.IntStream;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.gen.PerlinNoiseGenerator;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.levelgen.SimpleRandomSource;
+import net.minecraft.world.level.levelgen.synth.PerlinNoise;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,24 +18,24 @@ public class MyaliteColorProvider {
 	
 	public static final float myaliteS = 0.7F;
 	public static final float myaliteB = 0.8F;
-	public static final PerlinNoiseGenerator NOISE = new PerlinNoiseGenerator(new SharedSeedRandom(4543543), IntStream.rangeClosed(-4, 4));
+	public static final PerlinNoise NOISE = new PerlinNoise(new SimpleRandomSource(4543543), IntStream.rangeClosed(-4, 4));
 	
     @OnlyIn(Dist.CLIENT)
-	public static IBlockColor getBlockColor() {
+	public static BlockColor getBlockColor() {
 		return (state, world, pos, tintIndex) -> getColor(pos, myaliteS, myaliteB);
 	}
 	
     @OnlyIn(Dist.CLIENT)
-	public static IItemColor getItemColor() {
+	public static ItemColor getItemColor() {
 		return (stack, tintIndex) -> {
 			Minecraft mc = Minecraft.getInstance();
 			if(mc.player == null)
 				return getColor(BlockPos.ZERO, myaliteS, myaliteB);
 			
 			BlockPos pos = mc.player.blockPosition();
-			RayTraceResult res = mc.hitResult;
-			if(res != null && res instanceof BlockRayTraceResult)
-				pos = ((BlockRayTraceResult) res).getBlockPos();
+			HitResult res = mc.hitResult;
+			if(res != null && res instanceof BlockHitResult)
+				pos = ((BlockHitResult) res).getBlockPos();
 			
 			return getColor(pos, myaliteS, myaliteB);
 		};
@@ -54,7 +54,7 @@ public class MyaliteColorProvider {
 		double zv = z + Math.cos(x) * 2;
 		double yv = y + Math.sin(y + Math.PI / 4) * 2;
 		
-		double noise = NOISE.getValue(xv + yv, zv + (yv * 2), false);
+		double noise = NOISE.getValue(xv + yv, zv + (yv * 2), 0.0D);
 		
     	double h = noise * (range / 2) - range + shift;
 

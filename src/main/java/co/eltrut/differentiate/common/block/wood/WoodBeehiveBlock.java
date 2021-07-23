@@ -2,7 +2,7 @@ package co.eltrut.differentiate.common.block.wood;
 
 import co.eltrut.differentiate.common.interf.IFlammableBlock;
 import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
-import net.minecraft.block.BeehiveBlock;
+import net.minecraft.world.level.block.BeehiveBlock;
 
 public class WoodBeehiveBlock extends BeehiveBlock implements IFlammableBlock {
 

@@ -1,11 +1,11 @@
 package co.eltrut.differentiate.common.block;
 
 import co.eltrut.differentiate.core.util.GroupUtil;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 public class FollowBlock extends Block {
 	
@@ -17,7 +17,7 @@ public class FollowBlock extends Block {
 	}
 	
 	@Override
-	public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
 		GroupUtil.fillItem(this.asItem(), followItem, group, items);
 	}
 

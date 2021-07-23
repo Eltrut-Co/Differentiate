@@ -4,25 +4,25 @@ import java.util.function.Function;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.FireBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.IItemProvider;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
 
 public class DataUtil {
 
-	public static void registerCompostable(IItemProvider item, float compostableChance) {
+	public static void registerCompostable(ItemLike item, float compostableChance) {
 		ComposterBlock.COMPOSTABLES.put(item, compostableChance);
 	}
 	
@@ -35,15 +35,15 @@ public class DataUtil {
 		RenderTypeLookup.setRenderLayer(block, type);
 	}
 	
-	public static void registerBlockColor(IBlockColor color, Block ...blocks) {
+	public static void registerBlockColor(BlockColor color, Block ...blocks) {
 		Minecraft.getInstance().getBlockColors().register(color, blocks);
 	}
 	
-	public static void registerItemColor(IItemColor color, IItemProvider ...items) {
+	public static void registerItemColor(ItemColor color, ItemLike ...items) {
 		Minecraft.getInstance().getItemColors().register(color, items);
 	}
 	
-	public static <T extends TileEntity> void registerTileEntityRenderer(TileEntityType<T> tileEntityType, Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> rendererFactory) {
+	public static <T extends BlockEntity> void registerTileEntityRenderer(BlockEntityType<T> tileEntityType, Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> rendererFactory) {
 		ClientRegistry.bindTileEntityRenderer(tileEntityType, rendererFactory);
 	}
 	
