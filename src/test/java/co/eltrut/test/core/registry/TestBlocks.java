@@ -1,6 +1,5 @@
 package co.eltrut.test.core.registry;
 
-import co.eltrut.differentiate.common.block.DifferStairsBlock;
 import co.eltrut.differentiate.common.block.FollowBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.block.wood.PlanksBlock;
@@ -11,7 +10,6 @@ import co.eltrut.differentiate.core.util.GroupUtil;
 import co.eltrut.differentiate.core.util.GroupUtil.Groups;
 import co.eltrut.test.common.blocks.TestSlabBlock;
 import co.eltrut.test.core.Test;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;

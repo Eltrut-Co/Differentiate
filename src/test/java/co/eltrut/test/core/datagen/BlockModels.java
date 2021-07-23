@@ -4,9 +4,9 @@ import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.core.datagen.provider.DifferBlockModelProvider;
 import co.eltrut.test.core.Test;
 import co.eltrut.test.core.registry.TestBlocks;
-import net.minecraft.block.SlabBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
