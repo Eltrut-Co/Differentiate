@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import org.apache.commons.lang3.ArrayUtils;
 
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
-import co.eltrut.differentiate.common.item.FuelBlockItem;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.world.item.BlockItem;
@@ -41,8 +40,8 @@ public class BlockHelper extends AbstractHelper<Block> {
 	
 	public RegistryObject<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime) {
 		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
-		this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
-		
+		RegistryObject<Item> registeredItem = this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props));
+		ItemHelper.FUEL.put(registeredItem, burnTime);
 		return registeredBlock;
 	}
 	

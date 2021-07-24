@@ -5,8 +5,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +25,7 @@ public class DataUtil {
 	}
 	
 	public static void registerCutout(Block block, RenderType type) {
-		RenderTypeLookup.setRenderLayer(block, type);
+		ItemBlockRenderTypes.setRenderLayer(block, type);
 	}
 	
 	public static void registerBlockColor(BlockColor color, Block ...blocks) {

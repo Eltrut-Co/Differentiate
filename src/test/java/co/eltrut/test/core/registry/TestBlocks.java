@@ -28,7 +28,7 @@ public class TestBlocks {
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createSimpleBlock("block_two", () -> new FollowBlock(Block.Properties.copy(Blocks.DIRT), Blocks.DIRT.asItem()), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> BLOCK_THREE = HELPER.createSimpleBlock("block_three", () -> new PlanksBlock(Block.Properties.copy(Blocks.DIRT)), CreativeModeTab.TAB_BUILDING_BLOCKS, "differentiate");
 	
-	public static final RegistryObject<Block> SLABBY = HELPER.createBlock("vertical_slab", () -> new VerticalSlabBlock(Block.Properties.copy(Blocks.DIRT)), Groups.getVerticalSlabProps());
+	public static final RegistryObject<Block> SLABBY = HELPER.createFuelBlock("vertical_slab", () -> new VerticalSlabBlock(Block.Properties.copy(Blocks.DIRT)), Groups.getVerticalSlabProps(), 100);
 	public static final RegistryObject<Block> STAIRS = HELPER.createSimpleBlock("block_three_stairs", () -> new StairBlock(BLOCK_THREE.get()::defaultBlockState, Block.Properties.copy(Blocks.DIRT)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	
 	public static final VariantBlocksRepo REPO = HELPER.createSimpleBlockWithVariants("dirttt", () -> new Block(Block.Properties.copy(Blocks.DIRT)), Block.Properties.copy(Blocks.DIRT), CreativeModeTab.TAB_REDSTONE, Mods.DIFFERENTIATE);
