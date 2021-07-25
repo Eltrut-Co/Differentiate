@@ -14,7 +14,7 @@ public class TestItems {
 	
 	public static final ItemHelper HELPER = Test.REGISTRATOR.getHelper(ForgeRegistries.ITEMS);
 	
-	public static final RegistryObject<Item> ITEM = HELPER.createFuelItem("item", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)), 100);
+	public static final RegistryObject<Item> ITEM = HELPER.createItem("item", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> ITEM_TWO = HELPER.createItem("item_two", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_BREWING)));
 	
 }
