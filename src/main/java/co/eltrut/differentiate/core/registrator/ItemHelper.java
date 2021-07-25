@@ -26,10 +26,10 @@ public class ItemHelper extends AbstractHelper<Item> {
 		return this.createItem(name, () -> new Item(GroupUtil.getProps(group, mods)));
 	}
 	
-	public RegistryObject<Item> createFuelItem(String name, Supplier<Item> item, int burnTime) {
-		RegistryObject<Item> registeredItem = this.createItem(name, item);
-		FUEL.put(registeredItem, burnTime);
-		return registeredItem;
-	}
+//	public RegistryObject<Item> createFuelItem(String name, Supplier<Item> item, int burnTime) {
+//		RegistryObject<Item> registeredItem = this.createItem(name, item);
+//		FUEL.put(registeredItem, burnTime);
+//		return registeredItem;
+//	}
 
 }

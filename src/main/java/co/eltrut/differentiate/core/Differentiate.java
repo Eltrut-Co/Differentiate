@@ -46,15 +46,15 @@ public class Differentiate {
     public static void loadCompleteEvent(FMLLoadCompleteEvent event) {
     }
     
-    @SubscribeEvent
-    public static void onFuelRegister(FurnaceFuelBurnTimeEvent event) {
-    	ItemStack stack = event.getItemStack();
-    	for (RegistryObject<Item> item : ItemHelper.FUEL.keySet()) {
-    		if (item.get() == stack.getItem()) {
-    			event.setBurnTime(ItemHelper.FUEL.get(item));
-    		}
-    	}
-    }
+//    @SubscribeEvent
+//    public static void onFuelRegister(FurnaceFuelBurnTimeEvent event) {
+//    	ItemStack stack = event.getItemStack();
+//    	for (RegistryObject<Item> item : ItemHelper.FUEL.keySet()) {
+//    		if (item.get() == stack.getItem()) {
+//    			event.setBurnTime(ItemHelper.FUEL.get(item));
+//    		}
+//    	}
+//    }
 
     private void doCommonStuff(final FMLCommonSetupEvent event) {
     	event.enqueueWork(() -> {
