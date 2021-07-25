@@ -1,6 +1,7 @@
 package co.eltrut.differentiate.core.condition;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 
@@ -12,7 +13,7 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
 public class BooleanRecipeCondition implements ICondition {
 	
-	public static final Hashtable<String, ConfigValue<Boolean>> TABLE = new Hashtable<>();
+	public static final Map<String, ConfigValue<Boolean>> MAP = new HashMap<>();
 	
 	private final ResourceLocation location;
 	private final String condition;
@@ -29,7 +30,7 @@ public class BooleanRecipeCondition implements ICondition {
 
 	@Override
 	public boolean test() {
-		return TABLE.containsKey(this.condition) && TABLE.get(this.condition).get();
+		return MAP.containsKey(this.condition) && MAP.get(this.condition).get();
 	}
 	
 	public static class Serializer implements IConditionSerializer<BooleanRecipeCondition> {
