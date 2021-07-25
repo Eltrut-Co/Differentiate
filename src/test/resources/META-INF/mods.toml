@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[37,)"
 license="All rights reserved"
 issueTrackerURL="https://github.com/Eltrut-Co/Differentiate/issues"
 [[mods]]
@@ -15,20 +15,20 @@ description='''
 [[dependencies.test]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[37,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.test]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3, 1.17)"
+    versionRange="[1.17.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.test]]
     modId="differentiate"
     mandatory=true
-    versionRange="[0.3.3,)"
+    versionRange="[1.0.0,)"
     ordering="AFTER"
     side="BOTH"
