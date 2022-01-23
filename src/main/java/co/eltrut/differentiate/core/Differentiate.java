@@ -2,13 +2,9 @@ package co.eltrut.differentiate.core;
 
 import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
 import co.eltrut.differentiate.core.condition.QuarkRecipeCondition;
-import co.eltrut.differentiate.core.registrator.ItemHelper;
 import co.eltrut.differentiate.core.registrator.Registrator;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,7 +13,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.RegistryObject;
 
 @Mod("differentiate")
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
