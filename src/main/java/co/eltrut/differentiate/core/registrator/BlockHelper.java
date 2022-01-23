@@ -1,10 +1,7 @@
 package co.eltrut.differentiate.core.registrator;
 
-import java.util.function.Supplier;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
+import co.eltrut.differentiate.common.item.FuelBlockItem;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.world.item.BlockItem;
@@ -15,8 +12,11 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.function.Supplier;
 
 public class BlockHelper extends AbstractHelper<Block> {
 	
@@ -38,16 +38,15 @@ public class BlockHelper extends AbstractHelper<Block> {
 		return this.createBlock(name, block, GroupUtil.getProps(group, mods));
 	}
 	
-//	public RegistryObject<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime) {
-//		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
-//		RegistryObject<Item> registeredItem = this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props));
-//		ItemHelper.FUEL.put(registeredItem, burnTime);
-//		return registeredBlock;
-//	}
-//	
-//	public RegistryObject<Block> createSimpleFuelBlock(String name, Supplier<Block> block, CreativeModeTab group, int burnTime, String ...mods) {
-//		return this.createFuelBlock(name, block, GroupUtil.getProps(group, mods), burnTime);
-//	}
+	public RegistryObject<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime) {
+		RegistryObject<Block> registeredBlock = this.registry.register(name, block);
+		RegistryObject<Item> registeredItem = this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
+		return registeredBlock;
+	}
+
+	public RegistryObject<Block> createSimpleFuelBlock(String name, Supplier<Block> block, CreativeModeTab group, int burnTime, String ...mods) {
+		return this.createFuelBlock(name, block, GroupUtil.getProps(group, mods), burnTime);
+	}
 	
 	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Supplier<Block> block, Properties props, CreativeModeTab group, String ...mods) {
 		RegistryObject<Block> baseBlock = this.createSimpleBlock(name, block, group, mods);

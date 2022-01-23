@@ -1,9 +1,5 @@
 package co.eltrut.test.core.datagen;
 
-import java.util.function.Consumer;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.differentiate.core.util.RecipeUtil;
 import co.eltrut.test.core.registry.TestBlocks;
@@ -14,6 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.function.Consumer;
 
 public class Recipes extends RecipeProvider {
 

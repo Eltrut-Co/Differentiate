@@ -32,7 +32,8 @@ public class Test {
 	    modEventBus.addListener(this::doClientStuff);
 	    modEventBus.addListener(this::doDataStuff);
 	    instance = this;
-	    
+
+		REGISTRATOR.register(modEventBus);
 	    MinecraftForge.EVENT_BUS.register(this);
 	       
 	}
