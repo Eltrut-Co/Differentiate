@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemHelper extends AbstractHelper<Item> {

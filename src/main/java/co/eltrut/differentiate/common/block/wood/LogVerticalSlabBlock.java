@@ -9,10 +9,12 @@ import co.eltrut.differentiate.core.util.DataUtil.FlammableChance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 
 public class LogVerticalSlabBlock extends VerticalSlabBlock implements IFlammableBlock {
 	
@@ -37,12 +39,12 @@ public class LogVerticalSlabBlock extends VerticalSlabBlock implements IFlammabl
 		this.isNetherWood = isNetherWood;
 	}
 	
-//	@Override
-//	public BlockState getToolModifiedState(BlockState state, LevelAccessor world, BlockPos pos, Player player, ItemStack stack, ToolType toolType) {
-//		if (toolType == ToolType.AXE && this.block != null)
-//			return BlockUtil.transferAllBlockStates(state, this.block.get().defaultBlockState());
-//		return super.getToolModifiedState(state, world, pos, player, stack, toolType);
-//	}
+	@Override
+	public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolAction action) {
+		if (action == ToolActions.AXE_STRIP)
+			return this.block != null ? BlockUtil.transferAllBlockStates(state, this.block.get().defaultBlockState()) : null;
+		return super.getToolModifiedState(state, world, pos, player, stack, action);
+	}
 
 	@Override
 	public int getEncouragement() {
