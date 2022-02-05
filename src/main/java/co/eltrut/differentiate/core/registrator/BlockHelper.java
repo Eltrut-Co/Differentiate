@@ -9,6 +9,7 @@ import co.eltrut.differentiate.common.item.FuelBlockItem;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.common.repo.WoodVariantRepo;
 import co.eltrut.differentiate.core.util.BlockUtil;
+import co.eltrut.differentiate.core.util.CompatUtil;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -85,7 +86,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 	
 	public RegistryObject<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
 		String prefix = BlockUtil.getPrefix(name);
-		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
+		String[] modsWithQuark = CompatUtil.addQuark(mods);
 		return this.createSimpleBlock(prefix + "_vertical_slab", () -> new VerticalSlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modsWithQuark);
 	}
 
@@ -100,7 +101,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 
 	public WoodVariantRepo createSimpleWoodVariants(Block block, String ...mods) {
 		String name = block.getRegistryName().getPath();
-		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
+		String[] modsWithQuark = CompatUtil.addQuark(mods);
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.copy(block);
 
 		// Stripped Woods
@@ -140,7 +141,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 
 	public WoodVariantRepo createNetherWoodVariants(Block block, String ...mods) {
 		String name = block.getRegistryName().getPath();
-		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
+		String[] modsWithQuark = CompatUtil.addQuark(mods);
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.copy(block);
 
 		// Stripped Woods
