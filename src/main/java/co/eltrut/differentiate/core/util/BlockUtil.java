@@ -43,6 +43,10 @@ public class BlockUtil {
 	public static <T extends IForgeRegistryEntry<T>> T[] toArray(List<RegistryObject<T>> list) {
 		return (T[])list.stream().map(RegistryObject::get).toArray();
 	}
+
+	public static String getPrefix(String name) {
+		return name.endsWith("bricks") || name.endsWith("tiles") ? name.replace("_bricks", "_brick").replace("_tiles", "_tile") : name;
+	}
 	
 	public static class QuarkProperties {
 		
