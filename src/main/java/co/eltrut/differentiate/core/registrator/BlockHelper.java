@@ -90,7 +90,8 @@ public class BlockHelper extends AbstractHelper<Block> {
 		return this.createSimpleBlock(prefix + "_vertical_slab", () -> new VerticalSlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modsWithQuark);
 	}
 
-	public VariantBlocksRepo createSimpleVariants(String name, Block base, String ...mods) {
+	public VariantBlocksRepo createSimpleVariants(Block base, String ...mods) {
+		String name = base.getRegistryName().getPath();
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.copy(base);
 		RegistryObject<Block> slabBlock = this.createSlabBlock(name, props, mods);
 		RegistryObject<Block> stairBlock = this.createStairsBlock(name, () -> new StairBlock(base::defaultBlockState, props), mods);
