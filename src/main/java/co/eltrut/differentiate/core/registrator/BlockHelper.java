@@ -62,22 +62,22 @@ public class BlockHelper extends AbstractHelper<Block> {
 		return this.createSimpleBlockWithVariants(name, () -> new Block(props), props, group, mods);
 	}
 	
-	protected RegistryObject<Block> createSlabBlock(String name, Properties props, String ...mods) {
+	public RegistryObject<Block> createSlabBlock(String name, Properties props, String ...mods) {
 		String prefix = BlockUtil.getPrefix(name);
 		return this.createSimpleBlock(prefix + "_slab", () -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, mods);
 	}
 	
-	protected RegistryObject<Block> createStairsBlock(String name, Supplier<Block> block, String ...mods) {
+	public RegistryObject<Block> createStairsBlock(String name, Supplier<Block> block, String ...mods) {
 		String prefix = BlockUtil.getPrefix(name);
 		return this.createSimpleBlock(prefix + "_stairs", block, CreativeModeTab.TAB_BUILDING_BLOCKS, mods);
 	}
 	
-	protected RegistryObject<Block> createWallBlock(String name, Properties props, String ...mods) {
+	public RegistryObject<Block> createWallBlock(String name, Properties props, String ...mods) {
 		String prefix = BlockUtil.getPrefix(name);
 		return this.createSimpleBlock(prefix + "_wall", () -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, mods);
 	}
 	
-	protected RegistryObject<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
+	public RegistryObject<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
 		String prefix = BlockUtil.getPrefix(name);
 		String[] modsWithQuark = ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
 		return this.createSimpleBlock(prefix + "_vertical_slab", () -> new VerticalSlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modsWithQuark);
