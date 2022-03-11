@@ -1,25 +1,19 @@
 package co.eltrut.differentiate.core.datagen.builder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.function.Consumer;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 public class DifferShapedRecipeBuilder {
 
@@ -37,7 +31,7 @@ public class DifferShapedRecipeBuilder {
 		this.count = countIn;
 	}
 
-	public DifferShapedRecipeBuilder key(Character symbol, Tag<Item> tagIn) {
+	public DifferShapedRecipeBuilder key(Character symbol, TagKey<Item> tagIn) {
 		return this.key(symbol, Ingredient.of(tagIn));
 	}
 

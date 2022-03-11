@@ -1,21 +1,19 @@
 package co.eltrut.differentiate.core.util;
 
-import java.util.List;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class BlockUtil {
 
@@ -44,20 +42,33 @@ public class BlockUtil {
 	public static <T extends IForgeRegistryEntry<T>> T[] toArray(List<RegistryObject<T>> list) {
 		return (T[])list.stream().map(RegistryObject::get).toArray();
 	}
+
+	public static String getPrefix(String name) {
+		return name.endsWith("bricks") || name.endsWith("tiles") ? name.replace("_bricks", "_brick").replace("_tiles", "_tile") : name;
+	}
 	
 	public static class QuarkProperties {
 		
-		public static final Block.Properties SOUL_SANDSTONE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_BROWN).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(0.8F);
-		public static final Block.Properties BIOTITE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(0.8F);
-		public static final Block.Properties MIDORI = Block.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GREEN).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties MARBLE = Block.Properties.of(Material.STONE, MaterialColor.QUARTZ).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties LIMESTONE = Block.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties JASPER = Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties SLATE = Block.Properties.of(Material.STONE, MaterialColor.ICE).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties VOIDSTONE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties MYALITE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 6.0F);
-		public static final Block.Properties ELDER_PRISMARINE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).strength(1.5F, 10F).sound(SoundType.STONE);
-		
+		public static final Block.Properties SOUL_SANDSTONE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(0.8F);
+		public static final Block.Properties MIDORI = Block.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GREEN).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final Block.Properties LIMESTONE = Block.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final Block.Properties JASPER = Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final Block.Properties SLATE = Block.Properties.of(Material.STONE, MaterialColor.ICE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final Block.Properties MYALITE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+
+	}
+
+	public static class WoodProperties {
+
+		public static final MaterialColor ACACIA = MaterialColor.COLOR_GRAY;
+		public static final MaterialColor BIRCH = MaterialColor.SAND;
+		public static final MaterialColor DARK_OAK = MaterialColor.COLOR_BROWN;
+		public static final MaterialColor JUNGLE = MaterialColor.DIRT;
+		public static final MaterialColor OAK = MaterialColor.WOOD;
+		public static final MaterialColor SPRUCE = MaterialColor.PODZOL;
+		public static final MaterialColor CRIMSON = MaterialColor.CRIMSON_HYPHAE;
+		public static final MaterialColor WARPED = MaterialColor.WARPED_HYPHAE;
+
 	}
 	
 }

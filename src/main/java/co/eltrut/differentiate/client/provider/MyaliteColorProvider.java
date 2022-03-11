@@ -1,24 +1,26 @@
 package co.eltrut.differentiate.client.provider;
 
-import java.awt.Color;
-import java.util.stream.IntStream;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.levelgen.SimpleRandomSource;
-import net.minecraft.world.level.levelgen.synth.PerlinNoise;
+import net.minecraft.world.level.levelgen.LegacyRandomSource;
+import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.awt.*;
+import java.util.stream.IntStream;
+
 public class MyaliteColorProvider {
 	
 	public static final float myaliteS = 0.7F;
 	public static final float myaliteB = 0.8F;
-	public static final PerlinNoise NOISE = new PerlinNoise(new SimpleRandomSource(4543543), IntStream.rangeClosed(-4, 4));
+	public static final PerlinSimplexNoise NOISE = new PerlinSimplexNoise(new LegacyRandomSource(4543543),
+			ImmutableList.of(-4, -3, -2, -1, 0, 1, 2, 3, 4));
 	
     @OnlyIn(Dist.CLIENT)
 	public static BlockColor getBlockColor() {
@@ -54,7 +56,7 @@ public class MyaliteColorProvider {
 		double zv = z + Math.cos(x) * 2;
 		double yv = y + Math.sin(y + Math.PI / 4) * 2;
 		
-		double noise = NOISE.getValue(xv + yv, zv + (yv * 2), 0.0D);
+		double noise = NOISE.getValue(xv + yv, zv + (yv * 2), false);
 		
     	double h = noise * (range / 2) - range + shift;
 

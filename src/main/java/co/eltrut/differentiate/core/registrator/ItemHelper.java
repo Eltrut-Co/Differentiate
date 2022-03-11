@@ -1,18 +1,15 @@
 package co.eltrut.differentiate.core.registrator;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
+import co.eltrut.differentiate.common.item.FuelItem;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class ItemHelper extends AbstractHelper<Item> {
-	
-	public static final Map<RegistryObject<Item>, Integer> FUEL = new HashMap<>(); 
 
 	public ItemHelper(Registrator parent) {
 		super(parent, ForgeRegistries.ITEMS);
@@ -26,10 +23,8 @@ public class ItemHelper extends AbstractHelper<Item> {
 		return this.createItem(name, () -> new Item(GroupUtil.getProps(group, mods)));
 	}
 	
-//	public RegistryObject<Item> createFuelItem(String name, Supplier<Item> item, int burnTime) {
-//		RegistryObject<Item> registeredItem = this.createItem(name, item);
-//		FUEL.put(registeredItem, burnTime);
-//		return registeredItem;
-//	}
+	public RegistryObject<Item> createFuelItem(String name, CreativeModeTab group, int burnTime, String ...mods) {
+		return this.createItem(name, () -> new FuelItem(GroupUtil.getProps(group, mods), burnTime));
+	}
 
 }

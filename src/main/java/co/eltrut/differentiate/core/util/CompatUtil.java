@@ -1,6 +1,7 @@
 package co.eltrut.differentiate.core.util;
 
 import net.minecraftforge.fml.ModList;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class CompatUtil {
 	
@@ -15,6 +16,10 @@ public class CompatUtil {
 		}
 		return true;
 	}
+
+	public static String[] addQuark(String ...mods) {
+		return ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
+	}
 	
 	public static class Mods {
 		// Core
@@ -26,13 +31,13 @@ public class CompatUtil {
 		public static final String QUARK = "quark";
 		
 		// Abnormals
-		public static final String ABNORMALS_CORE = "abnormals_core";
 		public static final String ABNORMALS_DELIGHT = "abnormals_delight";
 		public static final String ALLUREMENT = "allurement";
 		public static final String ATMOSPHERIC = "atmospheric";
 		public static final String AUTUMNITY = "autumnity";
 		public static final String BAMBOO_BLOCKS = "bamboo_blocks";
 		public static final String BERRY_GOOD = "berry_good";
+		public static final String BLUEPRINT = "blueprint";
 		public static final String BUZZIER_BEES = "buzzier_bees";
 		public static final String CAVERNS_AND_CHASMS = "caverns_and_chasms";
 		public static final String ENDERGETIC_EXPANSION = "endergetic";
