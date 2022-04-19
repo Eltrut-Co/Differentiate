@@ -21,6 +21,7 @@ build
 eclipse
 run
 *.bak
+*.DS_STORE
 
 # Files from Forge MDK
 forge*changelog.txt
