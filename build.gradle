@@ -1,117 +1,86 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = 'https://maven.parchmentmc.org' }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-    }
+plugins {
+    id "dev.architectury.loom" version "0.11.0-SNAPSHOT"
+    id "maven-publish"
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
-version = "${mc_version}-${mod_version}"
-group = 'co.eltrut.differentiate'
-archivesBaseName = 'differentiate'
+archivesBaseName = project.mod_id
+version = project.mod_version
+group = project.maven_group
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+loom {
+    silentMojangMappingsLicense()
 
-minecraft {
-    mappings channel: "${project.mappingsChannel}", version: "${project.mappings}"
-	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-			jvmArg "-Dmixin.env.disableRefMap=true"
+    forge {
+        mixinConfigs = [
+                "examplemod.mixins.json"
+        ]
 
-            mods {
-                differentiate {
-                    source sourceSets.main
-                }
-				test {
-					source sourceSets.test
-				}
-            }
+        dataGen {
+            mod project.mod_id
         }
+    }
 
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-			jvmArg "-Dmixin.env.disableRefMap=true"
-
-            mods {
-                differentiate {
-                    source sourceSets.main
-                }
-				test {
-					source sourceSets.test
-				}
-            }
-        }
-
+    launches {
         data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-			jvmArg "-Dmixin.env.disableRefMap=true"
-			args '--mod', 'test', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/test/resources/')
-
-            mods {
-                differentiate {
-                    source sourceSets.main
-                }
-				test {
-					source sourceSets.test
-				}
-            }
+            arg "--existing", file("src/main/resources").absolutePath
         }
     }
-}
-
-if (project.hasProperty('UPDATE_MAPPINGS')) {
-   extractRangeMap {
-     sources sourceSets.test.java.srcDirs
-   }
-   applyRangeMap {
-     sources sourceSets.test.java.srcDirs
-   }
-   sourceSets.test.java.srcDirs.each { extractMappedNew.addTarget it }
- }
-
-dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    //implementation fg.deobf("curse.maven:abnormals-core-382216:${ac_id}")
-	//implementation fg.deobf("curse.maven:environmental-388992:${environmental_id}")
-    //implementation fg.deobf("curse.maven:autoreglib-250363:${arl_id}")
-    //implementation fg.deobf("curse.maven:quark-243121:${quark_id}")
-
 }
 
 repositories {
-    maven {
-        url "https://www.cursemaven.com"
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    forge "net.minecraftforge:forge:${project.forge_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.release = 17
+}
+
+java {
+    withSourcesJar()
 }
 
 jar {
     manifest {
         attributes([
-            "Specification-Title": "Differentiate",
-            "Specification-Vendor": "EltrutLikes",
-            "Specification-Version": "1",
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"EltrutLikes",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : project.mod_id,
+                "Specification-Vendor"    : project.mod_author,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : version,
+                "Implementation-Vendor"   : project.mod_author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
-apply from: "https://moddingtutorials.org/applesilicon.gradle"
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    repositories {
+    }
+}
