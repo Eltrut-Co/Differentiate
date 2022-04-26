@@ -1,6 +1,6 @@
 package co.eltrut.test.core.registry;
 
-import co.eltrut.differentiate.core.registrator.ItemHelper;
+import co.eltrut.differentiate.removal.registrator.ItemHelper;
 import co.eltrut.test.core.Test;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

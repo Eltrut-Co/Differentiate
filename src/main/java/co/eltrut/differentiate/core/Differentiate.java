@@ -1,8 +1,6 @@
 package co.eltrut.differentiate.core;
 
 import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
-import co.eltrut.differentiate.core.condition.QuarkRecipeCondition;
-import co.eltrut.differentiate.core.registrator.Registrator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,7 +16,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
 public class Differentiate {
     public static final String MOD_ID = "differentiate";
-    public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
     public static Differentiate instance;
 
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -29,7 +26,6 @@ public class Differentiate {
         instance = this;
         
         CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
-        CraftingHelper.register(new QuarkRecipeCondition.Serializer("flag"));
         
         MinecraftForge.EVENT_BUS.register(this);
         
@@ -40,14 +36,21 @@ public class Differentiate {
     }
 
     private void doCommonStuff(final FMLCommonSetupEvent event) {
-    	event.enqueueWork(() -> {
-    		Registrator.registerCommon(event);
-    	});
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {
-    	event.enqueueWork(() -> {
-    		Registrator.registerClient(event);
-    	});
     }
+
+    // TODO:
+    //  - use quark's MyaliteColorProvider instead (workaround?)
+    //  - interface redundant?
+    //  - workarround for vertical slab or use quark
+    //  - add way for flammability to be set /w wood blocks (and netherwood things)
+    //  - fuelblocks alt b/c of architectury
+    //  - clever inventory sorter like a list to add certain items to a group and then
+    //  it sorts that group into a mixin for example the group could have wood types or doors
+    //  then it would mixin it in and sort that group
+    //  - DifferItemTier DifferArmorMaterial, do we need this?
+    //  - quark recipe conditions is too similar
+    //  - registrator begone, maybe make a class with methods to register things?
 }

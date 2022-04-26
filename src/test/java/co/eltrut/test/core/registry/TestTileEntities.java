@@ -1,6 +1,6 @@
 package co.eltrut.test.core.registry;
 
-import co.eltrut.differentiate.core.registrator.BlockEntityHelper;
+import co.eltrut.differentiate.removal.registrator.BlockEntityHelper;
 import co.eltrut.test.common.tileentities.TestTileEntity;
 import co.eltrut.test.core.Test;
 import net.minecraft.world.level.block.Block;
