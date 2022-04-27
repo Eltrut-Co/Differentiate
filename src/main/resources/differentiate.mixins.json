@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "package": "co.eltrut.differentiate.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}

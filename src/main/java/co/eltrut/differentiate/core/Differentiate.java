@@ -1,6 +1,7 @@
 package co.eltrut.differentiate.core;
 
 import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,7 +29,6 @@ public class Differentiate {
         CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
         
         MinecraftForge.EVENT_BUS.register(this);
-        
     }
     
     @SubscribeEvent

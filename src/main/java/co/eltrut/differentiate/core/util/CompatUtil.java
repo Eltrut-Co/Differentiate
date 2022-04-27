@@ -1,25 +1,35 @@
 package co.eltrut.differentiate.core.util;
 
+import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Map;
 
 public class CompatUtil {
 	public static void registerCompostable(ItemLike item, float compostableChance) {
-		ComposterBlock.COMPOSTABLES.put(item, compostableChance);
+		ComposterBlock.add(item, compostableChance);
 	}
 
 	public static void registerFlammable(Block block, int encouragement, int flammability) {
 		FireBlock fireBlock = (FireBlock) Blocks.FIRE;
 		fireBlock.setFlammable(block, encouragement, flammability);
+	}
+
+	public static void registerFuel(ItemLike item, int duration) {
+		Map<Item, Integer> map = Maps.newLinkedHashMap();
+		AbstractFurnaceBlockEntity.add(map, item, duration);
 	}
 
 	public static void registerCutout(Block block, RenderType type) {
