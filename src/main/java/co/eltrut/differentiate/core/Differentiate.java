@@ -45,11 +45,6 @@ public class Differentiate {
     //  - use quark's MyaliteColorProvider instead (workaround?)
     //  - interface redundant?
     //  - workarround for vertical slab or use quark
-    //  - add way for flammability to be set /w wood blocks (and netherwood things)
-    //  - fuelblocks alt b/c of architectury
-    //  - clever inventory sorter like a list to add certain items to a group and then
-    //  it sorts that group into a mixin for example the group could have wood types or doors
-    //  then it would mixin it in and sort that group
     //  - DifferItemTier DifferArmorMaterial, do we need this?
     //  - quark recipe conditions is too similar
     //  - registrator begone, maybe make a class with methods to register things?
