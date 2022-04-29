@@ -9,13 +9,14 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public class ItemHelper extends AbstractHelper<Item> {
-	public ItemHelper(DifferHelper parent) {
-		super(parent, ForgeRegistries.ITEMS);
+public class ItemHelper {
+	private final DifferHelper<Item> itemHelper;
+	public ItemHelper(DifferHelper<Item> helper) {
+		itemHelper = helper;
 	}
 	
 	public RegistryObject<Item> createItem(String name, Supplier<Item> item) {
-		return this.registry.register(name, item);
+		return itemHelper.register(name, item);
 	}
 	
 	public RegistryObject<Item> createSimpleItem(String name, CreativeModeTab group, String ...mods) {

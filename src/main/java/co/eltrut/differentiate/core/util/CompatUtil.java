@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
@@ -60,6 +61,7 @@ public class CompatUtil {
 		public static final Pair<Integer, Integer> CARPET = Pair.of(60, 20);
 		public static final Pair<Integer, Integer> FLOWER = Pair.of(60, 100);
 	}
+
 
 	public static class Mods {
 		// Core
