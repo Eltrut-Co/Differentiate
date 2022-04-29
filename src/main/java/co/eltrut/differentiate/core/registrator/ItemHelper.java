@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 public class ItemHelper extends AbstractHelper<Item> {
-	public ItemHelper(Registrator parent) {
+	public ItemHelper(DifferHelper parent) {
 		super(parent, ForgeRegistries.ITEMS);
 	}
 	

@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class EntityHelper extends AbstractHelper<EntityType<?>> {
 
-	public EntityHelper(Registrator parent) {
+	public EntityHelper(DifferHelper parent) {
 		super(parent, ForgeRegistries.ENTITIES);
 	}
 	

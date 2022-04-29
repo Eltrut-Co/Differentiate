@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockEntityHelper extends AbstractHelper<BlockEntityType<?>> {
 
-	public BlockEntityHelper(Registrator parent) {
+	public BlockEntityHelper(DifferHelper parent) {
 		super(parent, ForgeRegistries.BLOCK_ENTITIES);
 	}
 	

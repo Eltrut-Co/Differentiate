@@ -1,5 +1,8 @@
 package co.eltrut.test.core;
 
+import co.eltrut.differentiate.core.registrator.DifferHelper;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.ArrayUtils;
 
 import co.eltrut.differentiate.core.datagen.Generator;
@@ -22,7 +25,7 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 @Mod.EventBusSubscriber(modid = "test", bus = Bus.MOD)
 public class Test {
     public static final String MOD_ID = "test";
-    public static final Registrator REGISTRATOR = new Registrator(MOD_ID);
+    public static final DifferHelper<Block> REGISTRATOR = DifferHelper.create(ForgeRegistries.BLOCKS, MOD_ID);
 	public static Test instance;
 
 	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

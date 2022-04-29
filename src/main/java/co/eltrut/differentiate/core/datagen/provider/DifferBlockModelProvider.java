@@ -1,7 +1,5 @@
 package co.eltrut.differentiate.core.datagen.provider;
 
-import java.io.IOException;
-
 import co.eltrut.differentiate.core.Differentiate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
@@ -9,9 +7,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+
+import java.io.IOException;
 
 public abstract class DifferBlockModelProvider extends BlockStateProvider {
 	private final DifferModelProvider provider;
@@ -42,7 +41,7 @@ public abstract class DifferBlockModelProvider extends BlockStateProvider {
 //			.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(doubleslab));
 //	}
 	
-	public abstract class DifferModelProvider extends BlockModelProvider {
+	public abstract static class DifferModelProvider extends BlockModelProvider {
 		public DifferModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
 			super(generator, modid, existingFileHelper);
 		}

@@ -21,7 +21,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.function.Supplier;
 
@@ -29,7 +28,7 @@ public class BlockHelper extends AbstractHelper<Block> {
 	
 	protected final ItemHelper itemRegister;
 	
-	public BlockHelper(Registrator parent) {
+	public BlockHelper(DifferHelper parent) {
 		super(parent, ForgeRegistries.BLOCKS);
 		itemRegister = this.parent.getHelper(ForgeRegistries.ITEMS);
 	}
