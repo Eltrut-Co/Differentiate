@@ -6,6 +6,7 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -61,7 +62,6 @@ public class CompatUtil {
 		public static final Pair<Integer, Integer> CARPET = Pair.of(60, 20);
 		public static final Pair<Integer, Integer> FLOWER = Pair.of(60, 100);
 	}
-
 
 	public static class Mods {
 		// Core

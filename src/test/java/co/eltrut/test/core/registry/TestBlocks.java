@@ -1,8 +1,8 @@
 package co.eltrut.test.core.registry;
 
-import co.eltrut.differentiate.common.block.wood.PlanksBlock;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
-import co.eltrut.differentiate.removal.registrator.BlockHelper;
+import co.eltrut.differentiate.core.registrator.BlockHelper;
+import co.eltrut.differentiate.core.registrator.DifferHelper;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.differentiate.core.util.CreativeTabUtil;
 import co.eltrut.differentiate.core.util.CreativeTabUtil.Groups;
@@ -19,8 +19,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
 public class TestBlocks {
-	
-	public static final BlockHelper HELPER = Test.REGISTRATOR.getHelper(ForgeRegistries.BLOCKS);
+
+	public static final DifferHelper<Block> HELPER = DifferHelper.create(ForgeRegistries.BLOCKS, Test.MOD_ID);
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.copy(Blocks.ACACIA_WOOD)), CreativeTabUtil.getProps(CreativeModeTab.TAB_BUILDING_BLOCKS).fireResistant());
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createSimpleBlock("block_two", () -> new FollowBlock(Block.Properties.copy(Blocks.DIRT), Blocks.DIRT.asItem()), CreativeModeTab.TAB_BUILDING_BLOCKS);

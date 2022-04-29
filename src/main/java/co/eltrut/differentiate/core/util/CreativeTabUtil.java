@@ -8,8 +8,15 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Arrays;
 
 public class CreativeTabUtil {
-	public static Item.Properties getProps(CreativeModeTab group, String ...mods) {
-		return ModList.get().isLoaded(Arrays.toString(mods)) ? new Item.Properties().tab(group) : new Item.Properties().tab(null);
+	public static Item.Properties getProps(CreativeModeTab tab, String ...mods) {
+		for (String mod: mods) {
+			if (ModList.get().isLoaded(mod)) {
+				return new Item.Properties().tab(tab);
+			} else {
+				return new Item.Properties();
+			}
+		}
+		return new Item.Properties();
 	}
 	
 	public static class Groups {

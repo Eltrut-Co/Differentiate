@@ -4,17 +4,13 @@ import co.eltrut.differentiate.core.util.CompatUtil;
 import co.eltrut.differentiate.core.util.CreativeTabUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public class ItemHelper {
-	private final DifferHelper<Item> itemHelper;
-	public ItemHelper(DifferHelper<Item> helper) {
-		itemHelper = helper;
-	}
-	
+public record ItemHelper(DifferHelper<Item> itemHelper) {
 	public RegistryObject<Item> createItem(String name, Supplier<Item> item) {
 		return itemHelper.register(name, item);
 	}

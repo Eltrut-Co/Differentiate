@@ -25,7 +25,7 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 @Mod.EventBusSubscriber(modid = "test", bus = Bus.MOD)
 public class Test {
     public static final String MOD_ID = "test";
-    public static final DifferHelper<Block> REGISTRATOR = DifferHelper.create(ForgeRegistries.BLOCKS, MOD_ID);
+
 	public static Test instance;
 
 	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -36,7 +36,7 @@ public class Test {
 	    modEventBus.addListener(this::doDataStuff);
 	    instance = this;
 
-		REGISTRATOR.register(modEventBus);
+		TestBlocks.HELPER.setRegistry(modEventBus);
 	    MinecraftForge.EVENT_BUS.register(this);
 	       
 	}

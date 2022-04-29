@@ -19,7 +19,11 @@ public class DifferHelper<T extends IForgeRegistryEntry<T>> {
 		return new DifferHelper<>(registry, modId);
 	}
 
-	public void register(IEventBus bus) {
+	public static BlockHelper createBlock(DifferHelper<Item> itemRegistry) {
+		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemRegistry.getModId()), itemRegistry);
+	}
+
+	public void setRegistry(IEventBus bus) {
 		registry.register(bus);
 	}
 
@@ -29,9 +33,5 @@ public class DifferHelper<T extends IForgeRegistryEntry<T>> {
 	
 	public String getModId() {
 		return this.modId;
-	}
-
-	public static BlockEntityHelper createBlock(DifferHelper<Item> itemRegistry) {
-		return new BlockEntityHelper(create(ForgeRegistries.BLOCKS, itemRegistry.getModId()));
 	}
 }
