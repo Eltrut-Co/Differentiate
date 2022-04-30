@@ -45,4 +45,5 @@ public class Differentiate {
     //  - workarround for vertical slab or use quark
     //  - DifferItemTier DifferArmorMaterial, do we need this?
     //  - quark recipe conditions is too similar
+    //  - remove all copied registratior code
 }

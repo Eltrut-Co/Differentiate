@@ -6,7 +6,6 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -14,12 +13,18 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CompatUtil {
+	public static Map<Block, Block> strippablesMap = new HashMap<>();
+
+	public static void registerStrippables(Block log, Block strippedLog) {
+		strippablesMap.put(log, strippedLog);
+	}
+
 	public static void registerCompostable(ItemLike item, float compostableChance) {
 		ComposterBlock.add(item, compostableChance);
 	}

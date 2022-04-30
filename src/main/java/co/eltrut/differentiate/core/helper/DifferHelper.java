@@ -1,4 +1,4 @@
-package co.eltrut.differentiate.core.registrator;
+package co.eltrut.differentiate.core.helper;
 
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,8 +19,25 @@ public class DifferHelper<T extends IForgeRegistryEntry<T>> {
 		return new DifferHelper<>(registry, modId);
 	}
 
-	public static BlockHelper createBlock(DifferHelper<Item> itemRegistry) {
-		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemRegistry.getModId()), itemRegistry);
+	public static ItemHelper createItem(String modId) {
+		return new ItemHelper(create(ForgeRegistries.ITEMS, modId));
+	}
+
+	public static BlockHelper createBlock(DifferHelper<Item> itemHelper) {
+		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemHelper.getModId()), itemHelper);
+	}
+
+	public static BlockHelper createBlock(ItemHelper itemHelper) {
+		DifferHelper<Item> itemDifferHelper = itemHelper.getHelper();
+		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemDifferHelper.getModId()), itemDifferHelper);
+	}
+
+	public static BlockEntityHelper createBlockEntity(String modId) {
+		return new BlockEntityHelper(create(ForgeRegistries.BLOCK_ENTITIES, modId));
+	}
+
+	public static EntityHelper createEntity(String modId) {
+		return new EntityHelper(create(ForgeRegistries.ENTITIES, modId));
 	}
 
 	public void setRegistry(IEventBus bus) {

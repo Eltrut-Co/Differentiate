@@ -1,15 +1,12 @@
 package co.eltrut.test.core;
 
-import co.eltrut.differentiate.core.registrator.DifferHelper;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.ArrayUtils;
-
 import co.eltrut.differentiate.core.datagen.Generator;
-import co.eltrut.differentiate.removal.registrator.Registrator;
+import co.eltrut.differentiate.core.util.CompatUtil;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.differentiate.core.util.RecipeUtil;
 import co.eltrut.test.core.registry.TestBlocks;
+import co.eltrut.test.core.registry.TestItems;
+import co.eltrut.test.core.registry.TestTileEntities;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
@@ -20,6 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Mod("test")
 @Mod.EventBusSubscriber(modid = "test", bus = Bus.MOD)
@@ -36,9 +34,13 @@ public class Test {
 	    modEventBus.addListener(this::doDataStuff);
 	    instance = this;
 
-		TestBlocks.HELPER.setRegistry(modEventBus);
+		TestBlocks.HELPER.getHelper().setRegistry(modEventBus);
+		TestItems.HELPER.getHelper().setRegistry(modEventBus);
+		TestTileEntities.HELPER.getHelper().setRegistry(modEventBus);
+
 	    MinecraftForge.EVENT_BUS.register(this);
-	       
+
+		CompatUtil.registerFlammable(TestBlocks.BLOCK_THREE.get(), CompatUtil.FlammableChance.WOOD.getLeft(), CompatUtil.FlammableChance.WOOD.getRight());
 	}
 	
 	public void doCommonStuff(final FMLCommonSetupEvent event) {}
@@ -60,7 +62,6 @@ public class Test {
 		});
 		generator.addRecipe(s -> {
 			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
-			RecipeUtil.verticalSlabCraftingRecipe(s, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
 		});
 		
 		generator.run();
