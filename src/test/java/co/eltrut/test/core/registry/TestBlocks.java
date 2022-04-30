@@ -17,7 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
 public class TestBlocks {
-	public static final BlockHelper HELPER = DifferHelper.createBlock(TestItems.HELPER);
+	public static final BlockHelper HELPER = DifferHelper.createBlock(TestItems.HELPER.itemHelper());
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.copy(Blocks.ACACIA_WOOD)), CreativeTabUtil.getProps(CreativeModeTab.TAB_BUILDING_BLOCKS).fireResistant());
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createSimpleBlock("block_two", () -> new Block(Block.Properties.copy(Blocks.DIRT)), CreativeModeTab.TAB_BUILDING_BLOCKS);

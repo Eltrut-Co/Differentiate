@@ -34,9 +34,9 @@ public class Test {
 	    modEventBus.addListener(this::doDataStuff);
 	    instance = this;
 
-		TestBlocks.HELPER.getHelper().setRegistry(modEventBus);
-		TestItems.HELPER.getHelper().setRegistry(modEventBus);
-		TestTileEntities.HELPER.getHelper().setRegistry(modEventBus);
+		TestBlocks.HELPER.blockHelper().setRegistry(modEventBus);
+		TestItems.HELPER.itemHelper().setRegistry(modEventBus);
+		TestTileEntities.HELPER.blockEntityHelper().setRegistry(modEventBus);
 
 	    MinecraftForge.EVENT_BUS.register(this);
 
@@ -66,5 +66,4 @@ public class Test {
 		
 		generator.run();
 	}
-	    
 }

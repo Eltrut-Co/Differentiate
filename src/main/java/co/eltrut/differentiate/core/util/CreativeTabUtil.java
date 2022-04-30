@@ -5,8 +5,6 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Arrays;
-
 public class CreativeTabUtil {
 	public static Item.Properties getProps(CreativeModeTab tab, String ...mods) {
 		for (String mod: mods) {

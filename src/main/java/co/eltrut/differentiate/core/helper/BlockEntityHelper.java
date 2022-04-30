@@ -14,8 +14,4 @@ public record BlockEntityHelper(DifferHelper<BlockEntityType<?>> blockEntityHelp
 	public <T extends BlockEntity> RegistryObject<BlockEntityType<?>> createBlockEntity(String name, BlockEntitySupplier<? extends T> tileEntity, Supplier<Block[]> blocks) {
 		return blockEntityHelper.register(name, () -> new BlockEntityType<T>(tileEntity, new HashSet<>(Arrays.asList(blocks.get())), null));
 	}
-
-	public DifferHelper<BlockEntityType<?>> getHelper() {
-		return this.blockEntityHelper;
-	}
 }

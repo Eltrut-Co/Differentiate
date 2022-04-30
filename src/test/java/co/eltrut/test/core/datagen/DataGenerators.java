@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @Mod.EventBusSubscriber(bus = Bus.MOD)
 public class DataGenerators {
-	
 //	@SubscribeEvent
 //	public static void gatherData(final GatherDataEvent event) {
 //		DataGenerator generator = event.getGenerator();
@@ -14,5 +13,4 @@ public class DataGenerators {
 //		generator.addProvider(new BlockModels(generator, Test.MOD_ID, helper));
 //		generator.addProvider(new ItemModels(generator, Test.MOD_ID, helper));
 //	}
-	
 }

@@ -27,11 +27,6 @@ public class DifferHelper<T extends IForgeRegistryEntry<T>> {
 		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemHelper.getModId()), itemHelper);
 	}
 
-	public static BlockHelper createBlock(ItemHelper itemHelper) {
-		DifferHelper<Item> itemDifferHelper = itemHelper.getHelper();
-		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemDifferHelper.getModId()), itemDifferHelper);
-	}
-
 	public static BlockEntityHelper createBlockEntity(String modId) {
 		return new BlockEntityHelper(create(ForgeRegistries.BLOCK_ENTITIES, modId));
 	}

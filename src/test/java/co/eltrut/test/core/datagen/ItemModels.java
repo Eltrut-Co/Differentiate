@@ -11,7 +11,6 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class ItemModels extends ItemModelProvider {
-
 	public ItemModels(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
 		super(generator, modid, existingFileHelper);
 	}
@@ -27,5 +26,4 @@ public class ItemModels extends ItemModelProvider {
 			.parent(new ModelFile.UncheckedModelFile("item/generated"))
 			.texture("layer0", new ResourceLocation(loc.getNamespace(), ITEM_FOLDER + "/" + loc.getPath()));
 	}
-
 }

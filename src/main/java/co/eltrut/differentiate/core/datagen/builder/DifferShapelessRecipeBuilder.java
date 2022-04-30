@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class DifferShapelessRecipeBuilder {
-
 	private final Item result;
 	private final int count;
 	private final List<Ingredient> ingredients = new ArrayList<>();
@@ -194,5 +193,4 @@ public class DifferShapelessRecipeBuilder {
 			return null;
 		}
 	}
-
 }

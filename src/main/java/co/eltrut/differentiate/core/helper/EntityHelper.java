@@ -16,8 +16,4 @@ public record EntityHelper(DifferHelper<EntityType<?>> entityHelper) {
 				.setUpdateInterval(3)
 				.build((new ResourceLocation(entityHelper.getModId(), name)).toString()));
 	}
-
-	public DifferHelper<EntityType<?>> getHelper() {
-		return this.entityHelper;
-	}
 }

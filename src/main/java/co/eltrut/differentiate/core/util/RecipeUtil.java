@@ -109,25 +109,4 @@ public class RecipeUtil {
     		.addFlags(flags)
     		.build(consumer);
 	}
-	
-//	public static void verticalSlabCraftingRecipe(Consumer<FinishedRecipe> consumer, Block verticalSlab, Block slab, String[] mods, String[] conditions, String[] flags) {
-//		shapedRecipe(verticalSlab, 3)
-//    		.patternLine("X")
-//    		.patternLine("X")
-//    		.patternLine("X")
-//    		.key('X', slab)
-//    		.addModCompat(mods)
-//    		.addConditions(conditions)
-//    		.addFlags(ArrayUtils.add(flags, "vertical_slabs"))
-//    		.build(consumer);
-//	}
-//
-//	public static void verticalSlabRevertCraftingRecipe(Consumer<FinishedRecipe> consumer, Block slab, Block verticalSlab, String[] mods, String[] conditions, String[] flags) {
-//		shapelessRecipe(slab)
-//			.addIngredient(verticalSlab.asItem())
-//			.addModCompat(mods)
-//			.addConditions(conditions)
-//			.addFlags(ArrayUtils.add(flags, "vertical_slabs"))
-//			.build(consumer);
-//	}
 }

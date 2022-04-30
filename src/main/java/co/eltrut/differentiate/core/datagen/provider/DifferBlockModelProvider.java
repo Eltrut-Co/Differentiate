@@ -28,19 +28,6 @@ public abstract class DifferBlockModelProvider extends BlockStateProvider {
 		provider.run(cache);
 	}
 	
-//	public void verticalSlabBlock(VerticalSlabBlock block, ResourceLocation texture, ResourceLocation doubleslab) {
-//		this.verticalSlabBlock(block, this.provider.verticalSlab(block.getRegistryName().getPath(), texture), this.models().getExistingFile(doubleslab));
-//	}
-//
-//	public void verticalSlabBlock(VerticalSlabBlock block, ModelFile model, ModelFile doubleslab) {
-//		this.getVariantBuilder(block)
-//			.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.NORTH).addModels(ConfiguredModel.builder().modelFile(model).rotationY(0).uvLock(true).build())
-//			.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.SOUTH).addModels(ConfiguredModel.builder().modelFile(model).rotationY(180).uvLock(true).build())
-//			.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.EAST).addModels(ConfiguredModel.builder().modelFile(model).rotationY(90).uvLock(true).build())
-//			.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.WEST).addModels(ConfiguredModel.builder().modelFile(model).rotationY(270).uvLock(true).build())
-//			.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(doubleslab));
-//	}
-	
 	public abstract static class DifferModelProvider extends BlockModelProvider {
 		public DifferModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
 			super(generator, modid, existingFileHelper);

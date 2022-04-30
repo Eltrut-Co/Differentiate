@@ -15,7 +15,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.function.Consumer;
 
 public class Recipes extends RecipeProvider {
-
 	public Recipes(DataGenerator generatorIn) {
 		super(generatorIn);
 	}
@@ -34,8 +33,7 @@ public class Recipes extends RecipeProvider {
         	.build(consumer);
 		
 		RecipeUtil.slabCraftingRecipe(consumer, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
-		RecipeUtil.verticalSlabCraftingRecipe(consumer, TestBlocks.BLOCK_TWO.get(), TestBlocks.BLOCK_THREE.get(), new String[] {Mods.LEPTON}, new String[] {"honey_cookie_tiles", "strawberry_cookie_tiles"}, new String[] {"biotite"});
-		
+
 		RecipeUtil.sawingRecipe(Ingredient.of(TestBlocks.BLOCK_THREE.get(), TestBlocks.BLOCK.get()), TestBlocks.BLOCK.get())
 			.addModCompat(Mods.ENVIRONMENTAL)
 			.build(consumer, new ResourceLocation("test", "sawing/block"));
@@ -44,5 +42,4 @@ public class Recipes extends RecipeProvider {
 			.addModCompat(Mods.ENVIRONMENTAL)
 			.build(consumer, new ResourceLocation("test", "baking/block"));
 	}
-
 }

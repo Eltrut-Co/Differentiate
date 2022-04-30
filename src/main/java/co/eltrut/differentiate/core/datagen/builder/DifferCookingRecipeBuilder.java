@@ -16,7 +16,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class DifferCookingRecipeBuilder {
-
 	private final Item result;
 	private final Ingredient ingredient;
 	private final float experience;
@@ -160,5 +159,4 @@ public class DifferCookingRecipeBuilder {
 			return null;
 		}
 	}
-
 }

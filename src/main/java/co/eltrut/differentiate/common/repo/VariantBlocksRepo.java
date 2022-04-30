@@ -31,7 +31,6 @@ public record VariantBlocksRepo(
 	}
 
 	public static class Builder {
-
 		private RegistryObject<Block> baseBlock;
 		private RegistryObject<Block> slabBlock;
 		private RegistryObject<Block> stairsBlock;

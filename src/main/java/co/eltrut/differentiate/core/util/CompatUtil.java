@@ -26,7 +26,7 @@ public class CompatUtil {
 	}
 
 	public static void registerCompostable(ItemLike item, float compostableChance) {
-		ComposterBlock.add(item, compostableChance);
+		ComposterBlock.add(compostableChance, item);
 	}
 
 	public static void registerFlammable(Block block, int encouragement, int flammability) {

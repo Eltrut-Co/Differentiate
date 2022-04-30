@@ -162,8 +162,4 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 
 		return new WoodVariantRepo(strippedWoods, woods);
 	}
-
-	public DifferHelper<Block> getHelper() {
-		return this.blockHelper;
-	}
 }

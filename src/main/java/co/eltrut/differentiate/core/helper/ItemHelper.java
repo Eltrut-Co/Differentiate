@@ -22,8 +22,4 @@ public record ItemHelper(DifferHelper<Item> itemHelper) {
 		CompatUtil.registerFuel(item.get(), burnTime);
 		return item;
 	}
-
-	public DifferHelper<Item> getHelper() {
-		return this.itemHelper;
-	}
 }

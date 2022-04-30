@@ -10,7 +10,6 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockModels extends DifferBlockModelProvider {
-
 	public BlockModels(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
 		super(gen, modid, exFileHelper);
 	}
@@ -19,7 +18,5 @@ public class BlockModels extends DifferBlockModelProvider {
 	protected void registerStatesAndModels() {
 		this.simpleBlockItem(TestBlocks.BLOCK.get(), new ModelFile.UncheckedModelFile(new ResourceLocation(Test.MOD_ID, "block/test")));
 		this.slabBlock((SlabBlock)TestBlocks.BLOCK.get(), new ResourceLocation(Test.MOD_ID, "block/test"), new ResourceLocation(Test.MOD_ID, "block/test"));
-		this.verticalSlabBlock((VerticalSlabBlock)TestBlocks.SLABBY.get(), new ResourceLocation(Test.MOD_ID, "block/test"), new ResourceLocation(Test.MOD_ID, "block/test"));
 	}
-
 }

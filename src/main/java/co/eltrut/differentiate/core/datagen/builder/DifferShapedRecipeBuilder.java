@@ -16,7 +16,6 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 public class DifferShapedRecipeBuilder {
-
 	private final Item result;
 	private final int count;
 	private final List<String> pattern = new ArrayList<>();
@@ -230,5 +229,4 @@ public class DifferShapedRecipeBuilder {
 		}
 		
 	}
-
 }
