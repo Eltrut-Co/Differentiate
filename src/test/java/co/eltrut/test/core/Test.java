@@ -35,16 +35,16 @@ public class Test {
 	    modEventBus.addListener(this::doDataStuff);
 	    instance = this;
 
+	    MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	public void doCommonStuff(final FMLCommonSetupEvent event) {
 		TestBlocks.HELPER.blockHelper().setRegistry(modEventBus);
 		TestItems.HELPER.itemHelper().setRegistry(modEventBus);
 		TestTileEntities.HELPER.blockEntityHelper().setRegistry(modEventBus);
 
-	    MinecraftForge.EVENT_BUS.register(this);
-
-		FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
+		event.enqueueWork(() -> FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight()));
 	}
-	
-	public void doCommonStuff(final FMLCommonSetupEvent event) {}
 	
 	public void doClientStuff(final FMLClientSetupEvent event) {}
 	
@@ -61,9 +61,7 @@ public class Test {
         	.addConditions("honey_cookie_tiles")
         	.build(s);
 		});
-		generator.addRecipe(s -> {
-			RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
-		});
+		generator.addRecipe(s -> RecipeUtil.slabCraftingRecipe(s, TestBlocks.BLOCK.get(), TestBlocks.BLOCK_TWO.get(), ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY));
 		
 		generator.run();
 	}

@@ -2,11 +2,11 @@ package co.eltrut.differentiate.core.helper;
 
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.common.repo.WoodVariantRepo;
-import co.eltrut.differentiate.core.util.CompatUtil;
-import co.eltrut.differentiate.core.util.helper.FlammablesHelper.Odds;
-import co.eltrut.differentiate.core.util.TabUtil;
 import co.eltrut.differentiate.core.util.AttributeUtil;
+import co.eltrut.differentiate.core.util.TabUtil;
 import co.eltrut.differentiate.core.util.helper.FlammablesHelper;
+import co.eltrut.differentiate.core.util.helper.FlammablesHelper.Odds;
+import co.eltrut.differentiate.core.util.helper.FuelsHelper;
 import co.eltrut.differentiate.core.util.helper.StrippablesHelper;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,78 +21,78 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> itemHelper) {
-	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, Item.Properties props) {
-		RegistryObject<Block> registeredBlock = blockHelper.register(name, block);
-		this.itemHelper.register(name, () -> new BlockItem(registeredBlock.get(), props));
+	public RegistryObject<Block> createBlock(String id, Supplier<Block> blockSupplier, Item.Properties props) {
+		RegistryObject<Block> block = blockHelper.register(id, blockSupplier);
+		this.itemHelper.register(id, () -> new BlockItem(block.get(), props));
 
-		return registeredBlock;
+		return block;
 	}
 
-	public RegistryObject<Block> createSimpleBlock(String name, Supplier<Block> block, CreativeModeTab group, String modId) {
-		return this.createBlock(name, block, TabUtil.getProps(group, modId));
+	public RegistryObject<Block> createBlockWithTab(String id, Supplier<Block> blockSupplier, CreativeModeTab tab, String ... modId) {
+		return this.createBlock(id, blockSupplier, TabUtil.getProps(tab, modId));
 	}
 
-	public RegistryObject<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime) {
-		RegistryObject<Block> registeredBlock = blockHelper.register(name, block);
-		RegistryObject<Item> registeredItem = this.itemHelper.register(name, () -> new BlockItem(registeredBlock.get(), props));
-		CompatUtil.registerFuel(registeredItem.get(), burnTime);
-		return registeredBlock;
+	public RegistryObject<Block> createFuelBlock(String id, Supplier<Block> blockSupplier, Item.Properties props, int length) {
+		RegistryObject<Block> block = blockHelper.register(id, blockSupplier);
+		RegistryObject<Item> item = this.itemHelper.register(id, () -> new BlockItem(block.get(), props));
+		FuelsHelper.register(item.get(), length);
+		return block;
 	}
 
-	public RegistryObject<Block> createSimpleFuelBlock(String name, Supplier<Block> block, CreativeModeTab group, int burnTime, String modId) {
-		return this.createFuelBlock(name, block, TabUtil.getProps(group, modId), burnTime);
+	public RegistryObject<Block> createFuelBlockWithTab(String id, Supplier<Block> blockSupplier, CreativeModeTab tab, int length, String ... modId) {
+		return this.createFuelBlock(id, blockSupplier, TabUtil.getProps(tab, modId), length);
 	}
 
-	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Supplier<Block> block, Properties props, CreativeModeTab group, String modId) {
-		RegistryObject<Block> baseBlock = this.createSimpleBlock(name, block, group, modId);
-		RegistryObject<Block> slabBlock = this.createSlabBlock(name, props, modId);
-		RegistryObject<Block> stairsBlock = this.createStairsBlock(name, () -> new StairBlock(baseBlock.get()::defaultBlockState, props), modId);
-		RegistryObject<Block> wallBlock = this.createWallBlock(name, props, modId);
+	public VariantBlocksRepo createSimpleBlockWithVariants(String id, Supplier<Block> blockSupplier, Properties props, CreativeModeTab tab, String ... modId) {
+		RegistryObject<Block> baseBlock = this.createBlockWithTab(id, blockSupplier, tab, modId);
+		RegistryObject<Block> slabBlock = this.createSlabBlock(id, props, modId);
+		RegistryObject<Block> stairsBlock = this.createStairsBlock(id, () -> new StairBlock(baseBlock.get()::defaultBlockState, props), modId);
+		RegistryObject<Block> wallBlock = this.createWallBlock(id, props, modId);
 		return new VariantBlocksRepo.Builder().setBlock(baseBlock).setSlabBlock(slabBlock).setStairsBlock(stairsBlock).setWallBlock(wallBlock).build();
 	}
 
-	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Properties props, CreativeModeTab group, String modId) {
-		return this.createSimpleBlockWithVariants(name, () -> new Block(props), props, group, modId);
+	public VariantBlocksRepo createSimpleBlockWithVariants(String id, Properties props, CreativeModeTab tab, String ... modId) {
+		return this.createSimpleBlockWithVariants(id, () -> new Block(props), props, tab, modId);
 	}
 
-	public RegistryObject<Block> createSlabBlock(String name, Properties props, String modId) {
-		String prefix = AttributeUtil.getPrefix(name);
-		return this.createSimpleBlock(prefix + "_slab", () -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
+	public RegistryObject<Block> createSlabBlock(String id, Properties props, String ... modId) {
+		String prefix = AttributeUtil.getPrefix(id);
+		return this.createBlockWithTab(prefix + "_slab", () -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
 	}
 
-	public RegistryObject<Block> createStairsBlock(String name, Supplier<Block> block, String modId) {
-		String prefix = AttributeUtil.getPrefix(name);
-		return this.createSimpleBlock(prefix + "_stairs", block, CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
+	public RegistryObject<Block> createStairsBlock(String id, Supplier<Block> blockSupplier, String ... modId) {
+		String prefix = AttributeUtil.getPrefix(id);
+		return this.createBlockWithTab(prefix + "_stairs", blockSupplier, CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
 	}
 
-	public RegistryObject<Block> createWallBlock(String name, Properties props, String modId) {
-		String prefix = AttributeUtil.getPrefix(name);
-		return this.createSimpleBlock(prefix + "_wall", () -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, modId);
+	public RegistryObject<Block> createWallBlock(String id, Properties props, String ... modId) {
+		String prefix = AttributeUtil.getPrefix(id);
+		return this.createBlockWithTab(prefix + "_wall", () -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, modId);
 	}
 
-	public VariantBlocksRepo createSimpleVariants(Block base, String modId) {
-		String name = base.getRegistryName().getPath();
+	public VariantBlocksRepo createSimpleVariants(Block base, String ... modId) {
+		String id = base.getRegistryName().getPath();
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.copy(base);
-		RegistryObject<Block> slabBlock = this.createSlabBlock(name, props, modId);
-		RegistryObject<Block> stairBlock = this.createStairsBlock(name, () -> new StairBlock(base::defaultBlockState, props), modId);
-		RegistryObject<Block> wallBlock = this.createWallBlock(name, props, modId);
+		RegistryObject<Block> slabBlock = this.createSlabBlock(id, props, modId);
+		RegistryObject<Block> stairBlock = this.createStairsBlock(id, () -> new StairBlock(base::defaultBlockState, props), modId);
+		RegistryObject<Block> wallBlock = this.createWallBlock(id, props, modId);
 		return new VariantBlocksRepo.Builder().setSlabBlock(slabBlock).setStairsBlock(stairBlock).setWallBlock(wallBlock).build();
 	}
 
-	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, String modId) {
+	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, String ... modId) {
 		return this.createSimpleWoodVariants(woodName, color, false, modId);
 	}
 
-	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, boolean isHyphae, String modId) {
-		String name = isHyphae ? woodName + "_hyphae" : woodName + "_wood";
+	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, boolean isHyphae, String ... modId) {
+		String id = isHyphae ? woodName + "_hyphae" : woodName + "_wood";
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.of(Material.WOOD, color).strength(2.0F).sound(SoundType.WOOD);
 
 		// Stripped Woods
-		RegistryObject<Block> strippedSlabBlock = this.createSimpleFuelBlock("stripped_" + name + "_slab",
+		RegistryObject<Block> strippedSlabBlock = this.createFuelBlockWithTab("stripped_" + id + "_slab",
 				() -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, 150, modId);
-		RegistryObject<Block> strippedStairBlock = this.createSimpleFuelBlock("stripped_" + name + "_stairs",
+		RegistryObject<Block> strippedStairBlock = this.createFuelBlockWithTab("stripped_" + id + "_stairs",
 				() -> new StairBlock(Blocks.STRIPPED_OAK_WOOD::defaultBlockState, props), CreativeModeTab.TAB_BUILDING_BLOCKS, 300, modId);
-		RegistryObject<Block> strippedWallBlock = this.createSimpleFuelBlock("stripped_" + name + "_wall",
+		RegistryObject<Block> strippedWallBlock = this.createFuelBlockWithTab("stripped_" + id + "_wall",
 				() -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, 300, modId);
 		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(strippedSlabBlock)
@@ -105,11 +105,11 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 		FlammablesHelper.register(strippedWallBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
 
 		// Woods
-		RegistryObject<Block> slabBlock = this.createSimpleFuelBlock(name + "_slab",
+		RegistryObject<Block> slabBlock = this.createFuelBlockWithTab(id + "_slab",
 				() -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, 150, modId);
-		RegistryObject<Block> stairBlock = this.createSimpleFuelBlock(name + "_stairs",
+		RegistryObject<Block> stairBlock = this.createFuelBlockWithTab(id + "_stairs",
 				() -> new StairBlock(Blocks.OAK_WOOD::defaultBlockState, props), CreativeModeTab.TAB_BUILDING_BLOCKS, 300, modId);
-		RegistryObject<Block> wallBlock = this.createSimpleFuelBlock(name + "_wall",
+		RegistryObject<Block> wallBlock = this.createFuelBlockWithTab(id + "_wall",
 				() -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, 300, modId);
 		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(slabBlock)
@@ -128,16 +128,16 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 		return new WoodVariantRepo(strippedWoods, woods);
 	}
 
-	public WoodVariantRepo createNetherWoodVariants(String woodName, MaterialColor color, String modId) {
-		String name = woodName + "_hyphae";
+	public WoodVariantRepo createNetherWoodVariants(String woodName, MaterialColor color, String ... modId) {
+		String id = woodName + "_hyphae";
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.of(Material.NETHER_WOOD, color).strength(2.0F).sound(SoundType.STEM);
 
 		// Stripped Woods
-		RegistryObject<Block> strippedSlabBlock = this.createSimpleBlock("stripped_" + name + "_slab",
+		RegistryObject<Block> strippedSlabBlock = this.createBlockWithTab("stripped_" + id + "_slab",
 				() -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
-		RegistryObject<Block> strippedStairBlock = this.createSimpleBlock("stripped_" + name + "_stairs",
+		RegistryObject<Block> strippedStairBlock = this.createBlockWithTab("stripped_" + id + "_stairs",
 				() -> new StairBlock(Blocks.STRIPPED_CRIMSON_HYPHAE::defaultBlockState, props), CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
-		RegistryObject<Block> strippedWallBlock = this.createSimpleBlock("stripped_" + name + "_wall",
+		RegistryObject<Block> strippedWallBlock = this.createBlockWithTab("stripped_" + id + "_wall",
 				() -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, modId);
 		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(strippedSlabBlock)
@@ -146,11 +146,11 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 				.build();
 
 		// Woods
-		RegistryObject<Block> slabBlock = this.createSimpleBlock(name + "_slab",
+		RegistryObject<Block> slabBlock = this.createBlockWithTab(id + "_slab",
 				() -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
-		RegistryObject<Block> stairBlock = this.createSimpleBlock(name + "_stairs",
+		RegistryObject<Block> stairBlock = this.createBlockWithTab(id + "_stairs",
 				() -> new StairBlock(Blocks.CRIMSON_HYPHAE::defaultBlockState, props), CreativeModeTab.TAB_BUILDING_BLOCKS, modId);
-		RegistryObject<Block> wallBlock = this.createSimpleBlock(name + "_wall",
+		RegistryObject<Block> wallBlock = this.createBlockWithTab(id + "_wall",
 				() -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, modId);
 		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(slabBlock)

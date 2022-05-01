@@ -5,8 +5,12 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
 
 public class TabUtil {
-	public static Item.Properties getProps(CreativeModeTab tab, String modId) {
-		return new Item.Properties().tab(ModList.get().isLoaded(modId) ? tab : null);
+	public static Item.Properties getProps(CreativeModeTab tab, String ... modId) {
+		Item.Properties props = new Item.Properties();
+		for (String id : modId) {
+			return props.tab(ModList.get().isLoaded(id) ? tab : null);
+		}
+		return props;
 	}
 
 	public static class Tabs {
