@@ -4,10 +4,10 @@ import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.core.helper.BlockHelper;
 import co.eltrut.differentiate.core.helper.DifferHelper;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
-import co.eltrut.differentiate.core.util.CreativeTabUtil;
 import co.eltrut.test.common.blocks.TestSlabBlock;
 import co.eltrut.test.core.Test;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class TestBlocks {
 	public static final BlockHelper HELPER = DifferHelper.createBlock(TestItems.HELPER.itemHelper());
 	
-	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.copy(Blocks.ACACIA_WOOD)), CreativeTabUtil.getProps(CreativeModeTab.TAB_BUILDING_BLOCKS).fireResistant());
+	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new TestSlabBlock(Block.Properties.copy(Blocks.ACACIA_WOOD)), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS).fireResistant());
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createSimpleBlock("block_two", () -> new Block(Block.Properties.copy(Blocks.DIRT)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> BLOCK_THREE = HELPER.createSimpleBlock("block_three", () -> new Block(Block.Properties.copy(Blocks.DIRT)), CreativeModeTab.TAB_BUILDING_BLOCKS, "differentiate");
 

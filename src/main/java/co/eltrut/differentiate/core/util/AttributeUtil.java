@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
-public class PropertyUtil {
+public class AttributeUtil {
 	public static String getPrefix(String name) {
 		return name.endsWith("bricks") || name.endsWith("tiles") ? name.replace("_bricks", "_brick").replace("_tiles", "_tile") : name;
 	}
@@ -18,7 +18,7 @@ public class PropertyUtil {
 		public static final Block.Properties MYALITE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 	}
 
-	public static class WoodProperties {
+	public static class WoodColors {
 		public static final MaterialColor ACACIA = MaterialColor.COLOR_GRAY;
 		public static final MaterialColor BIRCH = MaterialColor.SAND;
 		public static final MaterialColor DARK_OAK = MaterialColor.COLOR_BROWN;
