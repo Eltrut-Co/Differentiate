@@ -12,6 +12,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+/**
+ * TODO: Use quark's vertical slabs, myalite things, and alt quark recipe conditions
+ */
 @Mod("differentiate")
 @Mod.EventBusSubscriber(modid = "differentiate", bus = Bus.MOD)
 public class Differentiate {
@@ -39,12 +42,4 @@ public class Differentiate {
     
     private void doClientStuff(final FMLClientSetupEvent event) {
     }
-
-    // TODO:
-    //  - use quark's MyaliteColorProvider instead (workaround?)
-    //  - workarround for vertical slab or use quark
-    //  - DifferItemTier DifferArmorMaterial, do we need this?
-    //  - quark recipe conditions is too similar
-    //  - remove all copied registratior code
-    //  - re-add vertical slab stuffs
 }
