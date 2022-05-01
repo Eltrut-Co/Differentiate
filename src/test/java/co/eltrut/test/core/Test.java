@@ -1,9 +1,10 @@
 package co.eltrut.test.core;
 
 import co.eltrut.differentiate.core.datagen.Generator;
-import co.eltrut.differentiate.core.util.CompatUtil;
+import co.eltrut.differentiate.core.util.helper.FlammablesHelper.Odds;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.differentiate.core.util.RecipeUtil;
+import co.eltrut.differentiate.core.util.helper.FlammablesHelper;
 import co.eltrut.test.core.registry.TestBlocks;
 import co.eltrut.test.core.registry.TestItems;
 import co.eltrut.test.core.registry.TestTileEntities;
@@ -40,7 +41,7 @@ public class Test {
 
 	    MinecraftForge.EVENT_BUS.register(this);
 
-		CompatUtil.registerFlammable(TestBlocks.BLOCK_THREE.get(), CompatUtil.FlammableChance.WOOD.getLeft(), CompatUtil.FlammableChance.WOOD.getRight());
+		FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
 	}
 	
 	public void doCommonStuff(final FMLCommonSetupEvent event) {}

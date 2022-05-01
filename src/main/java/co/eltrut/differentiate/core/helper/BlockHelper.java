@@ -3,7 +3,7 @@ package co.eltrut.differentiate.core.helper;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.common.repo.WoodVariantRepo;
 import co.eltrut.differentiate.core.util.CompatUtil;
-import co.eltrut.differentiate.core.util.helper.FlammablesHelper.Chances;
+import co.eltrut.differentiate.core.util.helper.FlammablesHelper.Odds;
 import co.eltrut.differentiate.core.util.TabUtil;
 import co.eltrut.differentiate.core.util.AttributeUtil;
 import co.eltrut.differentiate.core.util.helper.FlammablesHelper;
@@ -100,9 +100,9 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 				.setWallBlock(strippedWallBlock)
 				.build();
 
-		FlammablesHelper.register(strippedSlabBlock.get(), Chances.WOOD.getLeft(), Chances.WOOD.getRight());
-		FlammablesHelper.register(strippedStairBlock.get(), Chances.WOOD.getLeft(), Chances.WOOD.getRight());
-		FlammablesHelper.register(strippedWallBlock.get(), Chances.WOOD.getLeft(), Chances.WOOD.getRight());
+		FlammablesHelper.register(strippedSlabBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
+		FlammablesHelper.register(strippedStairBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
+		FlammablesHelper.register(strippedWallBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
 
 		// Woods
 		RegistryObject<Block> slabBlock = this.createSimpleFuelBlock(name + "_slab",
@@ -121,9 +121,9 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 		StrippablesHelper.register(stairBlock.get(), strippedStairBlock.get());
 		StrippablesHelper.register(wallBlock.get(), strippedWallBlock.get());
 
-		FlammablesHelper.register(slabBlock.get(), Chances.WOOD.getLeft(), Chances.WOOD.getRight());
-		FlammablesHelper.register(stairBlock.get(), Chances.WOOD.getLeft(), Chances.WOOD.getRight());
-		FlammablesHelper.register(wallBlock.get(), Chances.WOOD.getLeft(), Chances.WOOD.getRight());
+		FlammablesHelper.register(slabBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
+		FlammablesHelper.register(stairBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
+		FlammablesHelper.register(wallBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
 
 		return new WoodVariantRepo(strippedWoods, woods);
 	}
