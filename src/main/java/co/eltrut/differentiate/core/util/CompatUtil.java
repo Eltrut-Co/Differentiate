@@ -9,18 +9,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 public class CompatUtil {
-	public static void registerCutout(Block block, RenderType type) {
-		ItemBlockRenderTypes.setRenderLayer(block, type);
-	}
-
-	public static void registerBlockColor(BlockColor color, Block ...blocks) {
-		Minecraft.getInstance().getBlockColors().register(color, blocks);
-	}
-
-	public static void registerItemColor(ItemColor color, ItemLike ...items) {
-		Minecraft.getInstance().getItemColors().register(color, items);
-	}
-
 	public static class Mods {
 		// Core
 		public static final String MINECRAFT = "minecraft";
