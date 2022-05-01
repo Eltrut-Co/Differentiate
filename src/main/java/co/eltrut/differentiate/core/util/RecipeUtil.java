@@ -1,9 +1,5 @@
 package co.eltrut.differentiate.core.util;
 
-import java.util.function.Consumer;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import co.eltrut.differentiate.core.datagen.builder.CuttingRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.builder.DifferCookingRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
@@ -17,6 +13,8 @@ import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Consumer;
 
 public class RecipeUtil {
 	public static DifferShapedRecipeBuilder shapedRecipe(ItemLike resultIn) {

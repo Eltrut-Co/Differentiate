@@ -1,28 +1,14 @@
 package co.eltrut.differentiate.core.util;
 
-import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.Map;
 
 public class CompatUtil {
-	public static void registerFuel(ItemLike item, int duration) {
-		Map<Item, Integer> map = Maps.newLinkedHashMap();
-		AbstractFurnaceBlockEntity.add(map, item, duration);
-	}
-
 	public static void registerCutout(Block block, RenderType type) {
 		ItemBlockRenderTypes.setRenderLayer(block, type);
 	}
@@ -39,11 +25,11 @@ public class CompatUtil {
 		// Core
 		public static final String MINECRAFT = "minecraft";
 		public static final String FORGE = "forge";
-		
+
 		// Vazkii
 		public static final String AUTOREGLIB = "autoreglib";
 		public static final String QUARK = "quark";
-		
+
 		// Abnormals
 		public static final String ABNORMALS_DELIGHT = "abnormals_delight";
 		public static final String ALLUREMENT = "allurement";
@@ -62,7 +48,7 @@ public class CompatUtil {
 		public static final String PERSONALITY = "personality";
 		public static final String SAVAGE_AND_RAVAGE = "savageandravage";
 		public static final String UPGRADE_AQUATIC = "upgrade_aquatic";
-		
+
 		// Aurora
 		public static final String ABUNDANCE = "abundance";
 		public static final String BAYOU_BLUES = "bayou_blues";
@@ -70,12 +56,12 @@ public class CompatUtil {
 		public static final String ENHANCED_MUSHROOMS = "enhanced_mushrooms";
 		public static final String FRUITFUL	= "fruitful";
 		public static final String REFORESTED = "reforested";
-		
+
 		// Evoslab
 		public static final String ASSEMBLY = "assembly";
 		public static final String BREADCRUMBS = "breadcrumbs";
 		public static final String COOKIELICIOUS = "cookielicious";
-		
+
 		// Eltrut & Co.
 		public static final String ADDENDUM = "addendum";
 		public static final String DIFFERENTIATE = "differentiate";
@@ -83,7 +69,7 @@ public class CompatUtil {
 		public static final String LEPTON = "lepton";
 		public static final String MORE_RESPAWN_ANCHORS = "morerespawnanchors";
 		public static final String TOTALLY_WILD = "totally_wild";
-		
+
 		// Other
 		public static final String CREATE = "create";
 		public static final String CRUMBS = "crumbs";
