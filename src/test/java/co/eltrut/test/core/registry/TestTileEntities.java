@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
 public class TestTileEntities {
-	public static final BlockEntityHelper HELPER = DifferHelper.createBlockEntity(Test.MOD_ID);
+	public static final BlockEntityHelper HELPER = DifferHelper.constructBlockEntity(Test.MOD_ID);
 	
 	public static final RegistryObject<BlockEntityType<?>> TEST = HELPER.createBlockEntity("test", TestTileEntity::new, () -> new Block[] {TestBlocks.BLOCK_TWO.get()});
 }

@@ -4,46 +4,43 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.*;
 
+import java.util.HashMap;
 import java.util.function.Supplier;
 
 public class DifferHelper<T extends IForgeRegistryEntry<T>> {
-	private final String modId;
-	private final DeferredRegister<T> registry;
+	private final String id;
+	private final DeferredRegister<T> deferredRegister;
 
-	private DifferHelper(IForgeRegistry<T> registry, String modId) {
-		this.modId = modId;
-		this.registry = DeferredRegister.create(registry, modId);
-	}
-	
-	public static <T extends IForgeRegistryEntry<T>> DifferHelper<T> create(IForgeRegistry<T> registry, String modId) {
-		return new DifferHelper<>(registry, modId);
+	public DifferHelper(IForgeRegistry<T> borgeRegistry, String id) {
+		this.id = id;
+		this.deferredRegister = DeferredRegister.create(borgeRegistry, id);
 	}
 
-	public static ItemHelper createItem(String modId) {
-		return new ItemHelper(create(ForgeRegistries.ITEMS, modId));
+	public static ItemHelper constructItem(String modId) {
+		return new ItemHelper(new DifferHelper<>(ForgeRegistries.ITEMS, modId));
 	}
 
-	public static BlockHelper createBlock(DifferHelper<Item> itemHelper) {
-		return new BlockHelper(create(ForgeRegistries.BLOCKS, itemHelper.getModId()), itemHelper);
+	public static BlockHelper constructBlock(DifferHelper<Item> itemHelper) {
+		return new BlockHelper(new DifferHelper<>(ForgeRegistries.BLOCKS, itemHelper.getId()), itemHelper);
 	}
 
-	public static BlockEntityHelper createBlockEntity(String modId) {
-		return new BlockEntityHelper(create(ForgeRegistries.BLOCK_ENTITIES, modId));
+	public static BlockEntityHelper constructBlockEntity(String modId) {
+		return new BlockEntityHelper(new DifferHelper<>(ForgeRegistries.BLOCK_ENTITIES, modId));
 	}
 
-	public static EntityHelper createEntity(String modId) {
-		return new EntityHelper(create(ForgeRegistries.ENTITIES, modId));
+	public static EntityHelper constructEntity(String modId) {
+		return new EntityHelper(new DifferHelper<>(ForgeRegistries.ENTITIES, modId));
 	}
 
-	public void setRegistry(IEventBus bus) {
-		registry.register(bus);
+	public void setBus(IEventBus bus) {
+		deferredRegister.register(bus);
 	}
 
 	public RegistryObject<T> register(String name, Supplier<T> supplier) {
-		return registry.register(name, supplier);
+		return deferredRegister.register(name, supplier);
 	}
 	
-	public String getModId() {
-		return this.modId;
+	public String getId() {
+		return this.id;
 	}
 }

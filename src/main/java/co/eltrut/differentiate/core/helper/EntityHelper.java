@@ -10,6 +10,6 @@ public record EntityHelper(DifferHelper<EntityType<?>> entityHelper) {
 				EntityType.Builder.of(factory, category)
 						.sized(width, height)
 						.clientTrackingRange(trackingRange)
-						.build(entityHelper.getModId()));
+						.build(entityHelper.getId()));
 	}
 }

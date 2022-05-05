@@ -39,9 +39,9 @@ public class Test {
 	}
 	
 	public void doCommonStuff(final FMLCommonSetupEvent event) {
-		TestBlocks.HELPER.blockHelper().setRegistry(modEventBus);
-		TestItems.HELPER.itemHelper().setRegistry(modEventBus);
-		TestTileEntities.HELPER.blockEntityHelper().setRegistry(modEventBus);
+		TestBlocks.HELPER.blockHelper().setBus(modEventBus);
+		TestItems.HELPER.itemHelper().setBus(modEventBus);
+		TestTileEntities.HELPER.blockEntityHelper().setBus(modEventBus);
 
 		event.enqueueWork(() -> FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight()));
 	}

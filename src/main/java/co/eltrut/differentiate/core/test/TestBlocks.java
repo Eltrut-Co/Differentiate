@@ -1,10 +1,10 @@
-package co.eltrut.test.core.registry;
+package co.eltrut.differentiate.core.test;
 
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
+import co.eltrut.differentiate.core.Differentiate;
 import co.eltrut.differentiate.core.helper.BlockHelper;
 import co.eltrut.differentiate.core.helper.DifferHelper;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
-import co.eltrut.test.core.Test;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
+@Mod.EventBusSubscriber(modid = Differentiate.MOD_ID, bus = Bus.MOD)
 public class TestBlocks {
 	public static final BlockHelper HELPER = DifferHelper.constructBlock(TestItems.HELPER.itemHelper());
 	
