@@ -71,7 +71,7 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 	}
 
 	public VariantBlocksRepo createSimpleVariants(Block base, String ... modId) {
-		String id = base.getRegistryName().getPath();
+		String id = base.getDescriptionId();
 		BlockBehaviour.Properties props = BlockBehaviour.Properties.copy(base);
 		RegistryObject<Block> slabBlock = this.createSlabBlock(id, props, modId);
 		RegistryObject<Block> stairBlock = this.createStairsBlock(id, () -> new StairBlock(base::defaultBlockState, props), modId);

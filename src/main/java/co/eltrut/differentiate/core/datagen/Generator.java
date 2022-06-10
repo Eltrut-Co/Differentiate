@@ -25,6 +25,6 @@ public class Generator {
 	}
 	
 	public void run() {
-		this.generator.addProvider(this.recipes);
+		this.generator.addProvider(false, this.recipes);
 	}
 }

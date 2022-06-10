@@ -9,13 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public final class ItemHelper extends DifferHelper<Item> {
-	private final DifferHelper<Item> itemHelper;
-
-	public ItemHelper(DifferHelper<Item> itemHelper) {
-		super(itemHelper);
-		this.itemHelper = itemHelper;
-	}
+public record ItemHelper(DifferHelper<Item> itemHelper) {
 
 	public RegistryObject<Item> createItem(String id, Supplier<Item> item) {
 		return itemHelper.register(id, item);
@@ -33,25 +27,6 @@ public final class ItemHelper extends DifferHelper<Item> {
 
 	public DifferHelper<Item> itemHelper() {
 		return itemHelper;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) return true;
-		if (obj == null || obj.getClass() != this.getClass()) return false;
-		var that = (ItemHelper) obj;
-		return Objects.equals(this.itemHelper, that.itemHelper);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(itemHelper);
-	}
-
-	@Override
-	public String toString() {
-		return "ItemHelper[" +
-				"itemHelper=" + itemHelper + ']';
 	}
 
 }

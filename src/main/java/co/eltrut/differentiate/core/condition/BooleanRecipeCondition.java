@@ -20,7 +20,7 @@ public record BooleanRecipeCondition(ResourceLocation location, String condition
 	}
 
 	@Override
-	public boolean test() {
+	public boolean test(IContext iContext) {
 		return MAP.containsKey(this.condition) && MAP.get(this.condition).get();
 	}
 

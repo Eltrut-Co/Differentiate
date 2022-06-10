@@ -7,7 +7,7 @@ import net.minecraftforge.registries.*;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-public class DifferHelper<T extends IForgeRegistryEntry<T>> {
+public class DifferHelper<T> {
 	private final String id;
 	private final DeferredRegister<T> deferredRegister;
 
