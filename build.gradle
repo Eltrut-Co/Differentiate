@@ -33,12 +33,12 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    minecraft "com.mojang:minecraft:${project.mc_version}"
     mappings loom.layered() {
         officialMojangMappings()
-//            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_version}")
+//            parchment("org.parchmentmc.data:parchment-${rootProject.mc_version}:${rootProject.parchment_version}")
     }
-    forge "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
+    forge "net.minecraftforge:forge:${project.mc_version}-${project.forge_version}"
 }
 
 processResources {
