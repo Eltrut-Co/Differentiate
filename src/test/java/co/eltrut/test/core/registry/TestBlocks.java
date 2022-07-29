@@ -13,11 +13,12 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = Test.MOD_ID, bus = Bus.MOD)
 public class TestBlocks {
-	public static final BlockHelper HELPER = DifferHelper.constructBlock(TestItems.HELPER.itemHelper());
+	public static final BlockHelper HELPER = Test.HELPER.getHelper(ForgeRegistries.BLOCKS);
 	
 	public static final RegistryObject<Block> BLOCK = HELPER.createBlock("block", () -> new SlabBlock(Block.Properties.copy(Blocks.ACACIA_WOOD)), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS).fireResistant());
 	public static final RegistryObject<Block> BLOCK_TWO = HELPER.createFuelBlockWithTab("block_two", () -> new Block(Block.Properties.copy(Blocks.DIRT)), CreativeModeTab.TAB_BUILDING_BLOCKS, 300);

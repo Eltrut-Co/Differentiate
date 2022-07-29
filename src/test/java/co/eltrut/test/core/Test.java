@@ -1,29 +1,29 @@
 package co.eltrut.test.core;
 
 import co.eltrut.differentiate.core.datagen.Generator;
+import co.eltrut.differentiate.core.helper.DifferHelper;
 import co.eltrut.differentiate.core.util.helper.FlammablesHelper.Odds;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
 import co.eltrut.differentiate.core.util.RecipeUtil;
 import co.eltrut.differentiate.core.util.helper.FlammablesHelper;
 import co.eltrut.test.core.registry.TestBlocks;
-import co.eltrut.test.core.registry.TestItems;
-import co.eltrut.test.core.registry.TestTileEntities;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
 @Mod("test")
 @Mod.EventBusSubscriber(modid = "test", bus = Bus.MOD)
 public class Test {
     public static final String MOD_ID = "test";
+	public static final DifferHelper HELPER = new DifferHelper(MOD_ID);
 
 	public static Test instance;
 
@@ -35,15 +35,14 @@ public class Test {
 	    modEventBus.addListener(this::doDataStuff);
 	    instance = this;
 
+		HELPER.register(modEventBus);
 	    MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	public void doCommonStuff(final FMLCommonSetupEvent event) {
-		TestBlocks.HELPER.blockHelper().setBus(modEventBus);
-		TestItems.HELPER.itemHelper().setBus(modEventBus);
-		TestTileEntities.HELPER.blockEntityHelper().setBus(modEventBus);
-
-		event.enqueueWork(() -> FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight()));
+		event.enqueueWork(() -> {
+			FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
+		});
 	}
 	
 	public void doClientStuff(final FMLClientSetupEvent event) {}

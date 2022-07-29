@@ -16,14 +16,25 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> itemHelper) {
+public class BlockHelper extends AbstractHelper<Block> {
+
+	private final DifferHelper parent;
+	private final ItemHelper itemHelper;
+
+	public BlockHelper(DifferHelper parent) {
+		super(parent, ForgeRegistries.BLOCKS);
+		this.parent = parent;
+		this.itemHelper = parent.getHelper(ForgeRegistries.ITEMS);
+	}
+
 	public RegistryObject<Block> createBlock(String id, Supplier<Block> blockSupplier, Item.Properties props) {
-		RegistryObject<Block> block = blockHelper.register(id, blockSupplier);
-		this.itemHelper.register(id, () -> new BlockItem(block.get(), props));
+		RegistryObject<Block> block = this.deferredRegister.register(id, blockSupplier);
+		this.itemHelper.createItem(id, () -> new BlockItem(block.get(), props));
 
 		return block;
 	}
@@ -33,8 +44,8 @@ public record BlockHelper(DifferHelper<Block> blockHelper, DifferHelper<Item> it
 	}
 
 	public RegistryObject<Block> createFuelBlock(String id, Supplier<Block> blockSupplier, Item.Properties props, int length) {
-		RegistryObject<Block> block = blockHelper.register(id, blockSupplier);
-		RegistryObject<Item> item = this.itemHelper.register(id, () -> new BlockItem(block.get(), props));
+		RegistryObject<Block> block = this.deferredRegister.register(id, blockSupplier);
+		RegistryObject<Item> item = this.itemHelper.createItem(id, () -> new BlockItem(block.get(), props));
 		FuelsHelper.register(item.get(), length);
 		return block;
 	}

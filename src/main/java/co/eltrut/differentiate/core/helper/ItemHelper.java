@@ -4,15 +4,25 @@ import co.eltrut.differentiate.core.util.TabUtil;
 import co.eltrut.differentiate.core.util.helper.FuelsHelper;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
+import org.jline.utils.DiffHelper;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public record ItemHelper(DifferHelper<Item> itemHelper) {
+public class ItemHelper extends AbstractHelper<Item> {
+
+	private final DifferHelper parent;
+
+	public ItemHelper(DifferHelper parent) {
+		super(parent, ForgeRegistries.ITEMS);
+		this.parent = parent;
+	}
 
 	public RegistryObject<Item> createItem(String id, Supplier<Item> item) {
-		return itemHelper.register(id, item);
+		return this.deferredRegister.register(id, item);
 	}
 
 	public RegistryObject<Item> createItemWithTab(String id, CreativeModeTab tab, String mods) {
@@ -23,10 +33,6 @@ public record ItemHelper(DifferHelper<Item> itemHelper) {
 		RegistryObject<Item> item = this.createItem(id, () -> new Item(TabUtil.getProps(tab, mods)));
 		FuelsHelper.register(item.get(), length);
 		return item;
-	}
-
-	public DifferHelper<Item> itemHelper() {
-		return itemHelper;
 	}
 
 }

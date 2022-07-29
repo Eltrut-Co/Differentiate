@@ -1,45 +1,43 @@
 package co.eltrut.differentiate.core.helper;
 
-import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.function.Supplier;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
-public class DifferHelper<T> {
+public class DifferHelper {
 	private final String id;
-	private final DeferredRegister<T> deferredRegister;
+	private final Map<IForgeRegistry<?>, IHelper<?>> helpers = new HashMap<>();
 
-	public DifferHelper(IForgeRegistry<T> borgeRegistry, String id) {
+	public DifferHelper(String id) {
 		this.id = id;
-		this.deferredRegister = DeferredRegister.create(borgeRegistry, id);
+
+		this.helpers.put(ForgeRegistries.ITEMS, new ItemHelper(this));
+		this.helpers.put(ForgeRegistries.BLOCKS, new BlockHelper(this));
+		this.helpers.put(ForgeRegistries.BLOCK_ENTITY_TYPES, new BlockEntityHelper(this));
+		this.helpers.put(ForgeRegistries.ENTITY_TYPES, new EntityHelper(this));
 	}
 
-	public static ItemHelper constructItem(String modId) {
-		return new ItemHelper(new DifferHelper<>(ForgeRegistries.ITEMS, modId));
-	}
-
-	public static BlockHelper constructBlock(DifferHelper<Item> itemHelper) {
-		return new BlockHelper(new DifferHelper<>(ForgeRegistries.BLOCKS, itemHelper.getId()), itemHelper);
-	}
-
-	public static BlockEntityHelper constructBlockEntity(String modId) {
-		return new BlockEntityHelper(new DifferHelper<>(ForgeRegistries.BLOCK_ENTITY_TYPES, modId));
-	}
-
-	public static EntityHelper constructEntity(String modId) {
-		return new EntityHelper(new DifferHelper<>(ForgeRegistries.ENTITY_TYPES, modId));
-	}
-
-	public void setBus(IEventBus bus) {
-		deferredRegister.register(bus);
-	}
-
-	public RegistryObject<T> register(String name, Supplier<T> supplier) {
-		return deferredRegister.register(name, supplier);
+	public static DifferHelper create(String modid, Consumer<DifferHelper> consumer) {
+		DifferHelper helper = new DifferHelper(modid);
+		consumer.accept(helper);
+		return helper;
 	}
 	
 	public String getId() {
 		return this.id;
+	}
+
+	public <T extends IHelper<?>> T getHelper(IForgeRegistry<?> registry) {
+		return (T) this.helpers.get(registry);
+	}
+
+	public void register(IEventBus bus) {
+		for (IHelper<?> helper : this.helpers.values()) {
+			helper.register(bus);
+		}
 	}
 }
