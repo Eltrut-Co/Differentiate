@@ -4,7 +4,6 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.*;
 
-import java.util.HashMap;
 import java.util.function.Supplier;
 
 public class DifferHelper<T> {
@@ -25,11 +24,11 @@ public class DifferHelper<T> {
 	}
 
 	public static BlockEntityHelper constructBlockEntity(String modId) {
-		return new BlockEntityHelper(new DifferHelper<>(ForgeRegistries.BLOCK_ENTITIES, modId));
+		return new BlockEntityHelper(new DifferHelper<>(ForgeRegistries.BLOCK_ENTITY_TYPES, modId));
 	}
 
 	public static EntityHelper constructEntity(String modId) {
-		return new EntityHelper(new DifferHelper<>(ForgeRegistries.ENTITIES, modId));
+		return new EntityHelper(new DifferHelper<>(ForgeRegistries.ENTITY_TYPES, modId));
 	}
 
 	public void setBus(IEventBus bus) {
