@@ -25,7 +25,6 @@ loom {
     launches {
         data {
             arg "--existing", file("src/main/resources").absolutePath
-            //arg "--existing", file("src/test/resources").absolutePath
         }
     }
 }
@@ -37,7 +36,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.mc_version}"
     mappings loom.layered() {
         officialMojangMappings()
-//            parchment("org.parchmentmc.data:parchment-${rootProject.mc_version}:${rootProject.parchment_version}")
+        //parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}@zip")
     }
     forge "net.minecraftforge:forge:${project.mc_version}-${project.forge_version}"
 }
