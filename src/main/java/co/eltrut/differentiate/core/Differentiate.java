@@ -2,8 +2,6 @@ package co.eltrut.differentiate.core;
 
 import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
 import co.eltrut.differentiate.core.helper.DifferHelper;
-import co.eltrut.differentiate.core.test.core.registry.TestBlocks;
-import co.eltrut.differentiate.core.util.helper.FlammablesHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -43,9 +41,6 @@ public class Differentiate {
     }
 
     private void doCommonStuff(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            FlammablesHelper.register(TestBlocks.BLOCK_THREE.get(), FlammablesHelper.Odds.WOOD.getLeft(), FlammablesHelper.Odds.WOOD.getRight());
-        });
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {
