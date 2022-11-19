@@ -1,6 +1,5 @@
 package co.eltrut.test.core.registry;
 
-import co.eltrut.differentiate.core.helper.DifferHelper;
 import co.eltrut.differentiate.core.helper.ItemHelper;
 import co.eltrut.test.core.Test;
 import net.minecraft.world.item.CreativeModeTab;

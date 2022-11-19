@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "co.eltrut.differentiate.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+  ],
+  "mixins": [
+    "FireBlockInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
