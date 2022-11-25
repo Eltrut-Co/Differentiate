@@ -1,6 +1,6 @@
-package co.eltrut.differentiate.core.condition;
+package co.eltrut.differentiate.common.condition.forge;
 
-import co.eltrut.differentiate.core.Differentiate;
+import co.eltrut.differentiate.Differentiate;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -21,6 +21,11 @@ public record BooleanRecipeCondition(ResourceLocation location, String condition
 	@Override
 	public boolean test(IContext iContext) {
 		return MAP.containsKey(this.condition) && MAP.get(this.condition).get();
+	}
+
+	@Override
+	public boolean test() {
+		return false;
 	}
 
 	public static class Serializer implements IConditionSerializer<BooleanRecipeCondition> {

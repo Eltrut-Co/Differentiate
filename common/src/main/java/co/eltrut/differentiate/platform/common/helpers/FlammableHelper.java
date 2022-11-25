@@ -1,9 +1,7 @@
 package co.eltrut.differentiate.platform.common.helpers;
 
-import co.eltrut.differentiate.core.mixin.FireBlockInvoker;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class FlammableHelper {

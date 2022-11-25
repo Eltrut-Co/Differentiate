@@ -11,11 +11,13 @@ loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
     runs {
-        datagenClient {
-            inherit client
+        datagen {
             name "Data Generation"
+
+            server()
+
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${project(":common").file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.output-dir=${project(":common").file(project.output_datagen)}"
 
             runDir "build/datagen"
         }
@@ -23,6 +25,13 @@ loom {
 }
 
 sourceSets.main.resources.srcDirs += project(":common").file("src/main/generated")
+
+sourceSets {
+    datagen {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
 
 configurations {
     common

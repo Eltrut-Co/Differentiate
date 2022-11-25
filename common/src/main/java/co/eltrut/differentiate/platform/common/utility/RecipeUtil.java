@@ -6,7 +6,6 @@ import co.eltrut.differentiate.core.datagen.builder.DifferShapedRecipeBuilder;
 import co.eltrut.differentiate.core.datagen.builder.DifferShapelessRecipeBuilder;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;

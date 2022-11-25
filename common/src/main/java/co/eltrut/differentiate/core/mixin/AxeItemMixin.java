@@ -1,6 +1,6 @@
 package co.eltrut.differentiate.core.mixin;
 
-import co.eltrut.differentiate.platform.common.helpers.StrippablesHelper;
+import co.eltrut.differentiate.platform.common.helpers.StripHelper;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Final;
@@ -20,6 +20,6 @@ public class AxeItemMixin {
 
     static {
         STRIPPABLES = new HashMap<>(STRIPPABLES);
-        STRIPPABLES.putAll(StrippablesHelper.STRIPPABLES_MAP);
+        STRIPPABLES.putAll(StripHelper.STRIPPABLES_MAP);
     }
 }

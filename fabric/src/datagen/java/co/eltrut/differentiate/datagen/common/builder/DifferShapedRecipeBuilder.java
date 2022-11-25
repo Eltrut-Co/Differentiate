@@ -1,7 +1,8 @@
-package co.eltrut.differentiate.core.datagen.builder;
+package co.eltrut.differentiate.datagen.common.builder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -9,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -79,12 +79,12 @@ public class DifferShapedRecipeBuilder {
 	}
 
 	public void build(Consumer<FinishedRecipe> consumerIn) {
-		ResourceLocation loc = ForgeRegistries.ITEMS.getKey(this.result);
+		ResourceLocation loc = Registry.ITEM.getKey(this.result);
 		this.build(consumerIn, new ResourceLocation(loc.getNamespace(), "crafting/" + loc.getPath()));
 	}
 
 	public void build(Consumer<FinishedRecipe> consumerIn, String save) {
-		ResourceLocation resourcelocation = ForgeRegistries.ITEMS.getKey(this.result);
+		ResourceLocation resourcelocation = Registry.ITEM.getKey(this.result);
 		if ((new ResourceLocation(save)).equals(resourcelocation)) {
 			throw new IllegalStateException("Shaped Recipe " + save + " should remove its 'save' argument");
 		} else {
@@ -174,7 +174,7 @@ public class DifferShapedRecipeBuilder {
 
 			json.add("key", jsonobject);
 			JsonObject jsonobject1 = new JsonObject();
-			jsonobject1.addProperty("item", ForgeRegistries.ITEMS.getKey(this.result).toString());
+			jsonobject1.addProperty("item", Registry.ITEM.getKey(this.result).toString());
 			if (this.count > 1) {
 				jsonobject1.addProperty("count", this.count);
 			}

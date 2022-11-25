@@ -122,9 +122,9 @@ public class BlockHelper extends Helper<Block> {
 				.setWallBlock(wallBlock)
 				.build();
 
-		StrippablesHelper.register(slabBlock.get(), strippedSlabBlock.get());
-		StrippablesHelper.register(stairBlock.get(), strippedStairBlock.get());
-		StrippablesHelper.register(wallBlock.get(), strippedWallBlock.get());
+		StripHelper.register(slabBlock.get(), strippedSlabBlock.get());
+		StripHelper.register(stairBlock.get(), strippedStairBlock.get());
+		StripHelper.register(wallBlock.get(), strippedWallBlock.get());
 
 		FlammableHelper.register(slabBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
 		FlammableHelper.register(stairBlock.get(), Odds.WOOD.getLeft(), Odds.WOOD.getRight());
@@ -163,9 +163,9 @@ public class BlockHelper extends Helper<Block> {
 				.setWallBlock(wallBlock)
 				.build();
 
-		StrippablesHelper.register(slabBlock.get(), strippedSlabBlock.get());
-		StrippablesHelper.register(stairBlock.get(), strippedStairBlock.get());
-		StrippablesHelper.register(wallBlock.get(), strippedWallBlock.get());
+		StripHelper.register(slabBlock.get(), strippedSlabBlock.get());
+		StripHelper.register(stairBlock.get(), strippedStairBlock.get());
+		StripHelper.register(wallBlock.get(), strippedWallBlock.get());
 
 		return new WoodVariantRepo(strippedWoods, woods);
 	}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "differentiate-datagen",
+  "name": "Differentiate Data Generation",
+  "version": "${version}",
+  "environment": "server",
+  "entrypoints": {
+    "fabric-datagen": [ "co.eltrut.differentiate.datagen.DifferentiateDataGenerator" ]
+  }
+}

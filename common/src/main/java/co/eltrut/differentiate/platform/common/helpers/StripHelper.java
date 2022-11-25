@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StrippablesHelper {
+public class StripHelper {
     public static Map<Block, Block> STRIPPABLES_MAP = new HashMap<>();
 
     public static void register(Block log, Block strippedLog) {

@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import org.slf4j.Logger;
 
+//TODO: Add Forge & Fabric Sided Datagen things
 public class Differentiate {
     public static final String MOD_ID = "differentiate";
     public static final Logger LOGGER = LogUtils.getLogger();
