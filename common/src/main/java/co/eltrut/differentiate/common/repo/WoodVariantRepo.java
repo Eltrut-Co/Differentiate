@@ -1,13 +1,7 @@
 package co.eltrut.differentiate.common.repo;
 
-public class WoodVariantRepo {
-    private final VariantBlocksRepo strippedWoods;
-    private final VariantBlocksRepo woods;
-
-    public WoodVariantRepo(VariantBlocksRepo strippedWoods, VariantBlocksRepo woods) {
-        this.strippedWoods = strippedWoods;
-        this.woods = woods;
-    }
+public record WoodVariantRepo(VariantBlocksRepo strippedWoods,
+        VariantBlocksRepo woods) {
 
     public VariantBlocksRepo getStrippedWoods() {
         return this.strippedWoods;

@@ -26,7 +26,7 @@ public class HelperImpl<T extends IForgeRegistryEntry<T>> extends Helper<T> {
     }
 
     @Override
-    protected void load() {
+    public void load() {
         this.registry.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 }
