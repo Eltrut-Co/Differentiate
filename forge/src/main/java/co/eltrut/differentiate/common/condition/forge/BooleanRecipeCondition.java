@@ -23,11 +23,6 @@ public record BooleanRecipeCondition(ResourceLocation location, String condition
 		return MAP.containsKey(this.condition) && MAP.get(this.condition).get();
 	}
 
-	@Override
-	public boolean test() {
-		return false;
-	}
-
 	public static class Serializer implements IConditionSerializer<BooleanRecipeCondition> {
 		private final ResourceLocation location;
 

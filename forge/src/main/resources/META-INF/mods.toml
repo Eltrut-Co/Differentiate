@@ -1,33 +1,32 @@
 modLoader = "javafml"
 loaderVersion = "[43,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+license = "MIT License"
 
 [[mods]]
-modId = "examplemod"
+modId = "differentiate"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Differentiate"
+authors = "EltrutLikes, StevenPlayzz"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Core mod for all of the Eltrut & Co. Mods!
 '''
 #logoFile = ""
 
-[[dependencies.examplemod]]
+[[dependencies.differentiate]]
 modId = "forge"
 mandatory = true
 versionRange = "[43,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.differentiate]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.19.2,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.differentiate]]
 modId = "architectury"
 mandatory = true
 versionRange = "[6.2.43,)"

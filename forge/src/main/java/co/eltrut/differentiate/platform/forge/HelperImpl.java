@@ -7,7 +7,7 @@ import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
 
-public class HelperImpl<T extends IForgeRegistryEntry<T>> extends Helper<T> {
+public class HelperImpl<T> extends Helper<T> {
     private final DeferredRegister<T> registry;
 
     protected HelperImpl(Registry<T> registry, String modId) {
