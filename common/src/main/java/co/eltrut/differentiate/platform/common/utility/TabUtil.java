@@ -1,8 +1,10 @@
 package co.eltrut.differentiate.platform.common.utility;
 
 import co.eltrut.differentiate.platform.Environment;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class TabUtil {
 	public static Item.Properties getProps(CreativeModeTab tab, String ... modId) {
@@ -29,5 +31,15 @@ public class TabUtil {
 		public static Item.Properties getWallProps(String modId) {
 			return TabUtil.getProps(WALLS, modId);
 		}
+	}
+
+	private static Pair<Item, ItemStack[]> INSERT_PAIR;
+
+	public static void setInsertItemTab(Item firstItem, ItemStack... insertedItem) {
+		INSERT_PAIR = new Pair<>(firstItem, insertedItem);
+	}
+
+	public static Pair<Item, ItemStack[]> getInsertItemTab() {
+		return INSERT_PAIR;
 	}
 }

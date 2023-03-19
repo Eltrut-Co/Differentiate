@@ -41,8 +41,8 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
-    compileOnly ("vazkii.quark:Quark:${rootProject.quark_version}")
-    compileOnly ("vazkii.autoreglib:AutoRegLib:${rootProject.arl_version}")
+//    compileOnly ("vazkii.quark:Quark:${rootProject.quark_version}")
+//    compileOnly ("vazkii.autoreglib:AutoRegLib:${rootProject.arl_version}")
 }
 
 processResources {
