@@ -13,6 +13,9 @@
   "entrypoints": {
     "main": [
       "co.eltrut.differentiate.fabric.DifferentiateFabric"
+    ],
+    "mm:early_risers": [
+      "co.eltrut.differentiate.fabric.DifferentiateEarlyRiser"
     ]
   },
   "depends": {
