@@ -2,17 +2,13 @@ pluginManagement {
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.architectury.dev/" }
-        maven { url "https://maven.neoforged.net/releases" }
-        maven {
-            name = 'QuiltFlower'
-            url = 'https://server.bbkr.space/artifactory/libs-release/'
-        }
+        maven { url "https://files.minecraftforge.net/maven/" }
         gradlePluginPortal()
     }
 }
 
-include("common")
-include("fabric")
-include("forge")
+rootProject.name = 'differentiate'
 
-rootProject.name = "differentiate"
+include 'common'
+include 'fabric'
+include 'forge'
