@@ -1,10 +1,9 @@
 package co.eltrut.differentiate.core.registrator;
 
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-public interface IHelper<T extends IForgeRegistryEntry<T>> {
+public interface IHelper<T> {
 	
 	public Registrator getParent();
 	public DeferredRegister<T> getDeferredRegister();

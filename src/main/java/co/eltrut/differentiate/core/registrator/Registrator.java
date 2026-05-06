@@ -6,6 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,12 +25,6 @@ import co.eltrut.differentiate.common.interf.Interface;
 import co.eltrut.differentiate.core.util.DataUtil;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Registrator {
 	
@@ -31,15 +32,15 @@ public class Registrator {
 	public static final List<Registrator> REGISTRATORS = new ArrayList<>();
 	
 	private final String modid;
-	private final Map<IForgeRegistry<?>, IHelper<?>> helpers = new HashMap<>();
+	private final Map<ResourceKey<? extends Registry<?>>, IHelper<?>> helpers = new HashMap<>();
 	
 	public Registrator(String modid) {
 		this.modid = modid;
 		REGISTRATORS.add(this);
 		
-		this.helpers.put(ForgeRegistries.ITEMS, new ItemHelper(this));
-		this.helpers.put(ForgeRegistries.BLOCKS, new BlockHelper(this));
-		this.helpers.put(ForgeRegistries.BLOCK_ENTITIES, new BlockEntityHelper(this));
+		this.helpers.put(Registries.ITEM, new ItemHelper(this));
+		this.helpers.put(Registries.BLOCK, new BlockHelper(this));
+		this.helpers.put(Registries.BLOCK_ENTITY_TYPE, new BlockEntityHelper(this));
 	}
 	
 	public static Registrator create(String modid, Consumer<Registrator> consumer) {
@@ -55,38 +56,40 @@ public class Registrator {
 	}
 	
 	public static void registerCommon(final FMLCommonSetupEvent event) {
-		registerAttribute(ForgeRegistries.BLOCKS, ICompostableItem.class, Registrator::registerCompostable);
-		registerAttribute(ForgeRegistries.ITEMS, ICompostableItem.class, Registrator::registerCompostable);
+		registerAttribute(BuiltInRegistries.BLOCK, ICompostableItem.class, Registrator::registerCompostable);
+		registerAttribute(BuiltInRegistries.ITEM, ICompostableItem.class, Registrator::registerCompostable);
+
 		LOGGER.info("Registered block and item compostables");
 		
-		registerAttribute(ForgeRegistries.BLOCKS, IFlammableBlock.class, Registrator::registerFlammable);
+		registerAttribute(BuiltInRegistries.BLOCK, IFlammableBlock.class, Registrator::registerFlammable);
 		LOGGER.info("Registered block flammables");
 	}
 	
 	public static void registerClient(final FMLClientSetupEvent event) {
-		registerAttribute(ForgeRegistries.BLOCKS, IRenderTypeBlock.class, Registrator::registerCutout);
+		registerAttribute(BuiltInRegistries.BLOCK, IRenderTypeBlock.class, Registrator::registerCutout);
 		LOGGER.info("Registered block cutouts");
 		
-		registerAttribute(ForgeRegistries.BLOCKS, IColoredBlock.class, Registrator::registerBlockColor);
-		registerAttribute(ForgeRegistries.ITEMS, IColoredItem.class, Registrator::registerItemColor);
+		registerAttribute(BuiltInRegistries.BLOCK, IColoredBlock.class, Registrator::registerBlockColor);
+		registerAttribute(BuiltInRegistries.ITEM, IColoredItem.class, Registrator::registerItemColor);
 		LOGGER.info("Registered block and item colors");
 	}
 	
 	public String getModId() {
 		return this.modid;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public <T extends IHelper<?>> T getHelper(IForgeRegistry<?> registry) {
-		return (T) this.helpers.get(registry);
+
+	public <T, R extends IHelper<T>> R getHelper(ResourceKey<Registry<T>> registry) {
+		return (R) this.helpers.get(registry);
 	}
 	
-	public Map<IForgeRegistry<?>, IHelper<?>> getHelpers() {
+	public Map<ResourceKey<? extends Registry<?>>, IHelper<?>> getHelpers() {
 		return this.helpers;
 	}
 	
-	public static <T extends IForgeRegistryEntry<T>> void registerAttribute(IForgeRegistry<T> registry, Class<? extends Interface> clazz, Consumer<T> consumer) {
-		registry.getValues().stream().filter(clazz::isInstance).forEach(consumer);
+	public static <T> void registerAttribute(Registry<T> registry,
+																		   Class<? extends Interface> clazz,
+																		   Consumer<T> consumer) {
+		registry.stream().filter(clazz::isInstance).forEach(consumer);
 	}
 	
 	private static void registerCompostable(ItemLike item) {

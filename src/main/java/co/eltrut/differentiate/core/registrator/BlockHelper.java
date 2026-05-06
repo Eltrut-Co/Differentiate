@@ -11,6 +11,7 @@ import co.eltrut.differentiate.common.repo.WoodVariantRepo;
 import co.eltrut.differentiate.core.util.BlockUtil;
 import co.eltrut.differentiate.core.util.CompatUtil;
 import co.eltrut.differentiate.core.util.GroupUtil;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -19,19 +20,17 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import org.apache.commons.lang3.ArrayUtils;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class BlockHelper extends AbstractHelper<Block> {
+public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> {
 	
 	protected final ItemHelper itemRegister;
 	
 	public BlockHelper(Registrator parent) {
-		super(parent, ForgeRegistries.BLOCKS);
-		itemRegister = this.parent.getHelper(ForgeRegistries.ITEMS);
+		super(parent, DeferredRegister.createBlocks(parent.getModId()));
+		itemRegister = this.parent.getHelper(Registries.ITEM);
 	}
 	
 	public RegistryObject<Block> createBlock(String name, Supplier<Block> block, Item.Properties props) {

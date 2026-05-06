@@ -5,20 +5,17 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-public abstract class AbstractHelper<T extends IForgeRegistryEntry<T>> implements IHelper<T> {
+public abstract class AbstractHelper<T, R extends DeferredRegister<T>> implements IHelper<T> {
 	
 	protected final Registrator parent;
-	protected final DeferredRegister<T> registry;
+	protected final R registry;
 	
-	public AbstractHelper(Registrator parent, IForgeRegistry<T> registry) {
+	public AbstractHelper(Registrator parent, R registry) {
 		this.parent = parent;
-		this.registry = DeferredRegister.create(registry, parent.getModId());
+		this.registry = registry;
 	}
 	
 	@Override
