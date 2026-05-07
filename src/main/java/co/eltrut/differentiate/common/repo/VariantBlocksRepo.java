@@ -1,17 +1,17 @@
 package co.eltrut.differentiate.common.repo;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 public class VariantBlocksRepo {
 	
-	private final RegistryObject<Block> baseBlock;
-	private final RegistryObject<Block> slabBlock;
-	private final RegistryObject<Block> stairsBlock;
-	private final RegistryObject<Block> wallBlock;
-	private final RegistryObject<Block> verticalSlabBlock;
+	private final DeferredBlock<Block> baseBlock;
+	private final DeferredBlock<Block> slabBlock;
+	private final DeferredBlock<Block> stairsBlock;
+	private final DeferredBlock<Block> wallBlock;
+	private final DeferredBlock<Block> verticalSlabBlock;
 	
-	private VariantBlocksRepo(RegistryObject<Block> baseBlock, RegistryObject<Block> slabBlock, RegistryObject<Block> stairsBlock, RegistryObject<Block> wallBlock, RegistryObject<Block> verticalSlabBlock) {
+	private VariantBlocksRepo(DeferredBlock<Block> baseBlock, DeferredBlock<Block> slabBlock, DeferredBlock<Block> stairsBlock, DeferredBlock<Block> wallBlock, DeferredBlock<Block> verticalSlabBlock) {
 		this.baseBlock = baseBlock;
 		this.slabBlock = slabBlock;
 		this.stairsBlock = stairsBlock;
@@ -19,59 +19,59 @@ public class VariantBlocksRepo {
 		this.verticalSlabBlock = verticalSlabBlock;
 	}
 	
-	public RegistryObject<Block> getBlock() {
+	public DeferredBlock<Block> getBlock() {
 		return this.baseBlock;
 	}
 	
-	public RegistryObject<Block> getSlabBlock() {
+	public DeferredBlock<Block> getSlabBlock() {
 		return this.slabBlock;
 	}
 	
-	public RegistryObject<Block> getStairsBlock() {
+	public DeferredBlock<Block> getStairsBlock() {
 		return this.stairsBlock;
 	}
 	
-	public RegistryObject<Block> getWallBlock() {
+	public DeferredBlock<Block> getWallBlock() {
 		return this.wallBlock;
 	}
 	
-	public RegistryObject<Block> getVerticalSlabBlock() {
+	public DeferredBlock<Block> getVerticalSlabBlock() {
 		return this.verticalSlabBlock;
 	}
 	
 	public static class Builder {
 		
-		private RegistryObject<Block> baseBlock;
-		private RegistryObject<Block> slabBlock;
-		private RegistryObject<Block> stairsBlock;
-		private RegistryObject<Block> wallBlock;
-		private RegistryObject<Block> verticalSlabBlock;
+		private DeferredBlock<Block> baseBlock;
+		private DeferredBlock<Block> slabBlock;
+		private DeferredBlock<Block> stairsBlock;
+		private DeferredBlock<Block> wallBlock;
+		private DeferredBlock<Block> verticalSlabBlock;
 		
 		public Builder() {
 			this.setAllNull();
 		}
 		
-		public Builder setBlock(RegistryObject<Block> baseBlock) {
+		public Builder setBlock(DeferredBlock<Block> baseBlock) {
 			this.baseBlock = baseBlock;
 			return this;
 		}
 		
-		public Builder setSlabBlock(RegistryObject<Block> slabBlock) {
+		public Builder setSlabBlock(DeferredBlock<Block> slabBlock) {
 			this.slabBlock = slabBlock;
 			return this;
 		}
 		
-		public Builder setStairsBlock(RegistryObject<Block> stairsBlock) {
+		public Builder setStairsBlock(DeferredBlock<Block> stairsBlock) {
 			this.stairsBlock = stairsBlock;
 			return this;
 		}
 		
-		public Builder setWallBlock(RegistryObject<Block> wallBlock) {
+		public Builder setWallBlock(DeferredBlock<Block> wallBlock) {
 			this.wallBlock = wallBlock;
 			return this;
 		}
 		
-		public Builder setVerticalSlabBlock(RegistryObject<Block> verticalSlabBlock) {
+		public Builder setVerticalSlabBlock(DeferredBlock<Block> verticalSlabBlock) {
 			this.verticalSlabBlock = verticalSlabBlock;
 			return this;
 		}
