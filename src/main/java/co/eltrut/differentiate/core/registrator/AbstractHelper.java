@@ -33,8 +33,8 @@ public abstract class AbstractHelper<T, R extends DeferredRegister<T>> implement
 		this.registry.register(bus);
 	}
 	
-	public <U> List<RegistryObject<T>> createMultipleEntries(U[] array, Function<? super U, ? extends RegistryObject<T>> mapper) {
-		return Arrays.stream(array).map(mapper).collect(Collectors.toList());
-	}
+//	public <U> List<RegistryObject<T>> createMultipleEntries(U[] array, Function<? super U, ? extends RegistryObject<T>> mapper) {
+//		return Arrays.stream(array).map(mapper).collect(Collectors.toList());
+//	}
 	
 }

@@ -1,6 +1,6 @@
 package co.eltrut.differentiate.core.util;
 
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class CompatUtil {

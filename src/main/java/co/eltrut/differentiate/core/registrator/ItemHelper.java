@@ -19,12 +19,12 @@ public class ItemHelper extends AbstractHelper<Item, DeferredRegister.Items> {
 		return this.registry.register(name, item);
 	}
 	
-	public DeferredItem<Item> createSimpleItem(String name, CreativeModeTab group, String ...mods) {
-		return this.createItem(name, () -> new Item(GroupUtil.getProps(group, mods)));
-	}
-	
-	public DeferredItem<Item> createFuelItem(String name, CreativeModeTab group, int burnTime, String ...mods) {
-		return this.createItem(name, () -> new FuelItem(GroupUtil.getProps(group, mods), burnTime));
-	}
+//	public DeferredItem<Item> createSimpleItem(String name, CreativeModeTab group, String ...mods) {
+//		return this.createItem(name, () -> new Item(GroupUtil.getProps(group, mods)));
+//	}
+//
+//	public DeferredItem<Item> createFuelItem(String name, CreativeModeTab group, int burnTime, String ...mods) {
+//		return this.createItem(name, () -> new FuelItem(GroupUtil.getProps(group, mods), burnTime));
+//	}
 
 }

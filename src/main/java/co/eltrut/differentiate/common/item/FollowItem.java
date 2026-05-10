@@ -15,9 +15,9 @@ public class FollowItem extends Item {
 		this.followItem = followItem;
 	}
 	
-	@Override
-	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-		GroupUtil.fillItem(this.asItem(), this.followItem, group, items);
-	}
+//	@Override
+//	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
+//		GroupUtil.fillItem(this.asItem(), this.followItem, group, items);
+//	}
 
 }

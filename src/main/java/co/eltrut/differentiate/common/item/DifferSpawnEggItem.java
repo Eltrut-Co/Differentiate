@@ -17,16 +17,16 @@ public class DifferSpawnEggItem extends SpawnEggItem {
 		this.defaultType = defaultType;
 	}
 	
-	@Override
-	public EntityType<?> getType(@Nullable CompoundTag nbt) {
-		if (nbt != null && nbt.contains("EntityTag", 10)) {
-	         CompoundTag compoundnbt = nbt.getCompound("EntityTag");
-	         if (compoundnbt.contains("id", 8)) {
-	            return EntityType.byString(compoundnbt.getString("id")).orElse(this.defaultType.get());
-	         }
-	      }
-		
-		return this.defaultType.get();
-	}
+//	@Override
+//	public EntityType<?> getType(@Nullable CompoundTag nbt) {
+//		if (nbt != null && nbt.contains("EntityTag", 10)) {
+//	         CompoundTag compoundnbt = nbt.getCompound("EntityTag");
+//	         if (compoundnbt.contains("id", 8)) {
+//	            return EntityType.byString(compoundnbt.getString("id")).orElse(this.defaultType.get());
+//	         }
+//	      }
+//
+//		return this.defaultType.get();
+//	}
 
 }

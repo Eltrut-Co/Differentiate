@@ -2,9 +2,11 @@ package co.eltrut.differentiate.common.tier;
 
 import java.util.function.Supplier;
 
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 
 public class DifferItemTier implements Tier {
 
@@ -40,8 +42,8 @@ public class DifferItemTier implements Tier {
 	}
 
 	@Override
-	public int getLevel() {
-		return harvestLevel;
+	public TagKey<Block> getIncorrectBlocksForDrops() {
+		return null;
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package co.eltrut.test.core.registry;
 
 import co.eltrut.differentiate.common.block.FollowBlock;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
-import co.eltrut.differentiate.common.block.wood.PlanksBlock;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.core.registrator.BlockHelper;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;

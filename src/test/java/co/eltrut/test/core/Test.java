@@ -2,10 +2,8 @@ package co.eltrut.test.core;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import co.eltrut.differentiate.core.datagen.Generator;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
-import co.eltrut.differentiate.core.util.RecipeUtil;
 import co.eltrut.test.core.registry.TestBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;

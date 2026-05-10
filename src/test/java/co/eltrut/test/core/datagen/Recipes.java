@@ -1,7 +1,6 @@
 package co.eltrut.test.core.datagen;
 
 import co.eltrut.differentiate.core.util.CompatUtil.Mods;
-import co.eltrut.differentiate.core.util.RecipeUtil;
 import co.eltrut.test.core.registry.TestBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

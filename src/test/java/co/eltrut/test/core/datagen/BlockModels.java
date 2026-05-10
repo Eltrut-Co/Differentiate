@@ -1,7 +1,6 @@
 package co.eltrut.test.core.datagen;
 
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
-import co.eltrut.differentiate.core.datagen.provider.DifferBlockModelProvider;
 import co.eltrut.test.core.Test;
 import co.eltrut.test.core.registry.TestBlocks;
 import net.minecraft.data.DataGenerator;
