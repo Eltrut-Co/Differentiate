@@ -35,7 +35,6 @@ public class CompatUtil {
 		public static final String ALLUREMENT = "allurement";
 		public static final String ATMOSPHERIC = "atmospheric";
 		public static final String AUTUMNITY = "autumnity";
-		public static final String BAMBOO_BLOCKS = "bamboo_blocks";
 		public static final String BERRY_GOOD = "berry_good";
 		public static final String BLUEPRINT = "blueprint";
 		public static final String BUZZIER_BEES = "buzzier_bees";
@@ -50,12 +49,7 @@ public class CompatUtil {
 		public static final String UPGRADE_AQUATIC = "upgrade_aquatic";
 		
 		// Aurora
-		public static final String ABUNDANCE = "abundance";
-		public static final String BAYOU_BLUES = "bayou_blues";
-		public static final String BETTER_BADLANDS = "better_badlands";
 		public static final String ENHANCED_MUSHROOMS = "enhanced_mushrooms";
-		public static final String FRUITFUL	= "fruitful";
-		public static final String REFORESTED = "reforested";
 		
 		// Evoslab
 		public static final String ASSEMBLY = "assembly";
@@ -65,10 +59,8 @@ public class CompatUtil {
 		// Eltrut & Co.
 		public static final String ADDENDUM = "addendum";
 		public static final String DIFFERENTIATE = "differentiate";
-		public static final String FLAMBOYANT = "flamboyant";
 		public static final String LEPTON = "lepton";
 		public static final String MORE_RESPAWN_ANCHORS = "morerespawnanchors";
-		public static final String TOTALLY_WILD = "totally_wild";
 		
 		// Other
 		public static final String CREATE = "create";

@@ -1,5 +1,6 @@
 package co.eltrut.differentiate.core.util;
 
+import co.eltrut.differentiate.core.creativetab.CreativeTabEntry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTabs;
 
@@ -7,6 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class GroupUtil {
 	
@@ -27,10 +29,6 @@ public class GroupUtil {
 			items.add(new ItemStack(item));
 		}
 	}
-	
-//	public static Item.Properties getProps(ResourceKey<CreativeModeTab> group, String ...mods) {
-//		return CompatUtil.areModsLoaded(mods) ? new Item.Properties().tab(group) : new Item.Properties().tab(null);
-//	}
 	
 	public static class Groups {
 

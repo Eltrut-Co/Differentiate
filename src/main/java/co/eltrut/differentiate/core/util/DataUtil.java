@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.FireBlock;
 
 public class DataUtil {
 
+	@Deprecated
 	public static void registerCompostable(ItemLike item, float compostableChance) {
 		ComposterBlock.COMPOSTABLES.put(item, compostableChance);
 	}
@@ -23,15 +24,18 @@ public class DataUtil {
 		FireBlock fireBlock = (FireBlock)Blocks.FIRE;
 		fireBlock.setFlammable(block, encouragement, flammability);
 	}
-	
+
+	@Deprecated
 	public static void registerCutout(Block block, RenderType type) {
 		ItemBlockRenderTypes.setRenderLayer(block, type);
 	}
-	
+
+	@Deprecated
 	public static void registerBlockColor(BlockColor color, Block ...blocks) {
 		Minecraft.getInstance().getBlockColors().register(color, blocks);
 	}
-	
+
+	@Deprecated
 	public static void registerItemColor(ItemColor color, ItemLike ...items) {
 		Minecraft.getInstance().getItemColors().register(color, items);
 	}

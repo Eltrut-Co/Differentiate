@@ -11,7 +11,9 @@ public class VariantBlocksRepo {
 	private final DeferredBlock<Block> wallBlock;
 	private final DeferredBlock<Block> verticalSlabBlock;
 	
-	private VariantBlocksRepo(DeferredBlock<Block> baseBlock, DeferredBlock<Block> slabBlock, DeferredBlock<Block> stairsBlock, DeferredBlock<Block> wallBlock, DeferredBlock<Block> verticalSlabBlock) {
+	private VariantBlocksRepo(DeferredBlock<Block> baseBlock, DeferredBlock<Block> slabBlock,
+							  DeferredBlock<Block> stairsBlock, DeferredBlock<Block> wallBlock,
+							  DeferredBlock<Block> verticalSlabBlock) {
 		this.baseBlock = baseBlock;
 		this.slabBlock = slabBlock;
 		this.stairsBlock = stairsBlock;
@@ -77,7 +79,8 @@ public class VariantBlocksRepo {
 		}
 		
 		public VariantBlocksRepo build() {
-			return new VariantBlocksRepo(this.baseBlock, this.slabBlock, this.stairsBlock, this.wallBlock, this.verticalSlabBlock);
+			return new VariantBlocksRepo(this.baseBlock, this.slabBlock, this.stairsBlock, this.wallBlock,
+					this.verticalSlabBlock);
 		}
 		
 		private void setAllNull() {

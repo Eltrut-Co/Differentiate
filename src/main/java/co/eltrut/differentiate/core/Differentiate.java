@@ -2,6 +2,7 @@ package co.eltrut.differentiate.core;
 
 import co.eltrut.differentiate.core.condition.BooleanRecipeCondition;
 import co.eltrut.differentiate.core.condition.QuarkRecipeCondition;
+import co.eltrut.differentiate.core.creativetab.CreativeTabAssigner;
 import co.eltrut.differentiate.core.registrator.Registrator;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -38,7 +39,7 @@ public class Differentiate {
     }
 
     private void buildContents(BuildCreativeModeTabContentsEvent event) {
-
+        CreativeTabAssigner.assignTabs(event);
     }
 
     private void doCommonStuff(final FMLCommonSetupEvent event) {

@@ -4,12 +4,14 @@ import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.item.FuelBlockItem;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.common.repo.WoodVariantRepo;
+import co.eltrut.differentiate.core.creativetab.CreativeTabEntry;
 import co.eltrut.differentiate.core.util.BlockUtil;
 import co.eltrut.differentiate.core.util.CompatUtil;
 import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -21,6 +23,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> {
@@ -32,20 +36,21 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		itemRegister = this.parent.getHelper(Registries.ITEM);
 	}
 	
-	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block, Item.Properties props) {
+	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block, Item.Properties props,
+	                                        ResourceKey<CreativeModeTab> tab, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props));
+		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props),
+				tab, mods);
 		
 		return registeredBlock;
 	}
 	
-//	public DeferredBlock<Block> createSimpleBlock(String name, Supplier<Block> block, ResourceKey<CreativeModeTab> group, String ...mods) {
-//		return this.createBlock(name, block, GroupUtil.getProps(group, mods));
-//	}
-	
-	public DeferredBlock<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime) {
+	public DeferredBlock<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime,
+												ResourceKey<CreativeModeTab> tab, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime));
+		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime),
+				tab, mods);
+
 		return registeredBlock;
 	}
 
