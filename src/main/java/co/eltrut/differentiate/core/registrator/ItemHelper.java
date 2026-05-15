@@ -5,6 +5,7 @@ import co.eltrut.differentiate.core.creativetab.CreativeTabEntry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -19,7 +20,7 @@ public class ItemHelper extends AbstractHelper<Item, DeferredRegister.Items> {
 	public DeferredItem<Item> createItem(String name, Supplier<Item> item, ResourceKey<CreativeModeTab> tab,
 										 String ...mods) {
 		DeferredItem<Item> registeredItem = this.registry.register(name, item);
-		CreativeTabEntry entry = new CreativeTabEntry(registeredItem, tab, mods, "");
+		CreativeTabEntry entry = new CreativeTabEntry(registeredItem, tab, mods, Items.DIRT);
 
 		return registeredItem;
 	}

@@ -22,6 +22,6 @@ public class TestBlocks {
 
     public static final DeferredBlock<Block> DIRT_SLAB = BLOCK_HELPER.createBlock("dirt_slab", () -> new SlabBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)),
-            CreativeModeTabs.BUILDING_BLOCKS);
+            CreativeModeTabs.NATURAL_BLOCKS);
 
 }
