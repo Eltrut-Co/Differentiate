@@ -44,7 +44,7 @@ public class CreativeTabEntry {
                                                                   String[] compatMods) {
         if (CompatUtil.areModsLoaded(compatMods)) {
             List<ResourceKey<CreativeModeTab>> compatibleTabs = new ArrayList<>(tabs);
-            compatibleTabs.add(CreativeModeTabs.SEARCH);
+            // TODO: how to hide from search tab?
             return compatibleTabs;
         }
         return Collections.emptyList();

@@ -36,10 +36,11 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		itemRegister = this.parent.getHelper(Registries.ITEM);
 	}
 	
-	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block, Item.Properties props,
+	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block,
 	                                        ResourceKey<CreativeModeTab> tab, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(), props),
+		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(),
+						new Item.Properties()),
 				tab, mods);
 		
 		return registeredBlock;

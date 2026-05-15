@@ -2,7 +2,6 @@ package co.eltrut.differentiate.core.registrator;
 
 import co.eltrut.differentiate.common.item.FuelItem;
 import co.eltrut.differentiate.core.creativetab.CreativeTabEntry;
-import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

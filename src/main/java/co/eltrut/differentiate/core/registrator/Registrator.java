@@ -1,30 +1,24 @@
 package co.eltrut.differentiate.core.registrator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-
+import co.eltrut.differentiate.common.interf.*;
+import co.eltrut.differentiate.core.util.DataUtil;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import co.eltrut.differentiate.common.interf.IColoredBlock;
-import co.eltrut.differentiate.common.interf.IColoredItem;
-import co.eltrut.differentiate.common.interf.ICompostableItem;
-import co.eltrut.differentiate.common.interf.IFlammableBlock;
-import co.eltrut.differentiate.common.interf.IRenderTypeBlock;
-import co.eltrut.differentiate.common.interf.Interface;
-import co.eltrut.differentiate.core.util.DataUtil;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class Registrator {
 	
