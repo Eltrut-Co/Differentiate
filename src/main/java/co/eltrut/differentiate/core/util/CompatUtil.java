@@ -16,10 +16,6 @@ public class CompatUtil {
 		}
 		return true;
 	}
-
-	public static String[] addQuark(String ...mods) {
-		return ArrayUtils.contains(mods, "quark") ? mods : ArrayUtils.add(mods, "quark");
-	}
 	
 	public static class Mods {
 		// Core

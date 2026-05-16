@@ -1,11 +1,17 @@
 package co.eltrut.differentiate.common.repo;
 
+import co.eltrut.differentiate.core.util.CompatUtil;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VariantBlocksRepo {
 	
-	private final DeferredBlock<Block> baseBlock;
+	private DeferredBlock<Block> baseBlock;
 	private final DeferredBlock<Block> slabBlock;
 	private final DeferredBlock<Block> stairsBlock;
 	private final DeferredBlock<Block> wallBlock;
@@ -24,6 +30,10 @@ public class VariantBlocksRepo {
 	public DeferredBlock<Block> getBlock() {
 		return this.baseBlock;
 	}
+
+	public void setBlock(DeferredBlock<Block> block) {
+		this.baseBlock = block;
+	}
 	
 	public DeferredBlock<Block> getSlabBlock() {
 		return this.slabBlock;
@@ -39,6 +49,17 @@ public class VariantBlocksRepo {
 	
 	public DeferredBlock<Block> getVerticalSlabBlock() {
 		return this.verticalSlabBlock;
+	}
+
+	public List<DeferredHolder<Block, Block>> getBlocksInOrder() {
+		ArrayList<DeferredHolder<Block, Block>> blocks = new ArrayList<>(List.of(this.stairsBlock, this.slabBlock, this.wallBlock));
+		if (ModList.get().isLoaded(CompatUtil.Mods.QUARK)) {
+			blocks.add(2, this.verticalSlabBlock);
+		}
+		if (this.baseBlock != null) {
+			blocks.addFirst(this.baseBlock);
+		}
+		return blocks;
 	}
 	
 	public static class Builder {

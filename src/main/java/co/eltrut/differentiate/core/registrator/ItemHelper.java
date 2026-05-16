@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -16,11 +17,15 @@ public class ItemHelper extends AbstractHelper<Item, DeferredRegister.Items> {
 	public ItemHelper(Registrator parent) {
 		super(parent, DeferredRegister.createItems(parent.getModId()));
 	}
-	
+
+	protected DeferredItem<Item> createItemWithoutEntry(String name, Supplier<Item> item) {
+		return this.registry.register(name, item);
+	}
+
 	public DeferredItem<Item> createItem(String name, Supplier<Item> item, ResourceKey<CreativeModeTab> tab,
 										 String ...mods) {
 		DeferredItem<Item> registeredItem = this.registry.register(name, item);
-		CreativeTabEntry entry = new CreativeTabEntry(registeredItem, tab, mods, Items.DIRT);
+		CreativeTabEntry entry = new CreativeTabEntry(registeredItem, tab, mods);
 
 		return registeredItem;
 	}
@@ -28,6 +33,14 @@ public class ItemHelper extends AbstractHelper<Item, DeferredRegister.Items> {
 	public DeferredItem<Item> createFuelItem(String name, CreativeModeTab group, Item.Properties props, int burnTime,
 											 ResourceKey<CreativeModeTab> tab, String ...mods) {
 		return this.createItem(name, () -> new FuelItem(props, burnTime), tab, mods);
+	}
+
+	public DeferredItem<Item> createFollowItem(String name, Supplier<Item> item, ResourceKey<CreativeModeTab> tab,
+                                               ItemLike followItem, String ...mods) {
+		DeferredItem<Item> registeredItem = this.registry.register(name, item);
+		CreativeTabEntry entry = new CreativeTabEntry(registeredItem, tab, mods, followItem);
+
+		return registeredItem;
 	}
 
 }

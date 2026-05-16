@@ -3,27 +3,25 @@ package co.eltrut.differentiate.core.registrator;
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
 import co.eltrut.differentiate.common.item.FuelBlockItem;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
-import co.eltrut.differentiate.common.repo.WoodVariantRepo;
-import co.eltrut.differentiate.core.creativetab.CreativeTabEntry;
+import co.eltrut.differentiate.core.creativetab.CreativeTabSequence;
 import co.eltrut.differentiate.core.util.BlockUtil;
-import co.eltrut.differentiate.core.util.CompatUtil;
-import co.eltrut.differentiate.core.util.GroupUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -35,79 +33,109 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		super(parent, DeferredRegister.createBlocks(parent.getModId()));
 		itemRegister = this.parent.getHelper(Registries.ITEM);
 	}
+
+	protected DeferredBlock<Block> createBlockWithoutEntry(String name, Supplier<Block> block) {
+		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
+		DeferredItem<Item> registeredItem = this.itemRegister.createItemWithoutEntry(name,
+				() -> new BlockItem(registeredBlock.get(), new Item.Properties()));
+
+		return registeredBlock;
+	}
 	
 	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block,
 	                                        ResourceKey<CreativeModeTab> tab, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new BlockItem(registeredBlock.get(),
-						new Item.Properties()),
-				tab, mods);
+		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name,
+				() -> new BlockItem(registeredBlock.get(), new Item.Properties()), tab, mods);
 		
 		return registeredBlock;
 	}
+
+	public DeferredBlock<Block> createBlock(String name, Properties props,
+											ResourceKey<CreativeModeTab> tab, String ...mods) {
+		return this.createBlock(name, () -> new Block(props), tab, mods);
+	}
 	
-	public DeferredBlock<Block> createFuelBlock(String name, Supplier<Block> block, Item.Properties props, int burnTime,
+	public DeferredBlock<Block> createFuelBlock(String name, Supplier<Block> block, int burnTime,
 												ResourceKey<CreativeModeTab> tab, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(), props, burnTime),
+		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(),
+						new Item.Properties(), burnTime),
 				tab, mods);
 
 		return registeredBlock;
 	}
 
-//	public DeferredBlock<Block> createSimpleFuelBlock(String name, Supplier<Block> block, CreativeModeTab group, int burnTime, String ...mods) {
-//		return this.createFuelBlock(name, block, GroupUtil.getProps(group, mods), burnTime);
-//	}
-	
-//	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Supplier<Block> block, Properties props, CreativeModeTab group, String ...mods) {
-//		DeferredBlock<Block> baseBlock = this.createSimpleBlock(name, block, group, mods);
-//		DeferredBlock<Block> slabBlock = this.createSlabBlock(name, props, mods);
-//		DeferredBlock<Block> stairsBlock = this.createStairsBlock(name, () -> new StairBlock(baseBlock.get().defaultBlockState(), props), mods);
-//		DeferredBlock<Block> wallBlock = this.createWallBlock(name, props, mods);
-//		DeferredBlock<Block> verticalSlabBlock = this.createVerticalSlabBlock(name, props, mods);
-//		return new VariantBlocksRepo.Builder()
-//				.setBlock(baseBlock)
-//				.setSlabBlock(slabBlock)
-//				.setStairsBlock(stairsBlock)
-//				.setWallBlock(wallBlock)
-//				.setVerticalSlabBlock(verticalSlabBlock)
-//				.build();
-//	}
-	
-//	public VariantBlocksRepo createSimpleBlockWithVariants(String name, Properties props, CreativeModeTab group, String ...mods) {
-//		return this.createSimpleBlockWithVariants(name, () -> new Block(props), props, group, mods);
-//	}
-//
-//	public DeferredBlock<Block> createSlabBlock(String name, Properties props, String ...mods) {
-//		String prefix = BlockUtil.getPrefix(name);
-//		return this.createSimpleBlock(prefix + "_slab", () -> new SlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, mods);
-//	}
-//
-//	public DeferredBlock<Block> createStairsBlock(String name, Supplier<Block> block, String ...mods) {
-//		String prefix = BlockUtil.getPrefix(name);
-//		return this.createSimpleBlock(prefix + "_stairs", block, CreativeModeTabs.BUILDING_BLOCKS, mods);
-//	}
-//
-//	public DeferredBlock<Block> createWallBlock(String name, Properties props, String ...mods) {
-//		String prefix = BlockUtil.getPrefix(name);
-//		return this.createSimpleBlock(prefix + "_wall", () -> new WallBlock(props), CreativeModeTab.TAB_DECORATIONS, mods);
-//	}
-//
-//	public DeferredBlock<Block> createVerticalSlabBlock(String name, Properties props, String ...mods) {
-//		String prefix = BlockUtil.getPrefix(name);
-//		String[] modsWithQuark = CompatUtil.addQuark(mods);
-//		return this.createSimpleBlock(prefix + "_vertical_slab", () -> new VerticalSlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, modsWithQuark);
-//	}
+	public DeferredBlock<Block> createFuelBlock(String name, Properties props, int burnTime,
+													  ResourceKey<CreativeModeTab> tab, String ...mods) {
+		return this.createFuelBlock(name, () -> new Block(props), burnTime, tab, mods);
+	}
 
-//	public VariantBlocksRepo createSimpleVariants(Block base, String ...mods) {
-//		String name = BuiltInRegistries.BLOCK.getKey(base).getPath();
-//		BlockBehaviour.Properties props = BlockBehaviour.Properties.ofFullCopy(base);
-//		DeferredBlock<Block> slabBlock = this.createSlabBlock(name, props, mods);
-//		DeferredBlock<Block> stairBlock = this.createStairsBlock(name, () -> new StairBlock(base::defaultBlockState, props), mods);
-//		DeferredBlock<Block> wallBlock = this.createWallBlock(name, props, mods);
-//		DeferredBlock<Block> verticalSlabBlock = this.createVerticalSlabBlock(name, props, mods);
-//		return new VariantBlocksRepo.Builder().setSlabBlock(slabBlock).setStairsBlock(stairBlock).setWallBlock(wallBlock).setVerticalSlabBlock(verticalSlabBlock).build();
-//	}
+	public DeferredBlock<Block> createFollowBlock(String name, Supplier<Block> block,
+                                                  ResourceKey<CreativeModeTab> tab, ItemLike followItem, String ...mods) {
+		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
+		DeferredItem<Item> registeredItem = this.itemRegister.createFollowItem(name, () -> new BlockItem(registeredBlock.get(), new Item.Properties()),
+				tab, followItem, mods);
+
+		return registeredBlock;
+	}
+
+	public DeferredBlock<Block> createFollowBlock(String name, Properties props,
+												  ResourceKey<CreativeModeTab> tab, ItemLike followItem, String ...mods) {
+		return this.createFollowBlock(name, () -> new Block(props), tab, followItem, mods);
+	}
+	
+	public VariantBlocksRepo createBlockWithVariants(String name, Supplier<Block> block, Properties props,
+														   ResourceKey<CreativeModeTab> tab, String ...mods) {
+		String prefix = BlockUtil.getPrefix(name);
+
+		DeferredBlock<Block> baseBlock = this.createBlock(name, block, tab, mods);
+		VariantBlocksRepo repo = this.createVariantRepo(baseBlock, prefix, props);
+
+		List<DeferredHolder<Block, Block>> blocks = repo.getBlocksInOrder();
+		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, mods);
+
+		return repo;
+	}
+	
+	public VariantBlocksRepo createBlockWithVariants(String name, Properties props,
+														   ResourceKey<CreativeModeTab> group, String ...mods) {
+		return this.createBlockWithVariants(name, () -> new Block(props), props, group, mods);
+	}
+
+	public VariantBlocksRepo createBlockVariants(Block base, ResourceKey<CreativeModeTab> tab, String ...mods) {
+		String name = BuiltInRegistries.BLOCK.getKey(base).getPath();
+		String prefix = BlockUtil.getPrefix(name);
+
+		Properties props = Properties.ofFullCopy(base);
+		VariantBlocksRepo repo = this.createVariantRepo(base, prefix, props);
+
+        List<DeferredHolder<Block, Block>> blocks = repo.getBlocksInOrder();
+		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, mods, base);
+
+		return repo;
+	}
+
+	private VariantBlocksRepo createVariantRepo(Block base, String prefix, Properties props) {
+		DeferredBlock<Block> slabBlock = this.createBlockWithoutEntry(prefix + "_slab", () -> new SlabBlock(props));
+		DeferredBlock<Block> stairBlock = this.createBlockWithoutEntry(prefix + "_stairs",
+				() -> new StairBlock(base.defaultBlockState(), props));
+		DeferredBlock<Block> wallBlock = this.createBlockWithoutEntry(prefix + "_wall", () -> new WallBlock(props));
+		DeferredBlock<Block> verticalSlabBlock = this.createBlockWithoutEntry(prefix + "_vertical_slab", () -> new VerticalSlabBlock(props));
+
+		return new VariantBlocksRepo.Builder()
+				.setSlabBlock(slabBlock)
+				.setStairsBlock(stairBlock)
+				.setVerticalSlabBlock(verticalSlabBlock)
+				.setWallBlock(wallBlock)
+				.build();
+	}
+
+	private VariantBlocksRepo createVariantRepo(DeferredBlock<Block> base, String prefix, Properties props) {
+		VariantBlocksRepo repo = this.createVariantRepo(base.get(), prefix, props);
+		repo.setBlock(base);
+		return repo;
+	}
 
 //	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, String ...mods) {
 //		return this.createSimpleWoodVariants(woodName, color, false, mods);
