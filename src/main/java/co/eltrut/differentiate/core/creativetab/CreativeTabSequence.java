@@ -40,12 +40,13 @@ public class CreativeTabSequence<T extends ItemLike> extends AbstractCreativeTab
 
     @Override
     protected void assignTabs(BuildCreativeModeTabContentsEvent event) {
+        List<DeferredHolder<T, T>> reversedItems = items.reversed();
         for (ResourceKey<CreativeModeTab> tab : this.tabs) {
             if (event.getTabKey() == tab) {
                 if (this.followItem == null) {
-                    this.items.stream().map(DeferredHolder::get).forEach(event::accept);
+                    reversedItems.stream().map(DeferredHolder::get).forEach(event::accept);
                 } else {
-                    this.items.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
+                    reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
                     event.insertAfter(this.followItem.asItem().getDefaultInstance(), s,
                             CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
                 }

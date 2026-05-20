@@ -20,7 +20,6 @@ public class CreativeTabAssigner {
     protected static List<ResourceKey<CreativeModeTab>> checkCompatibility(List<ResourceKey<CreativeModeTab>> tabs,
                                                                                        String[] compatMods) {
         if (CompatUtil.areModsLoaded(compatMods)) {
-            // TODO: how to hide from search tab?
             return new ArrayList<>(tabs);
         }
         return Collections.emptyList();

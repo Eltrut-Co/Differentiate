@@ -53,7 +53,7 @@ public class VariantBlocksRepo {
 
 	public List<DeferredHolder<Block, Block>> getBlocksInOrder() {
 		ArrayList<DeferredHolder<Block, Block>> blocks = new ArrayList<>(List.of(this.stairsBlock, this.slabBlock, this.wallBlock));
-		if (ModList.get().isLoaded(CompatUtil.Mods.QUARK)) {
+		if (CompatUtil.areModsLoaded(CompatUtil.Mods.QUARK)) {
 			blocks.add(2, this.verticalSlabBlock);
 		}
 		if (this.baseBlock != null) {
