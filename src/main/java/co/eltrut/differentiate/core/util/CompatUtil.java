@@ -8,7 +8,7 @@ public class CompatUtil {
 	public static boolean areModsLoaded(String ...mods) {
 		if (mods == null) return true;
 		for (String mod : mods) {
-			if (mod.startsWith("!") && ModList.get().isLoaded(mod)) {
+			if (mod.startsWith("!") && ModList.get().isLoaded(mod.substring(1))) {
 				return false;
 			} else if (!ModList.get().isLoaded(mod)) {
 				return false;
@@ -23,7 +23,7 @@ public class CompatUtil {
 		public static final String FORGE = "forge";
 		
 		// Vazkii
-		public static final String AUTOREGLIB = "autoreglib";
+		public static final String ZETA = "zeta";
 		public static final String QUARK = "quark";
 		
 		// Abnormals
@@ -33,11 +33,11 @@ public class CompatUtil {
 		public static final String AUTUMNITY = "autumnity";
 		public static final String BERRY_GOOD = "berry_good";
 		public static final String BLUEPRINT = "blueprint";
+		public static final String BOATLOAD = "boatload";
 		public static final String BUZZIER_BEES = "buzzier_bees";
 		public static final String CAVERNS_AND_CHASMS = "caverns_and_chasms";
 		public static final String ENDERGETIC_EXPANSION = "endergetic";
 		public static final String ENVIRONMENTAL = "environmental";
-		public static final String EXTRA_BOATS = "extraboats";
 		public static final String NEAPOLITAN = "neapolitan";
 		public static final String NETHER_EXTENSION = "nether_extension";
 		public static final String PERSONALITY = "personality";

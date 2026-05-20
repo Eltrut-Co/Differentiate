@@ -13,7 +13,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.awt.*;
-import java.util.stream.IntStream;
 
 public class MyaliteColorProvider {
 	

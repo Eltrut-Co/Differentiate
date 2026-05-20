@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -62,10 +63,6 @@ public class Registrator {
 	public static void registerClient(final FMLClientSetupEvent event) {
 		registerAttribute(BuiltInRegistries.BLOCK, IRenderTypeBlock.class, Registrator::registerCutout);
 		LOGGER.info("Registered block cutouts");
-		
-		registerAttribute(BuiltInRegistries.BLOCK, IColoredBlock.class, Registrator::registerBlockColor);
-		registerAttribute(BuiltInRegistries.ITEM, IColoredItem.class, Registrator::registerItemColor);
-		LOGGER.info("Registered block and item colors");
 	}
 	
 	public String getModId() {
@@ -80,9 +77,7 @@ public class Registrator {
 		return this.helpers;
 	}
 	
-	public static <T> void registerAttribute(Registry<T> registry,
-																		   Class<? extends Interface> clazz,
-																		   Consumer<T> consumer) {
+	public static <T> void registerAttribute(Registry<T> registry, Class<? extends Interface> clazz, Consumer<T> consumer) {
 		registry.stream().filter(clazz::isInstance).forEach(consumer);
 	}
 	
@@ -99,17 +94,6 @@ public class Registrator {
 	private static void registerCutout(Block block) {
 		IRenderTypeBlock renderTypeBlock = (IRenderTypeBlock)block;
 		DataUtil.registerCutout(block, renderTypeBlock.getRenderType());
-	}
-	
-	private static void registerBlockColor(Block block) {
-		IColoredBlock coloredBlock = (IColoredBlock)block;
-		DataUtil.registerBlockColor(coloredBlock.getBlockColor(), block);
-		DataUtil.registerItemColor(coloredBlock.getItemColor(), block);
-	}
-	
-	private static void registerItemColor(ItemLike item) {
-		IColoredItem coloredItem = (IColoredItem)item;
-		DataUtil.registerItemColor(coloredItem.getItemColor(), item);
 	}
 	
 }

@@ -1,8 +1,5 @@
 package co.eltrut.differentiate.core.util;
 
-import org.apache.commons.lang3.tuple.Pair;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -12,6 +9,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class DataUtil {
 
@@ -30,14 +29,12 @@ public class DataUtil {
 		ItemBlockRenderTypes.setRenderLayer(block, type);
 	}
 
-	@Deprecated
-	public static void registerBlockColor(BlockColor color, Block ...blocks) {
-		Minecraft.getInstance().getBlockColors().register(color, blocks);
+	public static void registerBlockColor(RegisterColorHandlersEvent.Block event, BlockColor color, Block ...blocks) {
+		event.register(color, blocks);
 	}
 
-	@Deprecated
-	public static void registerItemColor(ItemColor color, ItemLike ...items) {
-		Minecraft.getInstance().getItemColors().register(color, items);
+	public static void registerItemColor(RegisterColorHandlersEvent.Item event, ItemColor color, Block ...blocks) {
+		event.register(color, blocks);
 	}
 	
 	public static class CompostableChance {

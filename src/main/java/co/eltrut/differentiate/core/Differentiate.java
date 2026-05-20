@@ -12,6 +12,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -23,11 +24,8 @@ public class Differentiate {
     public static Differentiate instance;
 
     public Differentiate(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::doCommonStuff);
-        modEventBus.addListener(this::doClientStuff);
         instance = this;
 
-        modEventBus.addListener(this::loadCompleteEvent);
         modEventBus.addListener(this::buildContents);
 
         // comment out before shipping
@@ -38,22 +36,7 @@ public class Differentiate {
         
     }
 
-    private void loadCompleteEvent(FMLLoadCompleteEvent event) {
-    }
-
     private void buildContents(BuildCreativeModeTabContentsEvent event) {
         CreativeTabAssigner.assignTabs(event);
-    }
-
-    private void doCommonStuff(final FMLCommonSetupEvent event) {
-    	event.enqueueWork(() -> {
-    		Registrator.registerCommon(event);
-    	});
-    }
-    
-    private void doClientStuff(final FMLClientSetupEvent event) {
-    	event.enqueueWork(() -> {
-    		Registrator.registerClient(event);
-    	});
     }
 }
