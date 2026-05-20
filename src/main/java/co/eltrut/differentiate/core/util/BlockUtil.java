@@ -7,10 +7,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.Property;
-
-import java.util.List;
+import net.minecraft.world.level.material.MapColor;
 
 public class BlockUtil {
 
@@ -19,26 +20,23 @@ public class BlockUtil {
 		BlockState state = end;
 		
 		for (Property property : initial.getProperties()) {
-			state = state.setValue(property, initial.getValue(property));
+			if (end.hasProperty(property)) {
+                state = state.setValue(property, initial.getValue(property));
+            }
 		}
 		return state;
 	}
 	
-//	public static void registerDispenserBehavior(Item item, Block block, DispenseItemBehavior newBehavior) {
-//		DispenseItemBehavior oldBehavior = DispenserBlock.DISPENSER_REGISTRY.get(item);
-//		DispenserBlock.registerBehavior(item, (source, stack) -> {
-//			Direction dir = source.getBlockState().getValue(DispenserBlock.FACING);
-//			BlockPos pos = source.getPos().relative(dir);
-//			BlockState state = source.getLevel().getBlockState(pos);
-//
-//			return state.is(block) ? newBehavior.dispense(source, stack) : oldBehavior.dispense(source, stack);
-//		});
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public static <T extends IForgeRegistryEntry<T>> T[] toArray(List<RegistryObject<T>> list) {
-//		return (T[])list.stream().map(RegistryObject::get).toArray();
-//	}
+	public static void registerDispenserBehavior(Item item, Block block, DispenseItemBehavior newBehavior) {
+		DispenseItemBehavior oldBehavior = DispenserBlock.DISPENSER_REGISTRY.get(item);
+		DispenserBlock.registerBehavior(item, (source, stack) -> {
+			Direction dir = source.state().getValue(DispenserBlock.FACING);
+			BlockPos pos = source.pos().relative(dir);
+			BlockState state = source.level().getBlockState(pos);
+
+			return state.is(block) ? newBehavior.dispense(source, stack) : oldBehavior.dispense(source, stack);
+		});
+	}
 
 	public static String getPrefix(String name) {
 		return name.endsWith("bricks") || name.endsWith("tiles") ? name.replace("_bricks", "_brick").replace("_tiles", "_tile") : name;
@@ -46,25 +44,41 @@ public class BlockUtil {
 	
 	public static class QuarkProperties {
 
-//		public static final Block.Properties SOUL_SANDSTONE = Block.Properties.of()(Material.STONE, MaterialColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(0.8F);
-//		public static final Block.Properties MIDORI = Block.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GREEN).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-//		public static final Block.Properties LIMESTONE = Block.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-//		public static final Block.Properties JASPER = Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-//		public static final Block.Properties SLATE = Block.Properties.of(Material.STONE, MaterialColor.ICE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-//		public static final Block.Properties MYALITE = Block.Properties.of(Material.STONE, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final Block.Properties SOUL_SANDSTONE = OldProperties.stone().mapColor(MapColor.COLOR_BROWN)
+				.requiresCorrectToolForDrops()
+				.strength(0.8F);
+		public static final Block.Properties MIDORI = OldProperties.stone().mapColor(MapColor.COLOR_LIGHT_GREEN)
+				.requiresCorrectToolForDrops()
+				.strength(1.5F, 6.0F);
+		public static final Block.Properties LIMESTONE = OldProperties.stone().mapColor(MapColor.STONE)
+				.requiresCorrectToolForDrops()
+				.strength(1.5F, 6.0F);
+		public static final Block.Properties JASPER = OldProperties.stone().mapColor(MapColor.TERRACOTTA_RED)
+				.requiresCorrectToolForDrops()
+				.strength(1.5F, 6.0F);
+		public static final Block.Properties SHALE = OldProperties.stone().mapColor(MapColor.ICE)
+				.requiresCorrectToolForDrops()
+				.strength(1.5F, 6.0F);
+		public static final Block.Properties MYALITE = OldProperties.stone().mapColor(MapColor.COLOR_PURPLE)
+				.requiresCorrectToolForDrops()
+				.strength(1.5F, 6.0F);
 
 	}
 
-	public static class WoodProperties {
+	public static class OldProperties {
+		// source: https://gist.github.com/GizmoTheMoonPig/77a90a48e0aeecd15b4c524e1c7f0a4a
 
-//		public static final MaterialColor ACACIA = MaterialColor.COLOR_GRAY;
-//		public static final MaterialColor BIRCH = MaterialColor.SAND;
-//		public static final MaterialColor DARK_OAK = MaterialColor.COLOR_BROWN;
-//		public static final MaterialColor JUNGLE = MaterialColor.DIRT;
-//		public static final MaterialColor OAK = MaterialColor.WOOD;
-//		public static final MaterialColor SPRUCE = MaterialColor.PODZOL;
-//		public static final MaterialColor CRIMSON = MaterialColor.CRIMSON_HYPHAE;
-//		public static final MaterialColor WARPED = MaterialColor.WARPED_HYPHAE;
+		public static BlockBehaviour.Properties stone() {
+			return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM);
+		}
+
+		public static BlockBehaviour.Properties wood() {
+			return BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava().instrument(NoteBlockInstrument.BASS);
+		}
+
+		public static BlockBehaviour.Properties wool() {
+			return BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).ignitedByLava();
+		}
 
 	}
 	

@@ -1,15 +1,22 @@
 package co.eltrut.differentiate.core.registrator;
 
 import co.eltrut.differentiate.common.block.VerticalSlabBlock;
+import co.eltrut.differentiate.common.block.wood.LogSlabBlock;
+import co.eltrut.differentiate.common.block.wood.LogStairBlock;
+import co.eltrut.differentiate.common.block.wood.LogVerticalSlabBlock;
+import co.eltrut.differentiate.common.block.wood.LogWallBlock;
 import co.eltrut.differentiate.common.item.FuelBlockItem;
 import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
+import co.eltrut.differentiate.common.repo.WoodVariantRepo;
 import co.eltrut.differentiate.core.creativetab.CreativeTabSequence;
 import co.eltrut.differentiate.core.util.BlockUtil;
+import co.eltrut.differentiate.core.util.DataUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -38,6 +45,14 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
 		DeferredItem<Item> registeredItem = this.itemRegister.createItemWithoutEntry(name,
 				() -> new BlockItem(registeredBlock.get(), new Item.Properties()));
+
+		return registeredBlock;
+	}
+
+	protected DeferredBlock<Block> createFuelBlockWithoutEntry(String name, Supplier<Block> block, int burnTime) {
+		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
+		DeferredItem<Item> registeredItem = this.itemRegister.createItemWithoutEntry(name,
+				() -> new FuelBlockItem(registeredBlock.get(), new Item.Properties(), burnTime));
 
 		return registeredBlock;
 	}
@@ -137,88 +152,101 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		return repo;
 	}
 
-//	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, String ...mods) {
-//		return this.createSimpleWoodVariants(woodName, color, false, mods);
-//	}
-//
-//	public WoodVariantRepo createSimpleWoodVariants(String woodName, MaterialColor color, boolean isHyphae, String ...mods) {
-//		String name = isHyphae ? woodName + "_hyphae" : woodName + "_wood";
-//		String[] modsWithQuark = CompatUtil.addQuark(mods);
-//		BlockBehaviour.Properties props = BlockBehaviour.Properties.of(Material.WOOD, color).strength(2.0F).sound(SoundType.WOOD);
-//
-//		// Stripped Woods
-//		RegistryObject<Block> strippedSlabBlock = this.createSimpleFuelBlock("stripped_" + name + "_slab",
-//				() -> new LogSlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, 150, mods);
-//		RegistryObject<Block> strippedStairBlock = this.createSimpleFuelBlock("stripped_" + name + "_stairs",
-//				() -> new LogStairBlock(Blocks.STRIPPED_OAK_WOOD::defaultBlockState, props), CreativeModeTab.TAB_BUILDING_BLOCKS, 300, mods);
-//		RegistryObject<Block> strippedWallBlock = this.createSimpleFuelBlock("stripped_" + name + "_wall",
-//				() -> new LogWallBlock(props), CreativeModeTab.TAB_DECORATIONS, 300, mods);
-//		RegistryObject<Block> strippedVerticalSlabBlock = this.createSimpleFuelBlock("stripped_" + name + "_vertical_slab",
-//				() -> new LogVerticalSlabBlock(props), CreativeModeTab.TAB_BUILDING_BLOCKS, 150, modsWithQuark);
-//		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
-//				.setSlabBlock(strippedSlabBlock)
-//				.setStairsBlock(strippedStairBlock)
-//				.setWallBlock(strippedWallBlock)
-//				.setVerticalSlabBlock(strippedVerticalSlabBlock)
-//				.build();
-//
-//		// Woods
-//		RegistryObject<Block> slabBlock = this.createSimpleFuelBlock(name + "_slab",
-//				() -> new LogSlabBlock(strippedSlabBlock, props), CreativeModeTab.TAB_BUILDING_BLOCKS, 150, mods);
-//		RegistryObject<Block> stairBlock = this.createSimpleFuelBlock(name + "_stairs",
-//				() -> new LogStairBlock(strippedStairBlock, Blocks.OAK_WOOD::defaultBlockState, props), CreativeModeTab.TAB_BUILDING_BLOCKS, 300, mods);
-//		RegistryObject<Block> wallBlock = this.createSimpleFuelBlock(name + "_wall",
-//				() -> new LogWallBlock(strippedWallBlock, props), CreativeModeTab.TAB_DECORATIONS, 300, mods);
-//		RegistryObject<Block> verticalSlabBlock = this.createSimpleFuelBlock(name + "_vertical_slab",
-//				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, props), CreativeModeTab.TAB_BUILDING_BLOCKS, 150, modsWithQuark);
-//		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
-//				.setSlabBlock(slabBlock)
-//				.setStairsBlock(stairBlock)
-//				.setWallBlock(wallBlock)
-//				.setVerticalSlabBlock(verticalSlabBlock)
-//				.build();
-//
-//		return new WoodVariantRepo(strippedWoods, woods);
-//	}
-//
-//	public WoodVariantRepo createNetherWoodVariants(String woodName, MaterialColor color, String ...mods) {
-//		String name = woodName + "_hyphae";
-//		String[] modsWithQuark = CompatUtil.addQuark(mods);
-//		BlockBehaviour.Properties props = BlockBehaviour.Properties.of(Material.NETHER_WOOD, color).strength(2.0F).sound(SoundType.STEM);
-//
-//		// Stripped Woods
-//		RegistryObject<Block> strippedSlabBlock = this.createSimpleBlock("stripped_" + name + "_slab",
-//				() -> new LogSlabBlock(props, true), CreativeModeTab.TAB_BUILDING_BLOCKS,  mods);
-//		RegistryObject<Block> strippedStairBlock = this.createSimpleBlock("stripped_" + name + "_stairs",
-//				() -> new LogStairBlock(Blocks.STRIPPED_CRIMSON_HYPHAE::defaultBlockState, props, true), CreativeModeTab.TAB_BUILDING_BLOCKS, mods);
-//		RegistryObject<Block> strippedWallBlock = this.createSimpleBlock("stripped_" + name + "_wall",
-//				() -> new LogWallBlock(props, true), CreativeModeTab.TAB_DECORATIONS, mods);
-//		RegistryObject<Block> strippedVerticalSlabBlock = this.createSimpleBlock("stripped_" + name + "_vertical_slab",
-//				() -> new LogVerticalSlabBlock(props, true), CreativeModeTab.TAB_BUILDING_BLOCKS, modsWithQuark);
-//		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
-//				.setSlabBlock(strippedSlabBlock)
-//				.setStairsBlock(strippedStairBlock)
-//				.setWallBlock(strippedWallBlock)
-//				.setVerticalSlabBlock(strippedVerticalSlabBlock)
-//				.build();
-//
-//		// Woods
-//		RegistryObject<Block> slabBlock = this.createSimpleBlock(name + "_slab",
-//				() -> new LogSlabBlock(strippedSlabBlock, props, true), CreativeModeTab.TAB_BUILDING_BLOCKS, mods);
-//		RegistryObject<Block> stairBlock = this.createSimpleBlock(name + "_stairs",
-//				() -> new LogStairBlock(strippedStairBlock, Blocks.CRIMSON_HYPHAE::defaultBlockState, props, true), CreativeModeTab.TAB_BUILDING_BLOCKS, mods);
-//		RegistryObject<Block> wallBlock = this.createSimpleBlock(name + "_wall",
-//				() -> new LogWallBlock(strippedWallBlock, props, true), CreativeModeTab.TAB_DECORATIONS, mods);
-//		RegistryObject<Block> verticalSlabBlock = this.createSimpleBlock(name + "_vertical_slab",
-//				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, props, true), CreativeModeTab.TAB_BUILDING_BLOCKS, modsWithQuark);
-//		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
-//				.setSlabBlock(slabBlock)
-//				.setStairsBlock(stairBlock)
-//				.setWallBlock(wallBlock)
-//				.setVerticalSlabBlock(verticalSlabBlock)
-//				.build();
-//
-//		return new WoodVariantRepo(strippedWoods, woods);
-//	}
+	public WoodVariantRepo createWoodVariants(Block base, Block strippedBase, String woodName, String ...mods) {
+		return this.createWoodVariants(base, strippedBase, woodName, false, mods);
+	}
+
+	public WoodVariantRepo createWoodVariants(Block base, Block strippedBase, String woodName, boolean isHyphae, String ...mods) {
+		String name = isHyphae ? woodName + "_hyphae" : woodName + "_wood";
+		Properties baseProps = Properties.ofFullCopy(base);
+		Properties strippedProps = Properties.ofFullCopy(strippedBase);
+
+		// Stripped Woods
+		DeferredBlock<Block> strippedSlabBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_slab",
+				() -> new SlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> strippedStairBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_stairs",
+				() -> new StairBlock(strippedBase.defaultBlockState(), strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> strippedWallBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_wall",
+				() -> new WallBlock(strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> strippedVerticalSlabBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_vertical_slab",
+				() -> new VerticalSlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
+		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
+				.setSlabBlock(strippedSlabBlock)
+				.setStairsBlock(strippedStairBlock)
+				.setWallBlock(strippedWallBlock)
+				.setVerticalSlabBlock(strippedVerticalSlabBlock)
+				.build();
+
+		// Woods
+		DeferredBlock<Block> slabBlock = this.createFuelBlockWithoutEntry(name + "_slab",
+				() -> new LogSlabBlock(strippedSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> stairBlock = this.createFuelBlockWithoutEntry(name + "_stairs",
+				() -> new LogStairBlock(strippedStairBlock, base.defaultBlockState(), baseProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> wallBlock = this.createFuelBlockWithoutEntry(name + "_wall",
+				() -> new LogWallBlock(strippedWallBlock, baseProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> verticalSlabBlock = this.createFuelBlockWithoutEntry(name + "_vertical_slab",
+				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
+		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
+				.setSlabBlock(slabBlock)
+				.setStairsBlock(stairBlock)
+				.setWallBlock(wallBlock)
+				.setVerticalSlabBlock(verticalSlabBlock)
+				.build();
+
+		List<DeferredHolder<Block, Block>> baseBlocks = woods.getBlocksInOrder();
+		List<DeferredHolder<Block, Block>> strippedBlocks = strippedWoods.getBlocksInOrder();
+
+		CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, mods, base);
+		CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, mods, strippedBase);
+
+		return new WoodVariantRepo(strippedWoods, woods);
+	}
+
+	public WoodVariantRepo createNetherWoodVariants(Block base, Block strippedBase, String woodName, Properties props, String ...mods) {
+		String name = woodName + "_hyphae";
+		Properties baseProps = Properties.ofFullCopy(base);
+		Properties strippedProps = Properties.ofFullCopy(strippedBase);
+
+		// Stripped Woods
+		DeferredBlock<Block> strippedSlabBlock = this.createBlockWithoutEntry("stripped_" + name + "_slab",
+				() -> new SlabBlock(strippedProps));
+		DeferredBlock<Block> strippedStairBlock = this.createBlockWithoutEntry("stripped_" + name + "_stairs",
+				() -> new StairBlock(strippedBase.defaultBlockState(), strippedProps));
+		DeferredBlock<Block> strippedWallBlock = this.createBlockWithoutEntry("stripped_" + name + "_wall",
+				() -> new WallBlock(strippedProps));
+		DeferredBlock<Block> strippedVerticalSlabBlock = this.createBlockWithoutEntry("stripped_" + name + "_vertical_slab",
+				() -> new VerticalSlabBlock(strippedProps));
+		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
+				.setSlabBlock(strippedSlabBlock)
+				.setStairsBlock(strippedStairBlock)
+				.setWallBlock(strippedWallBlock)
+				.setVerticalSlabBlock(strippedVerticalSlabBlock)
+				.build();
+
+		// Woods
+		DeferredBlock<Block> slabBlock = this.createBlockWithoutEntry(name + "_slab",
+				() -> new LogSlabBlock(strippedSlabBlock, baseProps));
+		DeferredBlock<Block> stairBlock = this.createBlockWithoutEntry(name + "_stairs",
+				() -> new LogStairBlock(strippedStairBlock, base.defaultBlockState(), baseProps));
+		DeferredBlock<Block> wallBlock = this.createBlockWithoutEntry(name + "_wall",
+				() -> new LogWallBlock(strippedWallBlock, baseProps));
+		DeferredBlock<Block> verticalSlabBlock = this.createBlockWithoutEntry(name + "_vertical_slab",
+				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps));
+		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
+				.setSlabBlock(slabBlock)
+				.setStairsBlock(stairBlock)
+				.setWallBlock(wallBlock)
+				.setVerticalSlabBlock(verticalSlabBlock)
+				.build();
+
+		List<DeferredHolder<Block, Block>> baseBlocks = woods.getBlocksInOrder();
+		List<DeferredHolder<Block, Block>> strippedBlocks = strippedWoods.getBlocksInOrder();
+
+		CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, mods, base);
+		CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, mods, strippedBase);
+
+		return new WoodVariantRepo(strippedWoods, woods);
+
+	}
 	
 }

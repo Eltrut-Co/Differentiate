@@ -44,7 +44,7 @@ public class CreativeTabSequence<T extends ItemLike> extends AbstractCreativeTab
         for (ResourceKey<CreativeModeTab> tab : this.tabs) {
             if (event.getTabKey() == tab) {
                 if (this.followItem == null) {
-                    reversedItems.stream().map(DeferredHolder::get).forEach(event::accept);
+                    this.items.stream().map(DeferredHolder::get).forEach(event::accept);
                 } else {
                     reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
                     event.insertAfter(this.followItem.asItem().getDefaultInstance(), s,

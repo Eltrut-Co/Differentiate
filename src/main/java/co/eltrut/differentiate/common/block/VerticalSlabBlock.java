@@ -41,11 +41,8 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
 	public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.create("type", VerticalSlabType.class);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public final Supplier<Block> parent;
-
-	public VerticalSlabBlock(Supplier<Block> parent, Properties properties) {
+	public VerticalSlabBlock(Properties properties) {
 		super(properties);
-		this.parent = parent;
 		registerDefaultState(defaultBlockState().setValue(TYPE, VerticalSlabType.NORTH).setValue(WATERLOGGED, false));
 	}
 

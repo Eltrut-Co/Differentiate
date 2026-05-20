@@ -43,5 +43,12 @@ public class DataUtil {
 		public static final Pair<Integer, Integer> FLOWER = Pair.of(60, 100);
 		
 	}
+
+	public static class FuelTime {
+
+		public static final int WOOD_BLOCK = 300;
+		public static final int WOOD_SLAB = 150;
+
+	}
 	
 }
