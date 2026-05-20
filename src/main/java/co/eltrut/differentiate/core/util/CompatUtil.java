@@ -20,7 +20,7 @@ public class CompatUtil {
 	public static class Mods {
 		// Core
 		public static final String MINECRAFT = "minecraft";
-		public static final String FORGE = "forge";
+		public static final String NEOFORGE = "neoforge";
 		
 		// Vazkii
 		public static final String ZETA = "zeta";

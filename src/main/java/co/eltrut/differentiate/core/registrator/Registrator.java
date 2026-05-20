@@ -50,21 +50,6 @@ public class Registrator {
 		}
 	}
 	
-	public static void registerCommon(final FMLCommonSetupEvent event) {
-		registerAttribute(BuiltInRegistries.BLOCK, ICompostableItem.class, Registrator::registerCompostable);
-		registerAttribute(BuiltInRegistries.ITEM, ICompostableItem.class, Registrator::registerCompostable);
-
-		LOGGER.info("Registered block and item compostables");
-		
-		registerAttribute(BuiltInRegistries.BLOCK, IFlammableBlock.class, Registrator::registerFlammable);
-		LOGGER.info("Registered block flammables");
-	}
-	
-	public static void registerClient(final FMLClientSetupEvent event) {
-		registerAttribute(BuiltInRegistries.BLOCK, IRenderTypeBlock.class, Registrator::registerCutout);
-		LOGGER.info("Registered block cutouts");
-	}
-	
 	public String getModId() {
 		return this.modid;
 	}
@@ -75,25 +60,6 @@ public class Registrator {
 	
 	public Map<ResourceKey<? extends Registry<?>>, IHelper<?>> getHelpers() {
 		return this.helpers;
-	}
-	
-	public static <T> void registerAttribute(Registry<T> registry, Class<? extends Interface> clazz, Consumer<T> consumer) {
-		registry.stream().filter(clazz::isInstance).forEach(consumer);
-	}
-	
-	private static void registerCompostable(ItemLike item) {
-		ICompostableItem compostableItem = (ICompostableItem)item;
-		DataUtil.registerCompostable(item, compostableItem.getCompostableChance());
-	}
-	
-	private static void registerFlammable(Block block) {
-		IFlammableBlock flammableBlock = (IFlammableBlock)block;
-		DataUtil.registerFlammable(block, flammableBlock.getEncouragement(), flammableBlock.getFlammability());
-	}
-	
-	private static void registerCutout(Block block) {
-		IRenderTypeBlock renderTypeBlock = (IRenderTypeBlock)block;
-		DataUtil.registerCutout(block, renderTypeBlock.getRenderType());
 	}
 	
 }

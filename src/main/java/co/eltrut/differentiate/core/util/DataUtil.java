@@ -2,31 +2,17 @@ package co.eltrut.differentiate.core.util;
 
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class DataUtil {
-
-	@Deprecated
-	public static void registerCompostable(ItemLike item, float compostableChance) {
-		ComposterBlock.COMPOSTABLES.put(item, compostableChance);
-	}
 	
 	public static void registerFlammable(Block block, int encouragement, int flammability) {
 		FireBlock fireBlock = (FireBlock)Blocks.FIRE;
 		fireBlock.setFlammable(block, encouragement, flammability);
-	}
-
-	@Deprecated
-	public static void registerCutout(Block block, RenderType type) {
-		ItemBlockRenderTypes.setRenderLayer(block, type);
 	}
 
 	public static void registerBlockColor(RegisterColorHandlersEvent.Block event, BlockColor color, Block ...blocks) {
