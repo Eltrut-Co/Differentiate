@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,6 +43,7 @@ public class BlockUtil {
 	
 	public static class QuarkProperties {
 
+		// STONES
 		public static final Block.Properties SOUL_SANDSTONE = OldProperties.stone().mapColor(MapColor.COLOR_BROWN)
 				.requiresCorrectToolForDrops()
 				.strength(0.8F);
@@ -63,6 +63,17 @@ public class BlockUtil {
 				.requiresCorrectToolForDrops()
 				.strength(1.5F, 6.0F);
 
+		// WOODS
+		public static final Block.Properties ANCIENT = OldProperties.wood().mapColor(MapColor.TERRACOTTA_WHITE);
+		public static final Block.Properties AZALEA = OldProperties.wood().mapColor(MapColor.COLOR_LIGHT_GREEN);
+		public static final Block.Properties STRIPPED_AZALEA = OldProperties.wood().mapColor(MapColor.COLOR_BROWN);
+		public static final Block.Properties BLOSSOM = OldProperties.wood().mapColor(MapColor.COLOR_RED);
+		public static final Block.Properties STRIPPED_BLOSSOM = OldProperties.wood().mapColor(MapColor.COLOR_BROWN);
+
+	}
+
+	public static class AbnormalsProperties {
+		
 	}
 
 	public static class OldProperties {

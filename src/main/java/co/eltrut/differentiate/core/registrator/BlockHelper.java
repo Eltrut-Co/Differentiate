@@ -19,10 +19,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -99,6 +96,19 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 												  ResourceKey<CreativeModeTab> tab, ItemLike followItem, String ...mods) {
 		return this.createFollowBlock(name, () -> new Block(props), tab, followItem, mods);
 	}
+
+	/*
+	Note that blocks from other mods can only be safely queried after registration is complete.
+	This method allows for this querying to occur when building the creative tab, preventing incompatibilities with mods.
+	 */
+	public DeferredBlock<Block> createFollowBlock(String name, Supplier<Block> block,
+	                                              ResourceKey<CreativeModeTab> tab, String modid, String followItem, String ...mods) {
+		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
+		DeferredItem<Item> registeredItem = this.itemRegister.createFollowItem(name, () -> new BlockItem(registeredBlock.get(), new Item.Properties()),
+				tab, modid, followItem, mods);
+
+		return registeredBlock;
+	}
 	
 	public VariantBlocksRepo createBlockWithVariants(String name, Supplier<Block> block, Properties props,
 														   ResourceKey<CreativeModeTab> tab, String ...mods) {
@@ -129,6 +139,18 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, mods, base);
 
 		return repo;
+	}
+
+	public VariantBlocksRepo createBlockVariants(String modid, String name, Block placeholder, Properties props, ResourceKey<CreativeModeTab> tab) {
+		String prefix = BlockUtil.getPrefix(name);
+
+		VariantBlocksRepo repo = this.createVariantRepo(placeholder, prefix, props);
+
+		List<DeferredHolder<Block, Block>> blocks = repo.getBlocksInOrder();
+		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, new String[]{modid}, modid, name);
+
+		return repo;
+
 	}
 
 	private VariantBlocksRepo createVariantRepo(Block base, String prefix, Properties props) {
@@ -198,6 +220,51 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 
 		CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, mods, base);
 		CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, mods, strippedBase);
+
+		return new WoodVariantRepo(strippedWoods, woods);
+	}
+
+	public WoodVariantRepo createWoodVariants(String modid, String base, Properties baseProps, Properties strippedProps) {
+		String strippedBase = "stripped_" + base;
+
+		// Stripped Woods
+		DeferredBlock<Block> strippedSlabBlock = this.createFuelBlockWithoutEntry(strippedBase + "_slab",
+				() -> new SlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> strippedStairBlock = this.createFuelBlockWithoutEntry(strippedBase + "_stairs",
+				() -> new StairBlock(Blocks.OAK_WOOD.defaultBlockState(), strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> strippedWallBlock = this.createFuelBlockWithoutEntry(strippedBase + "_wall",
+				() -> new WallBlock(strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> strippedVerticalSlabBlock = this.createFuelBlockWithoutEntry(strippedBase + "_vertical_slab",
+				() -> new VerticalSlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
+		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
+				.setSlabBlock(strippedSlabBlock)
+				.setStairsBlock(strippedStairBlock)
+				.setWallBlock(strippedWallBlock)
+				.setVerticalSlabBlock(strippedVerticalSlabBlock)
+				.build();
+
+		// Woods
+		DeferredBlock<Block> slabBlock = this.createFuelBlockWithoutEntry(base + "_slab",
+				() -> new LogSlabBlock(strippedSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> stairBlock = this.createFuelBlockWithoutEntry(base + "_stairs",
+				() -> new LogStairBlock(strippedStairBlock, Blocks.OAK_WOOD.defaultBlockState(), baseProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> wallBlock = this.createFuelBlockWithoutEntry(base + "_wall",
+				() -> new LogWallBlock(strippedWallBlock, baseProps), DataUtil.FuelTime.WOOD_BLOCK);
+		DeferredBlock<Block> verticalSlabBlock = this.createFuelBlockWithoutEntry(base + "_vertical_slab",
+				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
+		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
+				.setSlabBlock(slabBlock)
+				.setStairsBlock(stairBlock)
+				.setWallBlock(wallBlock)
+				.setVerticalSlabBlock(verticalSlabBlock)
+				.build();
+
+		List<DeferredHolder<Block, Block>> baseBlocks = woods.getBlocksInOrder();
+		List<DeferredHolder<Block, Block>> strippedBlocks = strippedWoods.getBlocksInOrder();
+
+		String[] modList = new String[]{modid};
+		CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList, modid, base);
+		CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList, modid, strippedBase);
 
 		return new WoodVariantRepo(strippedWoods, woods);
 	}

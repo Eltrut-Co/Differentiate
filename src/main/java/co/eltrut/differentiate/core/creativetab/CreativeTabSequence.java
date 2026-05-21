@@ -1,5 +1,6 @@
 package co.eltrut.differentiate.core.creativetab;
 
+import co.eltrut.differentiate.core.util.CompatUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,12 +22,14 @@ public class CreativeTabSequence<T extends ItemLike> extends AbstractCreativeTab
     private List<DeferredHolder<T, T>> items;
     private final List<ResourceKey<CreativeModeTab>> tabs;
     private final ItemLike followItem;
+    private final Pair<String, String> followItemId;
 
     public CreativeTabSequence(List<DeferredHolder<T, T>> items, List<ResourceKey<CreativeModeTab>> tabs,
                                String[] compatMods, ItemLike followItem) {
         this.items = items;
         this.tabs = CreativeTabAssigner.checkCompatibility(tabs, compatMods);
         this.followItem = followItem;
+        this.followItemId = null;
 
         CreativeTabAssigner.ITEMS.add(this);
     }
@@ -38,17 +42,39 @@ public class CreativeTabSequence<T extends ItemLike> extends AbstractCreativeTab
         this(items, new ArrayList<>(List.of(tab)), compatMods, null);
     }
 
+    public CreativeTabSequence(List<DeferredHolder<T, T>> items, List<ResourceKey<CreativeModeTab>> tabs,
+                               String[] compatMods, String modid, String followItem) {
+        this.items = items;
+        this.tabs = CreativeTabAssigner.checkCompatibility(tabs, compatMods);
+        this.followItem = null;
+        this.followItemId = Pair.of(modid, followItem);
+
+        CreativeTabAssigner.ITEMS.add(this);
+    }
+
+    public CreativeTabSequence(List<DeferredHolder<T, T>> items, ResourceKey<CreativeModeTab> tab, String[] compatMods,
+                               String modid, String followItem) {
+        this(items, new ArrayList<>(List.of(tab)), compatMods, modid, followItem);
+    }
+
     @Override
     protected void assignTabs(BuildCreativeModeTabContentsEvent event) {
         List<DeferredHolder<T, T>> reversedItems = items.reversed();
         for (ResourceKey<CreativeModeTab> tab : this.tabs) {
             if (event.getTabKey() == tab) {
-                if (this.followItem == null) {
-                    this.items.stream().map(DeferredHolder::get).forEach(event::accept);
-                } else {
+                if (this.followItem != null) {
                     reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
-                    event.insertAfter(this.followItem.asItem().getDefaultInstance(), s,
-                            CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                            event.insertAfter(this.followItem.asItem().getDefaultInstance(), s,
+                                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                } else if (this.followItemId != null) {
+                    Item item = CompatUtil.getItem(this.followItemId.getLeft(), this.followItemId.getRight());
+                    if (item != null) {
+                        reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
+                                event.insertAfter(item.getDefaultInstance(), s,
+                                        CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                    }
+                } else {
+                    this.items.stream().map(DeferredHolder::get).forEach(event::accept);
                 }
             }
         }
@@ -65,6 +91,10 @@ public class CreativeTabSequence<T extends ItemLike> extends AbstractCreativeTab
 
         this.items = map.keySet().stream().sorted().map(map::get).collect(Collectors.toList());
 
+    }
+
+    public void add(DeferredHolder<T, T> deferredItem) {
+        this.items.add(deferredItem);
     }
 
 }
