@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": {
+    "#differentiate:compostable/seeds": {
+      "chance": 0.3
+    },
+    "#differentiate:compostable/plants": {
+      "chance": 0.65
+    },
+    "#differentiate:compostable/baked_goods": {
+      "chance": 0.85
+    },
+    "#differentiate:compostable/pies": {
+      "chance": 1.0
+    }
+  }
+}

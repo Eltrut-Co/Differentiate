@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": {
+    "#differentiate:wood_slabs": {
+      "burn_time": 150
+    },
+    "#differentiate:wood_stairs": {
+      "burn_time": 300
+    },
+    "#differentiate:wood_vertical_slabs": {
+      "burn_time": 150
+    },
+    "#differentiate:wood_walls": {
+      "burn_time": 300
+    }
+  }
+}

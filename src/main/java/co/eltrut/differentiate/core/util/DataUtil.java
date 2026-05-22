@@ -23,15 +23,6 @@ public class DataUtil {
 		event.register(color, blocks);
 	}
 	
-	public static class CompostableChance {
-		
-		public static final float SEEDS = 0.3F;
-		public static final float PLANTS = 0.65F;
-		public static final float BAKED_GOODS = 0.85F;
-		public static final float PIES = 1.0F;
-		
-	}
-	
 	public static class FlammableChance {
 		
 		public static final Pair<Integer, Integer> WOOD = Pair.of(5, 5);
@@ -42,13 +33,6 @@ public class DataUtil {
 		public static final Pair<Integer, Integer> CARPET = Pair.of(60, 20);
 		public static final Pair<Integer, Integer> FLOWER = Pair.of(60, 100);
 		
-	}
-
-	public static class FuelTime {
-
-		public static final int WOOD_BLOCK = 300;
-		public static final int WOOD_SLAB = 150;
-
 	}
 	
 }

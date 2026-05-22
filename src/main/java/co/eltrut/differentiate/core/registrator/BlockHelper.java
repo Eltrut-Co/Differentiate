@@ -45,14 +45,6 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 
 		return registeredBlock;
 	}
-
-	protected DeferredBlock<Block> createFuelBlockWithoutEntry(String name, Supplier<Block> block, int burnTime) {
-		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItemWithoutEntry(name,
-				() -> new FuelBlockItem(registeredBlock.get(), new Item.Properties(), burnTime));
-
-		return registeredBlock;
-	}
 	
 	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block,
 	                                        ResourceKey<CreativeModeTab> tab, String ...mods) {
@@ -66,21 +58,6 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 	public DeferredBlock<Block> createBlock(String name, Properties props,
 											ResourceKey<CreativeModeTab> tab, String ...mods) {
 		return this.createBlock(name, () -> new Block(props), tab, mods);
-	}
-	
-	public DeferredBlock<Block> createFuelBlock(String name, Supplier<Block> block, int burnTime,
-												ResourceKey<CreativeModeTab> tab, String ...mods) {
-		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name, () -> new FuelBlockItem(registeredBlock.get(),
-						new Item.Properties(), burnTime),
-				tab, mods);
-
-		return registeredBlock;
-	}
-
-	public DeferredBlock<Block> createFuelBlock(String name, Properties props, int burnTime,
-													  ResourceKey<CreativeModeTab> tab, String ...mods) {
-		return this.createFuelBlock(name, () -> new Block(props), burnTime, tab, mods);
 	}
 
 	public DeferredBlock<Block> createFollowBlock(String name, Supplier<Block> block,
@@ -184,14 +161,14 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		Properties strippedProps = Properties.ofFullCopy(strippedBase);
 
 		// Stripped Woods
-		DeferredBlock<Block> strippedSlabBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_slab",
-				() -> new SlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
-		DeferredBlock<Block> strippedStairBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_stairs",
-				() -> new StairBlock(strippedBase.defaultBlockState(), strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> strippedWallBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_wall",
-				() -> new WallBlock(strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> strippedVerticalSlabBlock = this.createFuelBlockWithoutEntry("stripped_" + name + "_vertical_slab",
-				() -> new VerticalSlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> strippedSlabBlock = this.createBlockWithoutEntry("stripped_" + name + "_slab",
+				() -> new SlabBlock(strippedProps));
+		DeferredBlock<Block> strippedStairBlock = this.createBlockWithoutEntry("stripped_" + name + "_stairs",
+				() -> new StairBlock(strippedBase.defaultBlockState(), strippedProps));
+		DeferredBlock<Block> strippedWallBlock = this.createBlockWithoutEntry("stripped_" + name + "_wall",
+				() -> new WallBlock(strippedProps));
+		DeferredBlock<Block> strippedVerticalSlabBlock = this.createBlockWithoutEntry("stripped_" + name + "_vertical_slab",
+				() -> new VerticalSlabBlock(strippedProps));
 		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(strippedSlabBlock)
 				.setStairsBlock(strippedStairBlock)
@@ -200,14 +177,14 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 				.build();
 
 		// Woods
-		DeferredBlock<Block> slabBlock = this.createFuelBlockWithoutEntry(name + "_slab",
-				() -> new LogSlabBlock(strippedSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
-		DeferredBlock<Block> stairBlock = this.createFuelBlockWithoutEntry(name + "_stairs",
-				() -> new LogStairBlock(strippedStairBlock, base.defaultBlockState(), baseProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> wallBlock = this.createFuelBlockWithoutEntry(name + "_wall",
-				() -> new LogWallBlock(strippedWallBlock, baseProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> verticalSlabBlock = this.createFuelBlockWithoutEntry(name + "_vertical_slab",
-				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> slabBlock = this.createBlockWithoutEntry(name + "_slab",
+				() -> new LogSlabBlock(strippedSlabBlock, baseProps));
+		DeferredBlock<Block> stairBlock = this.createBlockWithoutEntry(name + "_stairs",
+				() -> new LogStairBlock(strippedStairBlock, base.defaultBlockState(), baseProps));
+		DeferredBlock<Block> wallBlock = this.createBlockWithoutEntry(name + "_wall",
+				() -> new LogWallBlock(strippedWallBlock, baseProps));
+		DeferredBlock<Block> verticalSlabBlock = this.createBlockWithoutEntry(name + "_vertical_slab",
+				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps));
 		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(slabBlock)
 				.setStairsBlock(stairBlock)
@@ -228,14 +205,14 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		String strippedBase = "stripped_" + base;
 
 		// Stripped Woods
-		DeferredBlock<Block> strippedSlabBlock = this.createFuelBlockWithoutEntry(strippedBase + "_slab",
-				() -> new SlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
-		DeferredBlock<Block> strippedStairBlock = this.createFuelBlockWithoutEntry(strippedBase + "_stairs",
-				() -> new StairBlock(Blocks.OAK_WOOD.defaultBlockState(), strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> strippedWallBlock = this.createFuelBlockWithoutEntry(strippedBase + "_wall",
-				() -> new WallBlock(strippedProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> strippedVerticalSlabBlock = this.createFuelBlockWithoutEntry(strippedBase + "_vertical_slab",
-				() -> new VerticalSlabBlock(strippedProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> strippedSlabBlock = this.createBlockWithoutEntry(strippedBase + "_slab",
+				() -> new SlabBlock(strippedProps));
+		DeferredBlock<Block> strippedStairBlock = this.createBlockWithoutEntry(strippedBase + "_stairs",
+				() -> new StairBlock(Blocks.OAK_WOOD.defaultBlockState(), strippedProps));
+		DeferredBlock<Block> strippedWallBlock = this.createBlockWithoutEntry(strippedBase + "_wall",
+				() -> new WallBlock(strippedProps));
+		DeferredBlock<Block> strippedVerticalSlabBlock = this.createBlockWithoutEntry(strippedBase + "_vertical_slab",
+				() -> new VerticalSlabBlock(strippedProps));
 		VariantBlocksRepo strippedWoods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(strippedSlabBlock)
 				.setStairsBlock(strippedStairBlock)
@@ -244,14 +221,14 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 				.build();
 
 		// Woods
-		DeferredBlock<Block> slabBlock = this.createFuelBlockWithoutEntry(base + "_slab",
-				() -> new LogSlabBlock(strippedSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
-		DeferredBlock<Block> stairBlock = this.createFuelBlockWithoutEntry(base + "_stairs",
-				() -> new LogStairBlock(strippedStairBlock, Blocks.OAK_WOOD.defaultBlockState(), baseProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> wallBlock = this.createFuelBlockWithoutEntry(base + "_wall",
-				() -> new LogWallBlock(strippedWallBlock, baseProps), DataUtil.FuelTime.WOOD_BLOCK);
-		DeferredBlock<Block> verticalSlabBlock = this.createFuelBlockWithoutEntry(base + "_vertical_slab",
-				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps), DataUtil.FuelTime.WOOD_SLAB);
+		DeferredBlock<Block> slabBlock = this.createBlockWithoutEntry(base + "_slab",
+				() -> new LogSlabBlock(strippedSlabBlock, baseProps));
+		DeferredBlock<Block> stairBlock = this.createBlockWithoutEntry(base + "_stairs",
+				() -> new LogStairBlock(strippedStairBlock, Blocks.OAK_WOOD.defaultBlockState(), baseProps));
+		DeferredBlock<Block> wallBlock = this.createBlockWithoutEntry(base + "_wall",
+				() -> new LogWallBlock(strippedWallBlock, baseProps));
+		DeferredBlock<Block> verticalSlabBlock = this.createBlockWithoutEntry(base + "_vertical_slab",
+				() -> new LogVerticalSlabBlock(strippedVerticalSlabBlock, baseProps));
 		VariantBlocksRepo woods = new VariantBlocksRepo.Builder()
 				.setSlabBlock(slabBlock)
 				.setStairsBlock(stairBlock)
