@@ -25,6 +25,6 @@ public class TestBlocks {
 //            BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)),
 //            CreativeModeTabs.NATURAL_BLOCKS);
 
-    public static final VariantBlocksRepo DIRT = BLOCK_HELPER.createBlockVariants(Blocks.DIRT, CreativeModeTabs.NATURAL_BLOCKS);
+//    public static final VariantBlocksRepo DIRT = BLOCK_HELPER.createBlockVariants(Blocks.DIRT, CreativeModeTabs.NATURAL_BLOCKS);
 
 }

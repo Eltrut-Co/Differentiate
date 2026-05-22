@@ -73,7 +73,7 @@ public class BlockUtil {
 	}
 
 	public static class AbnormalsProperties {
-		
+
 	}
 
 	public static class OldProperties {
