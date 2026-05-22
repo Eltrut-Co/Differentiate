@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.function.Supplier;
 
+import com.mojang.datafixers.types.Type;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,8 +19,8 @@ public class BlockEntityHelper extends AbstractHelper<BlockEntityType<?>, Deferr
 		super(parent, DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, parent.getModId()));
 	}
 	
-//	public <T extends BlockEntity> DeferredHolder<BlockEntityType<T>> createBlockEntity(String name, BlockEntitySupplier<? extends T> tileEntity, Supplier<Block[]> blocks) {
-//		return this.registry.register(name, () -> new BlockEntityType<T>(tileEntity, new HashSet<Block>(Arrays.asList(blocks.get())), null));
-//	}
+	public <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> createBlockEntity(String name, BlockEntitySupplier<? extends T> tileEntity, Supplier<Block[]> blocks, Type<?> dataType) {
+		return this.registry.register(name, () -> new BlockEntityType<T>(tileEntity, new HashSet<Block>(Arrays.asList(blocks.get())), dataType));
+	}
 
 }
