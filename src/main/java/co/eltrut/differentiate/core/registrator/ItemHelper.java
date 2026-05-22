@@ -1,6 +1,5 @@
 package co.eltrut.differentiate.core.registrator;
 
-import co.eltrut.differentiate.common.item.FuelItem;
 import co.eltrut.differentiate.core.creativetab.CreativeTabEntry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -27,11 +26,6 @@ public class ItemHelper extends AbstractHelper<Item, DeferredRegister.Items> {
 		CreativeTabEntry entry = new CreativeTabEntry(registeredItem, tab, mods);
 
 		return registeredItem;
-	}
-
-	public DeferredItem<Item> createFuelItem(String name, CreativeModeTab group, Item.Properties props, int burnTime,
-											 ResourceKey<CreativeModeTab> tab, String ...mods) {
-		return this.createItem(name, () -> new FuelItem(props, burnTime), tab, mods);
 	}
 
 	public DeferredItem<Item> createFollowItem(String name, Supplier<Item> item, ResourceKey<CreativeModeTab> tab,
