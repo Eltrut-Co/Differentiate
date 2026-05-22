@@ -19,10 +19,7 @@ public class Differentiate {
         modEventBus.addListener(this::buildContents);
 
         // comment out before shipping
-        REGISTRATOR.register(modEventBus);
-        
-//        CraftingHelper.register(new BooleanRecipeCondition.Serializer("condition"));
-//        CraftingHelper.register(new QuarkRecipeCondition.Serializer("flag"));
+//        REGISTRATOR.register(modEventBus);
         
     }
 
