@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": {
-    "minecraft:diamond_block": {
-      "stripped_block": "minecraft:emerald_block"
-    }
-  }
-}
