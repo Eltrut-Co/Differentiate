@@ -4,7 +4,7 @@ license="CC BY-NC-SA 3.0 Unported"
 issueTrackerURL="https://github.com/Eltrut-Co/Differentiate/issues"
 [[mods]]
 modId="differentiate"
-version="2.0.0"
+version="3.0.0"
 displayName="Differentiate"
 logoFile="differentiate.png"
 credits="EltrutLikes"
