@@ -34,8 +34,8 @@ public class CompatUtil {
 		public static final String NEOFORGE = "neoforge";
 		
 		// Vazkii
-		public static final String ZETA = "zeta";
 		public static final String QUARK = "quark";
+		public static final String ZETA = "zeta";
 		
 		// Abnormals
 		public static final String ABNORMALS_DELIGHT = "abnormals_delight";
