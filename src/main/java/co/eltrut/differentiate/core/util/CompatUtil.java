@@ -47,20 +47,23 @@ public class CompatUtil {
 		public static final String BOATLOAD = "boatload";
 		public static final String BUZZIER_BEES = "buzzier_bees";
 		public static final String CAVERNS_AND_CHASMS = "caverns_and_chasms";
+		public static final String CLAYWORKS = "clayworks";
 		public static final String ENDERGETIC_EXPANSION = "endergetic";
 		public static final String ENVIRONMENTAL = "environmental";
+		public static final String GALLERY = "gallery";
+		public static final String INCUBATION = "incubation";
 		public static final String NEAPOLITAN = "neapolitan";
 		public static final String NETHER_EXTENSION = "nether_extension";
 		public static final String PERSONALITY = "personality";
-		public static final String SAVAGE_AND_RAVAGE = "savageandravage";
+		public static final String PET_CEMETERY = "pet_cemetery";
+		public static final String SAVAGE_AND_RAVAGE = "savage_and_ravage";
 		public static final String UPGRADE_AQUATIC = "upgrade_aquatic";
+		public static final String WOODWORKS = "woodworks";
 		
 		// Aurora
 		public static final String ENHANCED_MUSHROOMS = "enhanced_mushrooms";
 		
 		// Evoslab
-		public static final String ASSEMBLY = "assembly";
-		public static final String BREADCRUMBS = "breadcrumbs";
 		public static final String COOKIELICIOUS = "cookielicious";
 		
 		// Eltrut & Co.
@@ -71,10 +74,10 @@ public class CompatUtil {
 		
 		// Other
 		public static final String CREATE = "create";
-		public static final String CRUMBS = "crumbs";
+		public static final String DYE_DEPOT = "dye_depot";
+		public static final String DYE_THE_WORLD = "dye_the_world";
 		public static final String FARMERS_DELIGHT = "farmersdelight";
-		public static final String INFERNAL_EXPANSION = "infernalexp";
-		public static final String OUTER_END = "outer_end";
+		public static final String SUPPLEMENTARIES = "supplementaries";
 	}
 	
 }
