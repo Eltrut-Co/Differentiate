@@ -1,5 +1,5 @@
 {
-  "replace": "false",
+  "replace": false,
   "values": [
     "#differentiate:wood_slabs",
     "#differentiate:wood_stairs",
