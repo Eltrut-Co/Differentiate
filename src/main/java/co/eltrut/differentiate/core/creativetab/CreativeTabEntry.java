@@ -1,6 +1,8 @@
 package co.eltrut.differentiate.core.creativetab;
 
+import co.eltrut.differentiate.core.Differentiate;
 import co.eltrut.differentiate.core.util.CompatUtil;
+import co.eltrut.differentiate.core.util.ItemUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.LogManager;
 
 public class CreativeTabEntry extends AbstractCreativeTabEntry {
 
@@ -55,18 +58,23 @@ public class CreativeTabEntry extends AbstractCreativeTabEntry {
     public void assignTabs(BuildCreativeModeTabContentsEvent event) {
         for (ResourceKey<CreativeModeTab> tab : this.tabs) {
             if (event.getTabKey() == tab) {
-                if (this.followItem != null) {
-                    event.insertAfter(this.followItem.asItem().getDefaultInstance(), this.item.toStack(),
-                            CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                }
-                else if (this.followItemId != null) {
-                    Item item = CompatUtil.getItem(this.followItemId.getLeft(), this.followItemId.getRight());
-                    if (item != null) {
-                        event.insertAfter(item.getDefaultInstance(), this.item.toStack(),
+                try {
+                    if (this.followItem != null) {
+                        event.insertAfter(this.followItem.asItem().getDefaultInstance(), this.item.toStack(),
                                 CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                     }
-                } else {
-                    event.accept(this.item.toStack());
+                    else if (this.followItemId != null) {
+                        Item item = CompatUtil.getItem(this.followItemId.getLeft(), this.followItemId.getRight());
+                        if (item != null) {
+                            event.insertAfter(item.getDefaultInstance(), this.item.toStack(),
+                                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                        }
+                    } else {
+                        event.accept(this.item.toStack());
+                    }
+                }
+                catch (IllegalArgumentException e) {
+                    Differentiate.LOGGER.warn("Unable to load {} into its creative tab(s)", ItemUtil.getIdFromItem(this.item.asItem()));
                 }
             }
         }

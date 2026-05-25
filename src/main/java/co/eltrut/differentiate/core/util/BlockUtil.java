@@ -3,6 +3,8 @@ package co.eltrut.differentiate.core.util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -35,6 +37,17 @@ public class BlockUtil {
 
 			return state.is(block) ? newBehavior.dispense(source, stack) : oldBehavior.dispense(source, stack);
 		});
+	}
+
+	public static Block getBlockFromId(String namespace, String path) {
+		if (BuiltInRegistries.BLOCK.containsKey(ResourceLocation.fromNamespaceAndPath(namespace, path))) {
+			return BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(namespace, path));
+		}
+		return null;
+	}
+
+	public static String getIdFromBlock(Block block) {
+		return BuiltInRegistries.BLOCK.getKey(block).getPath();
 	}
 
 	public static String getPrefix(String name) {

@@ -1,6 +1,8 @@
 package co.eltrut.differentiate.core.creativetab;
 
+import co.eltrut.differentiate.core.Differentiate;
 import co.eltrut.differentiate.core.util.CompatUtil;
+import co.eltrut.differentiate.core.util.ItemUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -62,19 +64,24 @@ public class CreativeTabSequence<T extends ItemLike> extends AbstractCreativeTab
         List<DeferredHolder<T, T>> reversedItems = items.reversed();
         for (ResourceKey<CreativeModeTab> tab : this.tabs) {
             if (event.getTabKey() == tab) {
-                if (this.followItem != null) {
-                    reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
-                            event.insertAfter(this.followItem.asItem().getDefaultInstance(), s,
-                                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-                } else if (this.followItemId != null) {
-                    Item item = CompatUtil.getItem(this.followItemId.getLeft(), this.followItemId.getRight());
-                    if (item != null) {
+                try {
+                    if (this.followItem != null) {
                         reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
-                                event.insertAfter(item.getDefaultInstance(), s,
+                                event.insertAfter(this.followItem.asItem().getDefaultInstance(), s,
                                         CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                    } else if (this.followItemId != null) {
+                        Item item = CompatUtil.getItem(this.followItemId.getLeft(), this.followItemId.getRight());
+                        if (item != null) {
+                            reversedItems.stream().map(DeferredHolder::get).map(ItemStack::new).forEach(s ->
+                                    event.insertAfter(item.getDefaultInstance(), s,
+                                            CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                        }
+                    } else {
+                        this.items.stream().map(DeferredHolder::get).forEach(event::accept);
                     }
-                } else {
-                    this.items.stream().map(DeferredHolder::get).forEach(event::accept);
+                }
+                catch (IllegalArgumentException e) {
+                    Differentiate.LOGGER.warn("Unable to load {} into its creative tab(s)", ItemUtil.getIdFromItem(this.items.getFirst().get().asItem()));
                 }
             }
         }
