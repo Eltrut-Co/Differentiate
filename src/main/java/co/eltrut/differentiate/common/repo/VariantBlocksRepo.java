@@ -31,8 +31,9 @@ public class VariantBlocksRepo {
 		return this.baseBlock;
 	}
 
-	public void setBlock(DeferredBlock<Block> block) {
+	public VariantBlocksRepo setBlock(DeferredBlock<Block> block) {
 		this.baseBlock = block;
+		return this;
 	}
 	
 	public DeferredBlock<Block> getSlabBlock() {

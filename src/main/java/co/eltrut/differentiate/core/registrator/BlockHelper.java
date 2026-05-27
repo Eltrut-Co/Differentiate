@@ -25,16 +25,16 @@ import java.util.function.Supplier;
 
 public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> {
 	
-	protected final ItemHelper itemRegister;
+	protected final ItemHelper itemHelper;
 	
 	public BlockHelper(Registrator parent) {
 		super(parent, DeferredRegister.createBlocks(parent.getModId()));
-		itemRegister = this.parent.getHelper(Registries.ITEM);
+		itemHelper = this.parent.getHelper(Registries.ITEM);
 	}
 
 	protected DeferredBlock<Block> createBlockWithoutEntry(String name, Supplier<Block> block) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItemWithoutEntry(name,
+		DeferredItem<Item> registeredItem = this.itemHelper.createItemWithoutEntry(name,
 				() -> new BlockItem(registeredBlock.get(), new Item.Properties()));
 
 		return registeredBlock;
@@ -43,7 +43,7 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 	public DeferredBlock<Block> createBlock(String name, Supplier<Block> block,
 	                                        ResourceKey<CreativeModeTab> tab, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createItem(name,
+		DeferredItem<Item> registeredItem = this.itemHelper.createItem(name,
 				() -> new BlockItem(registeredBlock.get(), new Item.Properties()), tab, mods);
 		
 		return registeredBlock;
@@ -57,7 +57,7 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 	public DeferredBlock<Block> createFollowBlock(String name, Supplier<Block> block,
                                                   ResourceKey<CreativeModeTab> tab, ItemLike followItem, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createFollowItem(name, () -> new BlockItem(registeredBlock.get(), new Item.Properties()),
+		DeferredItem<Item> registeredItem = this.itemHelper.createFollowItem(name, () -> new BlockItem(registeredBlock.get(), new Item.Properties()),
 				tab, followItem, mods);
 
 		return registeredBlock;
@@ -75,18 +75,18 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 	public DeferredBlock<Block> createFollowBlock(String name, Supplier<Block> block,
 	                                              ResourceKey<CreativeModeTab> tab, String modid, String followItem, String ...mods) {
 		DeferredBlock<Block> registeredBlock = this.registry.register(name, block);
-		DeferredItem<Item> registeredItem = this.itemRegister.createFollowItem(name, () -> new BlockItem(registeredBlock.get(), new Item.Properties()),
+		DeferredItem<Item> registeredItem = this.itemHelper.createFollowItem(name, () -> new BlockItem(registeredBlock.get(), new Item.Properties()),
 				tab, modid, followItem, mods);
 
 		return registeredBlock;
 	}
 	
 	public VariantBlocksRepo createBlockWithVariants(String name, Supplier<Block> block, Properties props,
-														   ResourceKey<CreativeModeTab> tab, String ...mods) {
+														   ResourceKey<CreativeModeTab> tab, Block placeholder, String ...mods) {
 		String prefix = BlockUtil.getPrefix(name);
 
 		DeferredBlock<Block> baseBlock = this.createBlock(name, block, tab, mods);
-		VariantBlocksRepo repo = this.createVariantRepo(baseBlock, prefix, props);
+		VariantBlocksRepo repo = this.createVariantRepo(placeholder, prefix, props).setBlock(baseBlock);
 
 		List<DeferredHolder<Block, Block>> blocks = repo.getBlocksInOrder();
 		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, mods);
@@ -95,8 +95,43 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 	}
 	
 	public VariantBlocksRepo createBlockWithVariants(String name, Properties props,
-														   ResourceKey<CreativeModeTab> group, String ...mods) {
-		return this.createBlockWithVariants(name, () -> new Block(props), props, group, mods);
+														   ResourceKey<CreativeModeTab> group, Block placeholder, String ...mods) {
+		return this.createBlockWithVariants(name, () -> new Block(props), props, group, placeholder, mods);
+	}
+
+	public VariantBlocksRepo createFollowBlockWithVariants(String name, Supplier<Block> block, Properties props,
+														   ResourceKey<CreativeModeTab> tab, Block placeholder, Block followItem, String ...mods) {
+		String prefix = BlockUtil.getPrefix(name);
+
+		DeferredBlock<Block> baseBlock = this.createBlockWithoutEntry(name, block);
+		VariantBlocksRepo repo = this.createVariantRepo(placeholder, prefix, props).setBlock(baseBlock);
+
+		List<DeferredHolder<Block, Block>> blocks = repo.getBlocksInOrder();
+		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, mods, followItem);
+
+		return repo;
+	}
+
+	public VariantBlocksRepo createFollowBlockWithVariants(String name, Properties props,
+														   ResourceKey<CreativeModeTab> group, Block placeholder, Block followItem, String ...mods) {
+		return this.createFollowBlockWithVariants(name, () -> new Block(props), props, group, placeholder, followItem, mods);
+	}
+
+	/*
+	Note that blocks from other mods can only be safely queried after registration is complete.
+	This method allows for this querying to occur when building the creative tab, preventing incompatibilities with mods.
+	 */
+	public VariantBlocksRepo createFollowBlockWithVariants(String name, Supplier<Block> block, Properties props,
+	                                              ResourceKey<CreativeModeTab> tab, Block placeholder, String modid, String followItem, String ...mods) {
+		String prefix = BlockUtil.getPrefix(name);
+
+		DeferredBlock<Block> baseBlock = this.createBlockWithoutEntry(name, block);
+		VariantBlocksRepo repo = this.createVariantRepo(placeholder, prefix, props).setBlock(baseBlock);
+
+		List<DeferredHolder<Block, Block>> blocks = repo.getBlocksInOrder();
+		CreativeTabSequence<Block> sequence = new CreativeTabSequence<>(blocks, tab, mods, modid, followItem);
+
+		return repo;
 	}
 
 	public VariantBlocksRepo createBlockVariants(Block base, ResourceKey<CreativeModeTab> tab, String ...mods) {
@@ -128,7 +163,7 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 
 	}
 
-	private VariantBlocksRepo createVariantRepo(Block base, String prefix, Properties props) {
+	protected VariantBlocksRepo createVariantRepo(Block base, String prefix, Properties props) {
 		DeferredBlock<Block> slabBlock = this.createBlockWithoutEntry(prefix + "_slab", () -> new SlabBlock(props));
 		DeferredBlock<Block> stairBlock = this.createBlockWithoutEntry(prefix + "_stairs",
 				() -> new StairBlock(base.defaultBlockState(), props));
@@ -143,10 +178,13 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 				.build();
 	}
 
-	private VariantBlocksRepo createVariantRepo(DeferredBlock<Block> base, String prefix, Properties props) {
-		VariantBlocksRepo repo = this.createVariantRepo(base.get(), prefix, props);
-		repo.setBlock(base);
-		return repo;
+	protected VariantBlocksRepo createBlockWithVariantRepo(String name, Supplier<Block> block, Properties props,
+	                                                     ResourceKey<CreativeModeTab> tab, Block placeholder, String ...mods) {
+		String prefix = BlockUtil.getPrefix(name);
+
+		DeferredBlock<Block> baseBlock = this.createBlock(name, block, tab, mods);
+
+        return this.createVariantRepo(placeholder, prefix, props);
 	}
 
 	public WoodVariantRepo createWoodVariants(Block base, Block strippedBase, String woodName, String ...mods) {
