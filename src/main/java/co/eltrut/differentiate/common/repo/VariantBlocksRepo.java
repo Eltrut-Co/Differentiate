@@ -2,7 +2,6 @@ package co.eltrut.differentiate.common.repo;
 
 import co.eltrut.differentiate.core.util.CompatUtil;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
