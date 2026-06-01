@@ -5,6 +5,7 @@ import co.eltrut.differentiate.common.repo.VariantBlocksRepo;
 import co.eltrut.differentiate.common.repo.WoodVariantRepo;
 import co.eltrut.differentiate.core.creativetab.CreativeTabSequence;
 import co.eltrut.differentiate.core.util.BlockUtil;
+import co.eltrut.differentiate.core.util.CompatUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -218,8 +219,15 @@ public class BlockHelper extends AbstractHelper<Block, DeferredRegister.Blocks> 
 		List<DeferredHolder<Block, Block>> strippedBlocks = strippedWoods.getBlocksInOrder();
 
 		String[] modList = new String[]{modid};
-		CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList, modid, base);
-		CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList, modid, strippedBase);
+
+		// NOTE: following a non-Minecraft block or item results in an exception, so I'm removing that for now
+		if (modid.equals(CompatUtil.Mods.MINECRAFT)) {
+			CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList, modid, base);
+			CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList, modid, strippedBase);
+		} else {
+			CreativeTabSequence<Block> baseSequence = new CreativeTabSequence<>(baseBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList);
+			CreativeTabSequence<Block> strippedSequence = new CreativeTabSequence<>(strippedBlocks, CreativeModeTabs.BUILDING_BLOCKS, modList);
+		}
 
 		return new WoodVariantRepo(strippedWoods, woods);
 	}

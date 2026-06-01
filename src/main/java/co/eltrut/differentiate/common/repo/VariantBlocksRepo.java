@@ -15,6 +15,8 @@ public class VariantBlocksRepo {
 	private final DeferredBlock<Block> stairsBlock;
 	private final DeferredBlock<Block> wallBlock;
 	private final DeferredBlock<Block> verticalSlabBlock;
+
+	private String prefix;
 	
 	private VariantBlocksRepo(DeferredBlock<Block> baseBlock, DeferredBlock<Block> slabBlock,
 							  DeferredBlock<Block> stairsBlock, DeferredBlock<Block> wallBlock,
@@ -32,6 +34,11 @@ public class VariantBlocksRepo {
 
 	public VariantBlocksRepo setBlock(DeferredBlock<Block> block) {
 		this.baseBlock = block;
+		return this;
+	}
+
+	public VariantBlocksRepo setPrefix(String prefix) {
+		this.prefix = prefix;
 		return this;
 	}
 	

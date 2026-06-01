@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class DifferentiateRecipeProvider extends RecipeProvider {
 
-    private final String modid;
+    protected final String modid;
 
     public DifferentiateRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, String modid) {
         super(output, registries);
