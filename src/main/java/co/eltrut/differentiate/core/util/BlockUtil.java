@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -97,11 +98,11 @@ public class BlockUtil {
 		}
 
 		public static BlockBehaviour.Properties wood() {
-			return BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava().instrument(NoteBlockInstrument.BASS);
+			return BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava().instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD);
 		}
 
 		public static BlockBehaviour.Properties wool() {
-			return BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).ignitedByLava();
+			return BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).ignitedByLava().sound(SoundType.WOOL);
 		}
 
 	}
