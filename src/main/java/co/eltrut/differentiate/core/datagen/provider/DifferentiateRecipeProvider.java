@@ -42,7 +42,7 @@ public class DifferentiateRecipeProvider extends RecipeProvider {
 
         for (Block block : blocks) {
             String name = BlockUtil.getIdFromBlock(block);
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getSlabBlock())
+            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getSlabBlock(), 2)
                     .unlockedBy("has_" + name, has(block))
                     .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_slab"));
             SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getStairsBlock())
@@ -51,7 +51,7 @@ public class DifferentiateRecipeProvider extends RecipeProvider {
             SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getWallBlock())
                     .unlockedBy("has_" + name, has(block))
                     .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_wall"));
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getVerticalSlabBlock())
+            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getVerticalSlabBlock(), 2)
                     .unlockedBy("has_" + name, has(block))
                     .save(output.withConditions(conditionsWithQuark), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_vertical_slab"));
         }

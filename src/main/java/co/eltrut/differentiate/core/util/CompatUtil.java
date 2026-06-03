@@ -32,6 +32,7 @@ public class CompatUtil {
 		// Core
 		public static final String MINECRAFT = "minecraft";
 		public static final String NEOFORGE = "neoforge";
+		public static final String VANILLA_BACKPORT = "vanillabackport";
 		
 		// Vazkii
 		public static final String QUARK = "quark";
