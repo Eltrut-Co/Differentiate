@@ -12,6 +12,7 @@ import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 
@@ -40,21 +41,27 @@ public class DifferentiateRecipeProvider extends RecipeProvider {
             conditionsSet.add(new ModLoadedCondition(CompatUtil.Mods.QUARK));
         ICondition[] conditionsWithQuark = conditionsSet.toArray(ICondition[]::new);
 
-        for (Block block : blocks) {
-            String name = BlockUtil.getIdFromBlock(block);
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getSlabBlock(), 2)
-                    .unlockedBy("has_" + name, has(block))
-                    .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_slab"));
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getStairsBlock())
-                    .unlockedBy("has_" + name, has(block))
-                    .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_stairs"));
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getWallBlock())
-                    .unlockedBy("has_" + name, has(block))
-                    .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_wall"));
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(block), RecipeCategory.BUILDING_BLOCKS, repo.getVerticalSlabBlock(), 2)
-                    .unlockedBy("has_" + name, has(block))
-                    .save(output.withConditions(conditionsWithQuark), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + name + "_vertical_slab"));
+        Ingredient ingredient = Ingredient.of(blocks.toArray(new Block[0]));
+
+        if (repo.getBlock() != null) {
+            Ingredient ingredientWithoutBlock = Ingredient.of(blocks.stream().filter(s -> !s.equals(repo.getBlock().get())).toArray(Block[]::new));
+            SingleItemRecipeBuilder.stonecutting(ingredient, RecipeCategory.BUILDING_BLOCKS, repo.getBlock())
+                    .unlockedBy("has_block", has(Blocks.STONE)) // this doesn't matter since we don't use it
+                    .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + BlockUtil.getIdFromBlock(repo.getBlock().get())));
         }
+
+        SingleItemRecipeBuilder.stonecutting(ingredient, RecipeCategory.BUILDING_BLOCKS, repo.getSlabBlock(), 2)
+                .unlockedBy("has_block", has(Blocks.STONE)) // this doesn't matter since we don't use it
+                .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + BlockUtil.getIdFromBlock(repo.getSlabBlock().get())));
+        SingleItemRecipeBuilder.stonecutting(ingredient, RecipeCategory.BUILDING_BLOCKS, repo.getStairsBlock())
+                .unlockedBy("has_block", has(Blocks.STONE))
+                .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + BlockUtil.getIdFromBlock(repo.getStairsBlock().get())));
+        SingleItemRecipeBuilder.stonecutting(ingredient, RecipeCategory.BUILDING_BLOCKS, repo.getWallBlock())
+                .unlockedBy("has_block", has(Blocks.STONE))
+                .save(output.withConditions(conditions), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + BlockUtil.getIdFromBlock(repo.getWallBlock().get())));
+        SingleItemRecipeBuilder.stonecutting(ingredient, RecipeCategory.BUILDING_BLOCKS, repo.getVerticalSlabBlock(), 2)
+                .unlockedBy("has_block", has(Blocks.STONE))
+                .save(output.withConditions(conditionsWithQuark), ResourceLocation.fromNamespaceAndPath(this.modid, "stonecutting/" + BlockUtil.getIdFromBlock(repo.getVerticalSlabBlock().get())));
         return true;
     }
 }
