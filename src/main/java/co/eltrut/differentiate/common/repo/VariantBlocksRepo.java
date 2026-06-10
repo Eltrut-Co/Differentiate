@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VariantBlocksRepo {
+public class VariantBlocksRepo implements IBlocksRepo {
 	
 	private DeferredBlock<Block> baseBlock;
 	private final DeferredBlock<Block> slabBlock;
