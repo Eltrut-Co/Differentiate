@@ -72,7 +72,11 @@ public class CompatUtil {
 		public static final String DIFFERENTIATE = "differentiate";
 		public static final String LEPTON = "lepton";
 		public static final String MORE_RESPAWN_ANCHORS = "morerespawnanchors";
-		
+
+		// Every Compat
+		public static final String EVERY_COMPAT = "everycomp";
+		public static final String STONE_ZONE = "stonezone";
+
 		// Other
 		public static final String CREATE = "create";
 		public static final String DYE_DEPOT = "dye_depot";
