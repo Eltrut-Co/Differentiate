@@ -49,15 +49,12 @@ public class CompatUtil {
 		public static final String BUZZIER_BEES = "buzzier_bees";
 		public static final String CAVERNS_AND_CHASMS = "caverns_and_chasms";
 		public static final String CLAYWORKS = "clayworks";
-		public static final String ENDERGETIC_EXPANSION = "endergetic";
 		public static final String ENVIRONMENTAL = "environmental";
 		public static final String GALLERY = "gallery";
 		public static final String INCUBATION = "incubation";
 		public static final String NEAPOLITAN = "neapolitan";
-		public static final String NETHER_EXTENSION = "nether_extension";
 		public static final String PERSONALITY = "personality";
 		public static final String PET_CEMETERY = "pet_cemetery";
-		public static final String SAVAGE_AND_RAVAGE = "savage_and_ravage";
 		public static final String UPGRADE_AQUATIC = "upgrade_aquatic";
 		public static final String WOODWORKS = "woodworks";
 		
